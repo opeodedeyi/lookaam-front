@@ -12,7 +12,7 @@
         <!-- message -->
         <div class="mb-form">
           <label for="message">Message</label>
-          <textarea class="mt4" name="message" placeholder="Message to us" cols="30" rows="10"></textarea>
+          <textarea class="mt4" name="message" placeholder="Tell us the problem" cols="30" rows="6"></textarea>
         </div>
         <!-- button -->
         <div class="gen-wrapper mb-form">
