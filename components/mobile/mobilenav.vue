@@ -107,8 +107,8 @@ export default {
     }
 
     .nav-main {
-        margin-top: 2rem;
-        margin-bottom: 2rem;
+        margin-top: 3rem;
+        margin-bottom: 3rem;
     }
 
     ul {
@@ -117,7 +117,7 @@ export default {
     }
 
     li {
-        margin-bottom: .5rem;
+        margin-bottom: .8rem;
         font-size: 1.1rem;
     }
 

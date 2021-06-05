@@ -1,5 +1,5 @@
 export const state = () => ({
-    passwordShown: false
+    passwordShown: true
 })
 
 export const mutations = {

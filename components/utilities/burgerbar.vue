@@ -27,7 +27,7 @@ export default {
 }
 
 img {
-    height: 1.4rem;
+    height: 1.55rem;
 }
 
 /* Large screens */

@@ -22,6 +22,6 @@ export default {
 }
 
 img {
-    height: 1.1rem;
+    height: 1.23rem;
 }
 </style>
