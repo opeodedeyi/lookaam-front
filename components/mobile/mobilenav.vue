@@ -24,7 +24,7 @@
             <ul class="nav-secondary" @click="cancel">
                 <nuxt-link to="/help" tag="li" active-class="active"><a>About us</a></nuxt-link>
                 <nuxt-link to="/help" tag="li" active-class="active"><a>Explore places</a></nuxt-link>
-                <nuxt-link to="/help" tag="li" active-class="active"><a>Contact us</a></nuxt-link>
+                <nuxt-link to="/contactus" tag="li" active-class="active"><a>Contact us</a></nuxt-link>
             </ul>
         </div>
         

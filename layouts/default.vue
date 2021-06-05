@@ -15,6 +15,14 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.mt-body {
+    margin-top: 5rem;
+}
 
+@media only screen and (max-width: 999.9px) {
+    .mt-body {
+        margin-top: 8.25rem;
+    }
+}
 </style>

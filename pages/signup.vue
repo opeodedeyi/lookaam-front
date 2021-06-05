@@ -1,13 +1,18 @@
 <template>
   <formlayout>
     <template v-slot:default>
-      <p class="form-title">Welcome Back</p>
+      <p class="form-title">Create your account</p>
 
       <form action="" class="form-body-cont">
         <!-- email -->
         <div class="mb-form">
           <label for="email">Email</label>
           <input class="mt4" type="email" name="email" placeholder="Email address">
+        </div>
+        <!-- fullname -->
+        <div class="mb-form">
+          <label for="fullname">Full name</label>
+          <input class="mt4" type="text" name="fullname" placeholder="Full name">
         </div>
         <!-- password -->
         <div class="mb-form">
@@ -17,20 +22,18 @@
             <eye/>
           </div>
         </div>
-        <!-- forget password -->
-        <nuxt-link to="/resetpassword" class="form-link mb-form">forgot password?</nuxt-link>
-
+        
         <div class="gen-wrapper mb-form">
-          <mainbutton :onClick="consoleClick" class="ml" size="max">Log into your account</mainbutton>
+          <mainbutton :onClick="consoleClick" class="ml" size="max">Create your account</mainbutton>
         </div>
 
         <p class="form-or form-center mb-form">OR</p>
 
         <div class="gen-wrapper mb-form">
-          <mainbutton :onClick="consoleClick" class="ml btn" size="max" mode="outline"><img src="~/assets/svg/google.svg" alt="" /><span>Log in with Google</span></mainbutton>
+          <mainbutton :onClick="consoleClick" class="ml btn" size="max" mode="outline"><img src="~/assets/svg/google.svg" alt="" /><span>Sign in using Google</span></mainbutton>
         </div>
         
-        <p class="form-right mb-form"><span class="form-or">OR </span><nuxt-link to="/signup">Create an account instead</nuxt-link> </p>
+        <p class="form-right mb-form"><span class="form-or">Already have an account? </span><nuxt-link to="/login">Sign in instead</nuxt-link> </p>
       </form>
     </template>
     
@@ -72,7 +75,7 @@ export default {
 }
 
 .form-body-cont {
-  margin-top: 2rem;
+  margin-top: 1.9rem;
   display: flex;
   flex-direction: column
 }
@@ -108,7 +111,7 @@ export default {
 }
 
 .mt4{
-  margin-top: .4rem;
+  margin-top: .3rem;
 }
 
 p a {
@@ -121,7 +124,7 @@ p a:hover {
 }
 
 .mb-form{
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.1rem;
 }
 
 label,

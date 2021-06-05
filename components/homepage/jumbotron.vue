@@ -12,7 +12,6 @@ export default {
 
 <style scoped>
     .J-container {
-        /* position: relative; */
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;

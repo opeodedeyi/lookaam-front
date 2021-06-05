@@ -1,5 +1,5 @@
 <template>
-    <button v-if="!link" :class="[size, mode]">
+    <button v-if="!link" :class="[size, mode]" @click.prevent="onClick">
         <slot/>
     </button>
     <nuxt-link v-else :to="to" :class="[size, mode]">
@@ -29,13 +29,17 @@ export default {
             type: String,
             required: false,
             default: '/'
+        },
+        onClick: {
+            type: Function,
+            required: false
         }
     }
 }
 </script>
 
 <style scoped>
-    .button,
+    button,
     a {
         text-decoration: none;
         border-radius: 20px;
@@ -44,7 +48,23 @@ export default {
         font-weight: 500;
     }
 
-    .button:hover,
+    /* a {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    } */
+
+    button {
+        border: none;
+        font-size: .9rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    button:hover,
     a:hover {
         background-color: var(--color-company2);
         text-decoration: none;
@@ -62,6 +82,11 @@ export default {
         padding: 8.4px 70px;
     }
 
+    .max {
+        width: 100%;
+        height: 2.5rem;
+    }
+
     .normal {
         background-color: var(--color-company);
         color: var(--color-white);
@@ -77,6 +102,16 @@ export default {
     }
 
     .inverse:hover {
-        background-color: var(--color-company);
+        background-color: var(--color-card);
+    }
+
+    .outline {
+        background-color: var(--color-white);
+        color: var(--color-dark);
+        border: 1px solid var(--color-dark);
+    }
+
+    .outline:hover {
+        background-color: var(--color-gray);
     }
 </style>

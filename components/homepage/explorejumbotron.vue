@@ -41,7 +41,18 @@ export default {
     position: relative;
     width: 100%;
     height: 230px;
-    overflow-x: hidden;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.h-l-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.h-l-container {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 .e-j-explore {
@@ -65,7 +76,7 @@ export default {
 }
 
 /* Small screens */
-@media only screen and (max-width: 999px) {
+@media only screen and (max-width: 999.9px) {
     .explore-Jumbotron {
         padding: 2rem 0 2rem 20px;
     }

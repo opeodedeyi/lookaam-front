@@ -15,6 +15,9 @@ export default {
     ]
   },
 
+  // loading indicator
+  loading: { color: '#4D69B4', failedColor: '#F25858', duration: 5000, throttle: 0 },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '~/assets/styles/main.css'
@@ -22,6 +25,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~plugins/shorten-text.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

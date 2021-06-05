@@ -1,7 +1,9 @@
 <template>
   <formlayout>
     <template v-slot:default>
-      <p class="form-title">Welcome Back</p>
+      <p class="form-title">Reset password</p>
+
+      <p class="form-explain">Enter the email associated with your account and we will send an email with instructions to reset your password</p>
 
       <form action="" class="form-body-cont">
         <!-- email -->
@@ -9,33 +11,16 @@
           <label for="email">Email</label>
           <input class="mt4" type="email" name="email" placeholder="Email address">
         </div>
-        <!-- password -->
-        <div class="mb-form">
-          <label for="password">Password</label>
-          <div class="password-wrapper mt4">
-            <input :type="isShown?'password':'text'" name="password" class="" placeholder="Password">
-            <eye/>
-          </div>
-        </div>
-        <!-- forget password -->
-        <nuxt-link to="/resetpassword" class="form-link mb-form">forgot password?</nuxt-link>
-
+        <!-- button -->
         <div class="gen-wrapper mb-form">
-          <mainbutton :onClick="consoleClick" class="ml" size="max">Log into your account</mainbutton>
+          <mainbutton :onClick="consoleClick" class="ml" size="max">Send Instructions</mainbutton>
         </div>
 
-        <p class="form-or form-center mb-form">OR</p>
-
-        <div class="gen-wrapper mb-form">
-          <mainbutton :onClick="consoleClick" class="ml btn" size="max" mode="outline"><img src="~/assets/svg/google.svg" alt="" /><span>Log in with Google</span></mainbutton>
-        </div>
-        
-        <p class="form-right mb-form"><span class="form-or">OR </span><nuxt-link to="/signup">Create an account instead</nuxt-link> </p>
       </form>
     </template>
     
     <template v-slot:image>
-      <img src="~/assets/svg/welldone.svg" alt="" />
+      <img src="~/assets/svg/chilling.svg" alt="" />
     </template>
   </formlayout>
 </template>
@@ -71,6 +56,12 @@ export default {
   font-size: 1.1rem;
 }
 
+.form-explain {
+  font-weight: 400;
+  font-size: 1rem;
+  margin-top: 1.2rem;
+}
+
 .form-body-cont {
   margin-top: 2rem;
   display: flex;
@@ -83,41 +74,12 @@ export default {
   color: var(--color-company);
 }
 
-.btn img {
-  margin-right: .5rem;
-}
-
-.form-or {
-  font-weight: 500;
-}
-
-.form-center {
-  align-self: center;
-}
-
-.form-right {
-  align-self: flex-end;
-}
-
 .form-link:hover {
   color: var(--color-company2);
 }
 
-.gen-wrapper {
-  width: 100%;
-}
-
 .mt4{
   margin-top: .4rem;
-}
-
-p a {
-  text-decoration: none;
-  color: var(--color-company);
-}
-
-p a:hover {
-  color: var(--color-company2);
 }
 
 .mb-form{

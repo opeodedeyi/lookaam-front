@@ -37,12 +37,13 @@ html, body {
     margin: 0;
 }
 
-.mt-body {
-    margin-top: 5rem;
-}
-
-@media only screen and (max-width: 999.9px) {
-    .mt-body {
-        margin-top: 8.25rem;
-    }
+/* input, */
+textarea,
+p,
+a,
+li,
+button,
+span,
+label {
+  font-family: inherit;
 }

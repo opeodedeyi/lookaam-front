@@ -1,24 +1,31 @@
 <template>
     <nuxt-link v-if="hasLikebtn" :to="to" class="main-card" :class="[typeofcard]">
-        <img :src="Pimage" alt="ima"  class="main-card-area cardimage"/>
+        <img v-if="Pimage" :src="Pimage" alt="ima"  class="main-card-area cardimage"/>
+        <img v-else src="~/assets/images/cardimage.webp" alt="ima"  class="main-card-area cardimage"/>
         <div class="main-card-area cardtext">
             <div class="card-top">
                 <save v-if="!liked"></save>
                 <saved v-else></saved>
             </div>
             <div class="card-bottom">
-                <p class="card-p-title">{{Ptitle}}</p>
-                <p class="card-p-type">{{Ptype}}</p>
-                <p class="card-p-price"><span class="cless">{{Pprice}}</span>/day</p>
+                <p class="card-p-title">{{ Ptitle | shortenText(24, '...') }}</p>
+                <p class="card-p-type">{{ Ptype }}</p>
+                <p class="card-p-price"><span class="cless">{{ Pprice }}</span>/day</p>
             </div>
         </div>
     </nuxt-link>
 
     <nuxt-link v-else :to="to" class="main-card" :class="[typeofcard]">
+        <img v-if="Pimage" :src="Pimage" alt="ima"  class="main-card-area cardimage"/>
+        <img v-else src="~/assets/images/cardimage.webp" alt="ima"  class="main-card-area cardimage"/>
         <div class="card-top">
 
         </div>
-        <div class="card-bottom"></div>
+        <div class="card-bottom">
+            <p class="card-p-title">{{ Ptitle | shortenText(24, '...') }}</p>
+            <p class="card-p-type">{{ Ptype }}</p>
+            <p class="card-p-price"><span class="cless">{{ Pprice }}</span>/day</p>
+        </div>
     </nuxt-link>
 </template>
 
@@ -69,9 +76,11 @@ export default {
         },
         Pimage: {
             type: String,
-            required: false,
-            default: "https://lookaam.s3.eu-west-2.amazonaws.com/cardimage.webp"
+            required: false
         },
+    },
+    filters: {
+        
     }
 }
 </script>

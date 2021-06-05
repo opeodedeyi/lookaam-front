@@ -46,7 +46,7 @@ export default {
     padding: 20px;
     height: 5rem;
     padding: 0 50px;
-    border-bottom: 1px solid var(--color-gray);
+    /* border-bottom: 1px solid var(--color-gray); */
     z-index: 99;
   }
 
