@@ -3,6 +3,8 @@
     <template v-slot:default>
       <p class="form-title">Contact Us</p>
 
+      <p class="form-explain">Would you like to collaborate with us? or have an issue with our service? Do not hesitate to let us know</p>
+
       <form action="" class="form-body-cont">
         <!-- title -->
         <div class="mb-form">

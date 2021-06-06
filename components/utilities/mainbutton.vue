@@ -48,13 +48,6 @@ export default {
         font-weight: 500;
     }
 
-    /* a {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-    } */
-
     button {
         border: none;
         font-size: .9rem;
@@ -87,6 +80,11 @@ export default {
         height: 2.5rem;
     }
 
+    .filter {
+        width: 110px;
+        height: 2.5rem;
+    }
+
     .normal {
         background-color: var(--color-company);
         color: var(--color-white);
@@ -113,5 +111,32 @@ export default {
 
     .outline:hover {
         background-color: var(--color-gray);
+    }
+
+    .filter {
+        background-color: var(--color-gray);
+        color: var(--color-dark);
+        border: none;
+    }
+
+    .filter:hover {
+        background-color: var(--color-gray-darker);
+    }
+
+    @media only screen and (max-width: 999.9px) {
+        .filter {
+            max-width: 73px;
+            height: 2rem;
+        }
+
+        .filter {
+            background: none;
+            color: var(--color-dark);
+            border: none;
+        }
+
+        .filter:hover {
+            background: none;
+        }
     }
 </style>

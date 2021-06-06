@@ -22,7 +22,7 @@
             </ul>
 
             <ul class="nav-secondary" @click="cancel">
-                <nuxt-link to="/help" tag="li" active-class="active"><a>About us</a></nuxt-link>
+                <nuxt-link to="/about" tag="li" active-class="active"><a>About us</a></nuxt-link>
                 <nuxt-link to="/help" tag="li" active-class="active"><a>Explore places</a></nuxt-link>
                 <nuxt-link to="/contactus" tag="li" active-class="active"><a>Contact us</a></nuxt-link>
             </ul>
@@ -161,11 +161,6 @@ export default {
 
     .m-l {
         margin-left: .7rem;
-    }
-
-    /* Small screens */
-    @media only screen and (max-width: 999px) {
-        
     }
 
     /* Large screens */

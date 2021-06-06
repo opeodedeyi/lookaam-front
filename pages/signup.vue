@@ -75,7 +75,7 @@ export default {
 }
 
 .form-body-cont {
-  margin-top: 1.9rem;
+  margin-top: 2rem;
   display: flex;
   flex-direction: column
 }
@@ -111,7 +111,7 @@ export default {
 }
 
 .mt4{
-  margin-top: .3rem;
+  margin-top: .4rem;
 }
 
 p a {
@@ -124,7 +124,7 @@ p a:hover {
 }
 
 .mb-form{
-  margin-bottom: 1.1rem;
+  margin-bottom: 1.2rem;
 }
 
 label,

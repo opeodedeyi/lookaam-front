@@ -1,6 +1,6 @@
 <template>
     <div class="J-container">
-        <p>Discover your next location for your <span></span></p>
+        <p>Discover your next location for your <span class="changetext"></span></p>
     </div>
 </template>
 
@@ -34,12 +34,12 @@ export default {
         line-height: 4rem;
     }
 
-    p span::before {
+    .changetext::before {
         content: '';
-        animation: profile 7s infinite;
+        animation: effectchange 7s infinite;
     }
 
-    @keyframes profile {
+    @keyframes effectchange {
         0% { content: 'Video Shoot'}
         33% { content: 'Events'}
         66% { content: 'House Party'}
