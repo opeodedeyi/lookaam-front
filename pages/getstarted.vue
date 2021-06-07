@@ -12,7 +12,7 @@
             <mainbutton link class="ml" size="great">Get started</mainbutton>
         </div>
         <div class="gen-wrapper" v-else>
-            <mainbutton link to="signup" class="ml" size="greater">Sign up</mainbutton>
+            <mainbutton link to="signup" class="ml" size="large">Create your account</mainbutton>
         </div>
     </template>
     
