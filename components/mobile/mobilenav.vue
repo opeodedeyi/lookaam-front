@@ -12,11 +12,11 @@
             <ul class="nav-main" @click="cancel">
                 <nuxt-link to="/signup" tag="li" active-class="active" v-if="!isLoggedIn"><a>Create an account</a></nuxt-link>
                 <nuxt-link to="/login" tag="li" active-class="active" v-if="!isLoggedIn"><a>Log in</a></nuxt-link>
-                <nuxt-link to="/profile" tag="li" active-class="active" v-if="!isLoggedIn"><a>Become a Host</a></nuxt-link>
+                <nuxt-link to="/getstarted" tag="li" active-class="active" v-if="!isLoggedIn"><a>Become a Host</a></nuxt-link>
 
                 <nuxt-link to="/profile" tag="li" active-class="active" v-if="isLoggedIn"><a>My Profile</a></nuxt-link>
                 <nuxt-link to="/profile" tag="li" active-class="active" v-if="isLoggedIn"><a>Manage my Places</a></nuxt-link>
-                <nuxt-link to="/profile" tag="li" active-class="active" v-if="isLoggedIn"><a>Host a Place</a></nuxt-link>
+                <nuxt-link to="/getstarted" tag="li" active-class="active" v-if="isLoggedIn"><a>Host a Place</a></nuxt-link>
                 <nuxt-link to="/profile" tag="li" active-class="active" v-if="isLoggedIn"><a>Saved Places</a></nuxt-link>
                 <nuxt-link to="/profile" tag="li" active-class="active" v-if="isLoggedIn"><a>Sign out</a></nuxt-link>
             </ul>
@@ -119,6 +119,14 @@ export default {
     li {
         margin-bottom: .8rem;
         font-size: 1.1rem;
+        font-size: 1.1rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+
+    ul a {
+        width: 100%;
     }
 
     a {

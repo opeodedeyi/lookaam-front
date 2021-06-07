@@ -144,6 +144,10 @@ input {
   outline: none;
 }
 
+.password-wrapper input {
+  padding: 11.2px 42px 11.2px 16px;
+}
+
 @media only screen and (min-width: 1000px) {
   .form-title {
     font-size: 1.3rem;

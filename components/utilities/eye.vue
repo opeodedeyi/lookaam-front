@@ -26,6 +26,7 @@ export default {
     position: absolute;
     right: 1rem;
     top: 25%;
+    cursor: pointer;
 }
 
 img {

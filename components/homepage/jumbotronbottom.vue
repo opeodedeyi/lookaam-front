@@ -1,8 +1,8 @@
 <template>
     <div class="J-container">
         <p>Join hundreds of hosts on lookaam</p>
-        <mainbutton link to="/" v-if="isLoggedIn" mode="inverse" size="medium">Host a Place</mainbutton>
-        <mainbutton link to="/signup" v-else mode="inverse" size="medium">Become a Host</mainbutton>
+        <mainbutton link to="/getstarted" v-if="isLoggedIn" mode="inverse" size="medium">Host a Place</mainbutton>
+        <mainbutton link to="/getstarted" v-else mode="inverse" size="medium">Become a Host</mainbutton>
     </div>
 </template>
 

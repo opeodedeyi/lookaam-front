@@ -1,9 +1,9 @@
 <template>
     <div class="container">
-        <nuxt-link to="/" v-if="isLoggedIn" class="hide">Host a Place</nuxt-link>
+        <nuxt-link to="/getstarted" v-if="isLoggedIn" class="hide">Host a Place</nuxt-link>
         <profilephoto class="ml2" v-if="isLoggedIn"/>
 
-        <nuxt-link to="/signup" v-if="!isLoggedIn" class="hide">Become a Host</nuxt-link>
+        <nuxt-link to="/getstarted" v-if="!isLoggedIn" class="hide">Become a Host</nuxt-link>
         <mainbutton link to="/login" v-if="!isLoggedIn" class="ml">Login</mainbutton>
     </div>
 </template>

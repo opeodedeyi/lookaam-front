@@ -6,18 +6,23 @@
       <p class="form-explain">Would you like to collaborate with us? or have an issue with our service? Do not hesitate to let us know</p>
 
       <form action="" class="form-body-cont">
+        <!-- email -->
+        <div class="mb-form">
+          <label for="email">Email</label>
+          <input class="mt4" type="email" name="email" placeholder="Your email address">
+        </div>
         <!-- title -->
         <div class="mb-form">
           <label for="title">Title</label>
-          <input class="mt4" type="text" name="title" placeholder="Subject title">
+          <input class="mt4" type="text" name="title" placeholder="The subject of the message">
         </div>
         <!-- message -->
         <div class="mb-form">
           <label for="message">Message</label>
-          <textarea class="mt4" name="message" placeholder="Tell us the problem" cols="30" rows="6"></textarea>
+          <textarea class="mt4" name="message" placeholder="Tell us the problem or suggestion" cols="30" rows="6"></textarea>
         </div>
         <!-- button -->
-        <div class="gen-wrapper mb-form">
+        <div class="gen-wrapper mb-form mb-cont">
           <mainbutton :onClick="consoleClick" class="ml" size="max">Send Message</mainbutton>
         </div>
 
@@ -104,6 +109,14 @@ textarea {
   border: none;
   border-radius: 20px;
   outline: none;
+}
+
+@media only screen and (max-width: 999.9px) {
+  .mb-cont {
+    /* this is to add margin to bottom of contact us form so
+    for ease of use */
+    margin-bottom: 10rem;
+  }
 }
 
 @media only screen and (min-width: 1000px) {

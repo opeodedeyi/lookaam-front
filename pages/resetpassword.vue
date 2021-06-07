@@ -91,11 +91,6 @@ input {
   width: 100%;
 }
 
-.password-wrapper {
-  width: 100%;
-  position: relative;
-}
-
 input {
   font-size: .95rem;
   color: var(--color-dark);
