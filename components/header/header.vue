@@ -43,10 +43,8 @@ export default {
     left: 0;
     background-color: var(--color-white);
     width: 100%;
-    padding: 20px;
     height: 5rem;
     padding: 0 50px;
-    /* border-bottom: 1px solid var(--color-gray); */
     z-index: 99;
   }
 

@@ -21,13 +21,13 @@
         <nuxt-link to="/resetpassword" class="form-link mb-form">forgot password?</nuxt-link>
 
         <div class="gen-wrapper mb-form">
-          <mainbutton :onClick="consoleClick" class="ml" size="max">Log into your account</mainbutton>
+          <mainbutton :onClick="normalLogin" class="ml" size="max">Log into your account</mainbutton>
         </div>
 
         <p class="form-or form-center mb-form">OR</p>
 
         <div class="gen-wrapper mb-form">
-          <mainbutton :onClick="consoleClick" class="ml btn" size="max" mode="outline"><img src="~/assets/svg/google.svg" alt="" /><span>Log in with Google</span></mainbutton>
+          <mainbutton :onClick="googleLogin" class="ml btn" size="max" mode="outline"><img src="~/assets/svg/google.svg" alt="" /><span>Log in with Google</span></mainbutton>
         </div>
         
         <p class="form-right mb-form"><span class="form-or">OR </span><nuxt-link to="/signup">Create an account instead</nuxt-link> </p>
@@ -58,7 +58,10 @@ export default {
     }
   },
   methods: {
-    consoleClick() {
+    normalLogin() {
+      console.log('Button clicked')
+    },
+    googleLogin() {
       console.log('Button clicked')
     }
   }

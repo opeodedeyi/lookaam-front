@@ -10,7 +10,7 @@
         </div>
         <!-- button -->
         <div class="gen-wrapper" v-if="isLoggedIn">
-            <mainbutton link class="ml" size="great">Get started</mainbutton>
+            <mainbutton link to="property/create" class="ml" size="great">Get started</mainbutton>
         </div>
         <div class="gen-wrapper" v-else>
             <mainbutton link to="signup" class="ml" size="large">Create your account</mainbutton>
