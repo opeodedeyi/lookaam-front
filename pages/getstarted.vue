@@ -6,6 +6,7 @@
         <p class="form-explain mb-form">It's entirely free to list your property, and you'll have access to our assistance at any time.</p>
         <div>
             <p class="form-explain mb-form" v-if="!isLoggedIn">You must first create an account or log in if you already have one in order to begin hosting your space.</p>
+            <p class="form-explain mb-form" v-else>Start hosting your space by clicking the button below.</p>
         </div>
         <!-- button -->
         <div class="gen-wrapper" v-if="isLoggedIn">

@@ -1,12 +1,23 @@
 <template>
     <div class="J-container">
-        <p>Discover your next location for your <span class="changetext"></span></p>
+        <p>Discover your next location for your {{words[i]}}</p>
     </div>
 </template>
 
 <script>
 export default {
-    
+     data() {
+        return {
+            words: ["Video Shoot", "Events", "House Party"],
+            i: 0
+        }
+    },
+    mounted() {
+        setInterval(() => {
+            if (this.i < this.words.length-1) this.i++
+            else this.i = 0
+        }, 2000)
+    }
 }
 </script>
 
@@ -32,18 +43,6 @@ export default {
         font-weight: 600;
         max-width: 600px;
         line-height: 4rem;
-    }
-
-    .changetext::before {
-        content: '';
-        animation: effectchange 7s infinite;
-    }
-
-    @keyframes effectchange {
-        0% { content: 'Video Shoot'}
-        33% { content: 'Events'}
-        66% { content: 'House Party'}
-        100% { content: 'Video Shoot'}
     }
 
     /* Small screens */

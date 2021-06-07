@@ -3,7 +3,7 @@
     <template v-slot:default>
       <p class="form-title">Contact Us</p>
 
-      <p class="form-explain">Would you like to collaborate with us? or have an issue with our service? Do not hesitate to let us know</p>
+      <p class="form-explain">Are you interested in collaborating with us? or do you have a problem with our service? Please do not hesitate to contact us if you have any questions or concerns.</p>
 
       <form action="" class="form-body-cont">
         <!-- email -->
@@ -19,7 +19,7 @@
         <!-- message -->
         <div class="mb-form">
           <label for="message">Message</label>
-          <textarea class="mt4" name="message" placeholder="Tell us the problem or suggestion" cols="30" rows="6"></textarea>
+          <textarea class="mt4" name="message" placeholder="Tell us the problem or suggestion" cols="30" rows="5"></textarea>
         </div>
         <!-- button -->
         <div class="gen-wrapper mb-form mb-cont">
