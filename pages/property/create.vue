@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- progress bar -->
-        <div class="progress-bar"><div class="current-progress" :style="{width: calcBar(num) + '%'}"></div></div>
+        <div class="progress-bar"><div class="current-progress" :style="{width: calcBar(step) + '%'}"></div></div>
         <!-- progress text -->
         <p class="progress-text">{{ progressText }}</p>
         <createproplayout>
@@ -9,30 +9,53 @@
                 <form action="" class="form-body-cont">
 
                     <!-- Form page one -->
-                    <p class="form-title">What phone number can be called about this location?</p>
-                    <div class="fw">
+                    <div class="fw" v-if="step == 1">
+                        <p class="form-title">What phone number can be called about this location?</p>
                         <!-- phone number -->
                         <div class="normal-form">
-                            <label for="phone" class="mb1" >Phone number <span class="label-required">*</span></label>
-                            <input type="number" name="phone" placeholder="xxx-xxxx-xxxx">
+                            <label for="phone" class="mb1">Phone number <span class="label-required">*</span></label>
+                            <input type="number" name="phone" placeholder="xxx-xxxx-xxxx" v-model="form.phone">
                         </div>
                     </div>
 
                     <!-- Form page two -->
-                    <!-- <div>
-                        <div class="mb-form">
-                            <label for="email">Email</label>
-                            <input class="mt4" type="email" name="email" placeholder="Email address">
+                    <div class="fw" v-if="step == 2">
+                        <p class="form-title">Where is the place located?</p>
+                        <div class="normal-form">
+                            <label for="country" class="mb1">Country <span class="label-required">*</span></label>
+                            <input type="text" name="country" placeholder="Country" v-model="form.country">
                         </div>
-                    </div> -->
+                        <div class="normal-form">
+                            <label for="street" class="mb1">Street <span class="label-required">*</span></label>
+                            <input type="text" name="street" placeholder="Street" v-model="form.street">
+                        </div>
+                        <div class="normal-form">
+                            <label for="city" class="mb1">City <span class="label-required">*</span></label>
+                            <input type="text" name="city" placeholder="City" v-model="form.city">
+                        </div>
+                        <div class="normal-form">
+                            <label for="state" class="mb1">State <span class="label-required">*</span></label>
+                            <input type="text" name="state" placeholder="State" v-model="form.state">
+                        </div>
+                        <div class="normal-form">
+                            <label for="zip" class="mb1">Zip code <span class="label-required">*</span></label>
+                            <input type="number" name="zip" placeholder="Zip Code" v-model="form.zip">
+                        </div>
+                    </div>
                     
                 </form>
             </template>
 
             <template v-slot:button>
-                <button class="button-back f-btn" @click="backPressed">Back</button>
-                <!-- <button class="button-onward f-btn" @click="nextPressed">Next</button> -->
-                <button class="button-onward f-btn" @click="finishPressed">Finish</button>
+                <div class="btn-container">
+                    <button class="button-back f-btn" @click.prevent="backPressed" v-if="step != 1">Back</button>
+                </div>
+                <div class="btn-container" v-if="step < 11">
+                    <button class="button-onward f-btn" @click.prevent="nextPressed">Next</button>
+                </div>
+                <div class="btn-container" v-if="step == 11">
+                    <button class="button-onward f-btn" @click.prevent="finishPressed">Create place</button>
+                </div>
             </template>
             
             <template v-slot:image>
@@ -49,23 +72,41 @@ export default {
     components: {
         createproplayout
     },
+    data() {
+        return {
+            progresstext: ["Contact details", "Location details", "Property details", "More details", "Amentites information", "Accessibility information", "Timing", "Pricing", "Upload photos of the place", "One more", "Finishing"],
+            step: 1,
+            totalsteps: 11,
+            form: {
+                phone: null,
+                country: null,
+                street: null,
+                city: null,
+                state: null,
+                zip: null,
+            },
+            
+        }
+    },
     computed: {
         progressText() {
-            return "Contact details"
+            return this.progresstext[this.step-1]
         }
     },
     methods: {
         calcBar(num) {
-            return 9 * 1;
+            return 9 * num;
         },
         backPressed() {
-            console.log("Back button has been pressed");
+            this.step--
+            console.log("Back button has been clicked");
         },
         nextPressed() {
-            console.log("Next button has been pressed");
+            this.step++
+            console.log("Next button has been clicked");
         },
         finishPressed() {
-            console.log("Finish button has been pressed");
+            console.log("Finish button has been clicked");
         }
     },
     layout: 'form'
@@ -108,7 +149,7 @@ export default {
 }
 
 .f-btn {
-    width: 45%;
+    width: 100%;
     height: 40px;
     border-radius: 20px;
     font-size: 1rem;
@@ -118,6 +159,10 @@ export default {
 
 .fw {
     width: 100%;
+}
+
+.btn-container {
+    width: 45%;
 }
 
 .button-back {
@@ -153,6 +198,7 @@ export default {
     flex-direction: column;
     flex-wrap: nowrap;
     width: 100%;
+    margin-bottom: .9rem;
 }
 
 input {
@@ -162,7 +208,7 @@ input {
 .normal-form input {
     font-size: .95rem;
     color: var(--color-dark);
-    padding: 11.2px 16px;
+    padding: 9.2px 16px;
     background-color: var(--color-gray);
     border: none;
     border-radius: 20px;

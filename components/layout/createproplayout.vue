@@ -46,6 +46,7 @@ export default {
     right: 0;
     height: 80px;
     border-top: 1px solid var(--color-gray);
+    background-color: var(--color-white);
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
