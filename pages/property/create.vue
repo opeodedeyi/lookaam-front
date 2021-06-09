@@ -42,6 +42,89 @@
                             <input type="number" name="zip" placeholder="Zip Code" v-model="form.zip">
                         </div>
                     </div>
+
+                    <!-- Form page three (wip) -->
+                    <div class="fw" v-if="step == 3">
+                        <!-- land size -->
+                        <div class="normal-form">
+                            <label for="size" class="mb1">What is the size of the place in sq ft? <span class="label-bold">(optional)</span></label>
+                            <input type="number" name="size" placeholder="xx" v-model="form.size">
+                        </div>
+                        <!-- guest size -->
+                        <div class="normal-form">
+                            <label for="guest" class="mb1">How many people can it take? <span class="label-bold">(optional)</span></label>
+                            <input type="number" name="guest" placeholder="xx" v-model="form.guest">
+                        </div>
+                    </div>
+
+                    <!-- Form page four (wip) -->
+                    <div class="fw" v-if="step == 4">
+                        <p class="form-title">The place is ideal for?</p>
+                        <!-- work in progress -->
+                        <!-- work in progress -->
+                    </div>
+
+                    <!-- Form page five (wip) -->
+                    <div class="fw" v-if="step == 5">
+                        <p class="form-title">What amenities are provided for people?</p>
+                        <!-- work in progress -->
+                        <!-- work in progress -->
+                    </div>
+
+                    <!-- Form page six (wip) -->
+                    <div class="fw" v-if="step == 6">
+                        <p class="form-title">What accessibility does the place have?</p>
+                        <!-- work in progress -->
+                        <!-- work in progress -->
+                    </div>
+
+                    <!-- Form page seven (wip) -->
+                    <div class="fw" v-if="step == 7">
+                        <p class="form-title">How long is your place open?</p>
+                        <!-- work in progress -->
+                        <!-- work in progress -->
+                    </div>
+
+                    <!-- Form page eight (wip) -->
+                    <div class="fw" v-if="step == 8">
+                        <p class="form-title">How much are you charging to rent it out for a day? <span class="label-required">*</span></p>
+                        <div class="normal-form">
+                            <input type="number" name="price" placeholder="xxx" v-model="form.phone">
+                        </div>
+                    </div>
+
+                    <!-- Form page nine (photo upload) -->
+                    <div class="fw" v-if="step == 9">
+                        <div class="normal-form">
+                            <label for="photo" class="mb1">Upload at least one photo 
+                                to your place, you can always add more later 
+                                <br>Make sure the enviroment is well lit and clean</label>
+                            <!-- work in progress -->
+                            <!-- work in progress -->
+                        </div>
+                    </div>
+
+                    <!-- Form page ten -->
+                    <div class="fw" v-if="step == 10">
+                        <p class="form-title">Tell us about the place</p>
+                        <div class="normal-form">
+                            <label for="title" class="mb1">Give the place a short title</label>
+                            <input type="text" name="title" placeholder="Title of place" v-model="form.title">
+                        </div>
+                        <div class="normal-form">
+                            <label for="description" class="mb1">Describe the place</label>
+                            <textarea name="description" placeholder="Tell people abut the rules of the place" maxlength="500" cols="30" rows="7"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Form page eleven -->
+                    <div class="fw" v-if="step == 11">
+                        <p class="form-title">Are there rules people should be aware of?</p>
+                        <!-- rules -->
+                        <div class="normal-form">
+                            <textarea name="rules" placeholder="Tell people abut the rules of the place" maxlength="500" cols="30" rows="7"></textarea>
+                        </div>
+                    </div>
                     
                 </form>
             </template>
@@ -84,6 +167,9 @@ export default {
                 city: null,
                 state: null,
                 zip: null,
+                title: null,
+                size: null,
+                guest: null,
             },
             
         }
@@ -215,8 +301,22 @@ input {
     outline: none;
 }
 
+.normal-form textarea {
+    font-size: .95rem;
+    color: var(--color-dark);
+    padding: 9.2px 16px 30px;
+    background-color: var(--color-gray);
+    border: none;
+    border-radius: 20px;
+    outline: none;
+}
+
 .label-required {
     color: var(--color-danger);
+}
+
+.label-bold {
+    font-weight: 500;
 }
 
 @media only screen and (max-width: 999.9px) {
