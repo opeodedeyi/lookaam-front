@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <nuxt-link to="/profile" tag="div" class="container">
-      <img :src="photo" alt="">
-    </nuxt-link>
-  </div>
+    <div class="container">
+        <img :src="photo" alt="">
+    </div>
 </template>
 
 <script>
@@ -23,7 +21,6 @@ export default {
     border-radius: 100%;
     display: block;
     overflow: hidden;
-    cursor: pointer;
 }
 
 .container img {

@@ -2,7 +2,7 @@
     <div class="about-body">
         <div class="about-body-one">
             <p class="about-body-one-title">OUR GOAL</p>
-            <p class="about-body-one-explaination">"OUR GOAL IS TO PROVIDE YOU WITH THE MOST CREATIVE AND BEAUTIFUL SETTINGS FOR YOUR VIDEOSHOOT OR EVENTS."</p>
+            <p class="about-body-one-explaination">"OUR GOAL IS TO PROVIDE YOU WITH THE MOST CREATIVE AND BEAUTIFUL LOCATIONS FOR YOUR VIDEOSHOOT OR EVENTS."</p>
         </div>
         <div class="about-body-two"></div>
     </div>

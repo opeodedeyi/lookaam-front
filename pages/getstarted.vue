@@ -2,7 +2,7 @@
   <formlayout>
     <template v-slot:default>
         <p class="form-title">BECOMING A HOST</p>
-        <p class="form-explain mb-form">Through hosting, you can enjoy the freedom of being your own boss, earn extra money, and build lifelong connections.</p>
+        <p class="form-explain mb-form fstart">Through hosting, you can enjoy the freedom of being your own boss, earn extra money, and build lifelong connections.</p>
         <p class="form-explain mb-form">It's entirely free to list your property, and you'll have access to our assistance at any time.</p>
         <div>
             <p class="form-explain mb-form" v-if="!isLoggedIn">You must first create an account or log in if you already have one in order to begin hosting your space.</p>
@@ -43,18 +43,22 @@ export default {
 
 <style scoped>
 .form-title {
-    font-weight: 500;
-    font-size: 1.1rem;
+  font-weight: 500;
+  font-size: 1.1rem;
 }
 
 .form-explain {
-    font-weight: 400;
-    font-size: 1rem;
-    margin-top: 1.2rem;
+  font-weight: 400;
+  font-size: 1rem;
+  margin-top: 1.2rem;
+}
+
+.fstart {
+  margin-top: 2.5rem;
 }
 
 .mb-form{
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 .gen-wrapper {
