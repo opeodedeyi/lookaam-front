@@ -88,11 +88,6 @@ export default {
             required: false,
             default: false
         },
-        inputType: {
-            type: String,
-            required: false,
-            default: "text"
-        },
         value: {
             type: String,
             default: ''

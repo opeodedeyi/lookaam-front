@@ -11,16 +11,16 @@
                     <!-- Form page one -->
                     <div class="fw" v-if="step == 1">
                         <p class="form-title">What phone number can be called about this location?</p>
-                        <baseinput hasSlot mustFill placeholder="xxx-xxxx-xxxx" name="phone" inputType="number" v-model="form.phone">Phone number </baseinput>
+                        <phonecodeinput hasSlot mustFill name="code" v-model="form.phone.code">Country </phonecodeinput>
+                        <baseinput hasSlot mustFill placeholder="xxx-xxxx-xxxx" name="phone" inputType="number" v-model="form.phone.number">Phone number </baseinput>
                     </div>
 
                     <!-- Form page two -->
                     <div class="fw" v-if="step == 2">
                         <p class="form-title">Where is the place located?</p>
                         <countryinput hasSlot mustFill name="country" v-model="form.country">Country </countryinput>
-                        <!-- <baseinput hasSlot mustFill placeholder="Country" name="country" v-model="form.country">Country </baseinput> -->
                         <baseinput hasSlot mustFill placeholder="Street" name="street" v-model="form.street">Street </baseinput>
-                        <baseinput hasSlot mustFill placeholder="City" name="city" v-model="form.city">City </baseinput>
+                        <baseinput hasSlot mustFill placeholder="City" name="city" v-model="form.city">City / Town </baseinput>
                         <baseinput hasSlot mustFill placeholder="State" name="state" v-model="form.state">State </baseinput>
                         <baseinput hasSlot mustFill placeholder="Zip" name="zip" v-model="form.zip">Zip code </baseinput>
                     </div>
@@ -118,13 +118,15 @@
 <script>
 import createproplayout from "@/components/layout/createproplayout";
 import baseinput from '@/components/utilities/baseinput';
-import Countryinput from '@/components/utilities/countryinput';
+import countryinput from '@/components/utilities/countryinput';
+import phonecodeinput from '@/components/utilities/phonecodeinput';
 
 export default {
     components: {
         createproplayout,
         baseinput,
-        Countryinput
+        countryinput,
+        phonecodeinput
     },
     data() {
         return {
@@ -132,7 +134,18 @@ export default {
             step: 1,
             totalsteps: 11,
             form: {
-                phone: null,
+                phone: {
+                    code: '234',
+                    number: null
+                },
+                time: {
+                    alwaysopen: false,
+                    open: null,
+                    close: null
+                },
+                idealfor: [],
+                amenities: [],
+                accessibility: [],
                 country: 'Nigeria',
                 street: null,
                 city: null,
