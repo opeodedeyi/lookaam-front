@@ -10,7 +10,6 @@
         <input 
             v-if="controlType === 'input' && inputType ==='text'" 
             type="text" 
-            maxlength="50"
             :name="name" 
             :placeholder="placeholder" 
             :value="value" 
@@ -19,21 +18,11 @@
         <input 
             v-if="controlType === 'input' && inputType ==='number'" 
             type="number" 
-            maxlength="12"
             :name="name" 
             :placeholder="placeholder" 
             :value="value" 
             min="0"
             @input="$emit('input', $event.target.value) ">
-        <!-- textarea input -->
-        <textarea 
-            v-if="controlType === 'textarea'" 
-            :name="name" 
-            :placeholder="placeholder" 
-            :maxlength="maxLength" 
-            cols="30" 
-            rows="7">
-        </textarea>
     </div>
 </template>
 
@@ -69,11 +58,6 @@ export default {
             type: String,
             required: false,
             default: 'input'
-        },
-        maxLength: {
-            type: Number,
-            required: false,
-            default: 300
         },
         value: {
             type: String,

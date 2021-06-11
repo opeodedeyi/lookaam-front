@@ -6,55 +6,29 @@
         <p class="progress-text">{{ progressText }}</p>
         <createproplayout>
             <template v-slot:default>
-                <form action="" class="form-body-cont">
+                <form @submit.prevent="submitForm" class="form-body-cont">
 
                     <!-- Form page one -->
                     <div class="fw" v-if="step == 1">
                         <p class="form-title">What phone number can be called about this location?</p>
-                        <!-- phone number -->
-                        <div class="normal-form">
-                            <label for="phone" class="mb1">Phone number <span class="label-required">*</span></label>
-                            <input type="number" name="phone" placeholder="xxx-xxxx-xxxx" v-model="form.phone">
-                        </div>
+                        <baseinput hasSlot mustFill placeholder="xxx-xxxx-xxxx" name="phone" inputType="number" v-model="form.phone">Phone number </baseinput>
                     </div>
 
                     <!-- Form page two -->
                     <div class="fw" v-if="step == 2">
                         <p class="form-title">Where is the place located?</p>
-                        <div class="normal-form">
-                            <label for="country" class="mb1">Country <span class="label-required">*</span></label>
-                            <input type="text" name="country" placeholder="Country" v-model="form.country">
-                        </div>
-                        <div class="normal-form">
-                            <label for="street" class="mb1">Street <span class="label-required">*</span></label>
-                            <input type="text" name="street" placeholder="Street" v-model="form.street">
-                        </div>
-                        <div class="normal-form">
-                            <label for="city" class="mb1">City <span class="label-required">*</span></label>
-                            <input type="text" name="city" placeholder="City" v-model="form.city">
-                        </div>
-                        <div class="normal-form">
-                            <label for="state" class="mb1">State <span class="label-required">*</span></label>
-                            <input type="text" name="state" placeholder="State" v-model="form.state">
-                        </div>
-                        <div class="normal-form">
-                            <label for="zip" class="mb1">Zip code <span class="label-required">*</span></label>
-                            <input type="number" name="zip" placeholder="Zip Code" v-model="form.zip">
-                        </div>
+                        <countryinput hasSlot mustFill name="country" v-model="form.country">Country </countryinput>
+                        <!-- <baseinput hasSlot mustFill placeholder="Country" name="country" v-model="form.country">Country </baseinput> -->
+                        <baseinput hasSlot mustFill placeholder="Street" name="street" v-model="form.street">Street </baseinput>
+                        <baseinput hasSlot mustFill placeholder="City" name="city" v-model="form.city">City </baseinput>
+                        <baseinput hasSlot mustFill placeholder="State" name="state" v-model="form.state">State </baseinput>
+                        <baseinput hasSlot mustFill placeholder="Zip" name="zip" v-model="form.zip">Zip code </baseinput>
                     </div>
 
                     <!-- Form page three (wip) -->
                     <div class="fw" v-if="step == 3">
-                        <!-- land size -->
-                        <div class="normal-form">
-                            <label for="size" class="mb1">What is the size of the place in sq ft? <span class="label-bold">(optional)</span></label>
-                            <input type="number" name="size" placeholder="xx" v-model="form.size">
-                        </div>
-                        <!-- guest size -->
-                        <div class="normal-form">
-                            <label for="guest" class="mb1">How many people can it take? <span class="label-bold">(optional)</span></label>
-                            <input type="number" name="guest" placeholder="xx" v-model="form.guest">
-                        </div>
+                        <baseinput hasSlot isBold placeholder="xx" name="size" inputType="number" v-model="form.size">What is the size of the place in sq ft? </baseinput>
+                        <baseinput hasSlot isBold placeholder="xx" name="guest" inputType="number" v-model="form.guest">How many people can it take? </baseinput>
                     </div>
 
                     <!-- Form page four (wip) -->
@@ -88,9 +62,7 @@
                     <!-- Form page eight (wip) -->
                     <div class="fw" v-if="step == 8">
                         <p class="form-title">How much are you charging to rent it out for a day? <span class="label-required">*</span></p>
-                        <div class="normal-form">
-                            <input type="number" name="price" placeholder="xxx" v-model="form.phone">
-                        </div>
+                        <baseinput placeholder="xxx" name="price" inputType="number" v-model="form.price"></baseinput>
                     </div>
 
                     <!-- Form page nine (photo upload) -->
@@ -107,6 +79,7 @@
                     <!-- Form page ten -->
                     <div class="fw" v-if="step == 10">
                         <p class="form-title">Tell us about the place</p>
+                        <baseinput hasSlot isBold placeholder="Title of place" name="title" inputType="text" v-model="form.title">Give the place a short title </baseinput>
                         <div class="normal-form">
                             <label for="title" class="mb1">Give the place a short title</label>
                             <input type="text" name="title" placeholder="Title of place" v-model="form.title">
@@ -130,15 +103,9 @@
             </template>
 
             <template v-slot:button>
-                <div class="btn-container">
-                    <button class="button-back f-btn" @click.prevent="backPressed" v-if="step != 1">Back</button>
-                </div>
-                <div class="btn-container" v-if="step < 11">
-                    <button class="button-onward f-btn" @click.prevent="nextPressed">Next</button>
-                </div>
-                <div class="btn-container" v-if="step == 11">
-                    <button class="button-onward f-btn" @click.prevent="finishPressed">Create place</button>
-                </div>
+                <div class="btn-container"><button class="button-back f-btn" @click.prevent="backPressed" v-if="step != 1">Back</button></div>
+                <div class="btn-container" v-if="step < 11"><button class="button-onward f-btn" @click.prevent="nextPressed">Next</button></div>
+                <div class="btn-container" v-if="step == 11"> <button class="button-onward f-btn" @click.prevent="finishPressed">Create place</button></div>
             </template>
             
             <template v-slot:image>
@@ -150,10 +117,14 @@
 
 <script>
 import createproplayout from "@/components/layout/createproplayout";
+import baseinput from '@/components/utilities/baseinput';
+import Countryinput from '@/components/utilities/countryinput';
 
 export default {
     components: {
-        createproplayout
+        createproplayout,
+        baseinput,
+        Countryinput
     },
     data() {
         return {
@@ -162,7 +133,7 @@ export default {
             totalsteps: 11,
             form: {
                 phone: null,
-                country: null,
+                country: 'Nigeria',
                 street: null,
                 city: null,
                 state: null,
@@ -170,6 +141,7 @@ export default {
                 title: null,
                 size: null,
                 guest: null,
+                price: null,
             },
             
         }
@@ -189,6 +161,7 @@ export default {
         },
         nextPressed() {
             this.step++
+            console.log(this.form);
             console.log("Next button has been clicked");
         },
         finishPressed() {
@@ -202,6 +175,10 @@ export default {
 <style>
 .mb1 {
     margin-bottom: .3rem;
+}
+
+.label-required {
+    color: var(--color-danger);
 }
 
 .progress-bar {
@@ -277,46 +254,6 @@ export default {
     font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 1.5rem;
-}
-
-.normal-form {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    width: 100%;
-    margin-bottom: .9rem;
-}
-
-input {
-    font-family: 'Jost';
-}
-
-.normal-form input {
-    font-size: .95rem;
-    color: var(--color-dark);
-    padding: 9.2px 16px;
-    background-color: var(--color-gray);
-    border: none;
-    border-radius: 20px;
-    outline: none;
-}
-
-.normal-form textarea {
-    font-size: .95rem;
-    color: var(--color-dark);
-    padding: 9.2px 16px 30px;
-    background-color: var(--color-gray);
-    border: none;
-    border-radius: 20px;
-    outline: none;
-}
-
-.label-required {
-    color: var(--color-danger);
-}
-
-.label-bold {
-    font-weight: 500;
 }
 
 @media only screen and (max-width: 999.9px) {
