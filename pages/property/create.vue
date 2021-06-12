@@ -25,31 +25,52 @@
                         <baseinput hasSlot mustFill placeholder="Zip" name="zip" v-model="form.zip">Zip code </baseinput>
                     </div>
 
-                    <!-- Form page three (wip) -->
+                    <!-- Form page three -->
                     <div class="fw" v-if="step == 3">
+                        <topinput hasSlot mustFill name="topinput" v-model="form.typeof">What type of place is this property? </topinput>
                         <baseinput hasSlot isBold placeholder="xx" name="size" inputType="number" v-model="form.size">What is the size of the place in sq ft? </baseinput>
                         <baseinput hasSlot isBold placeholder="xx" name="guest" inputType="number" v-model="form.guest">How many people can it take? </baseinput>
                     </div>
 
-                    <!-- Form page four (wip) -->
+                    <!-- Form page four -->
                     <div class="fw" v-if="step == 4">
                         <p class="form-title">The place is ideal for?</p>
-                        <!-- work in progress -->
-                        <!-- work in progress -->
+                        <checkinput name="reception" value="reception" v-model="form.idealfor">Reception</checkinput>
+                        <checkinput name="production" value="production" v-model="form.idealfor">Production</checkinput>
+                        <checkinput name="meeting" value="meeting" v-model="form.idealfor">Meeting</checkinput>
+                        <checkinput name="performance" value="performance" v-model="form.idealfor">Performance</checkinput>
+                        <checkinput name="dinner" value="dinner" v-model="form.idealfor">Dinner</checkinput>
+                        <checkinput name="wedding" value="wedding" v-model="form.idealfor">Wedding</checkinput>
+                        <checkinput name="party" value="party" v-model="form.idealfor">Party</checkinput>
+                        <checkinput name="conference" value="conference" v-model="form.idealfor">Conference</checkinput>
                     </div>
 
-                    <!-- Form page five (wip) -->
+                    <!-- Form page five -->
                     <div class="fw" v-if="step == 5">
                         <p class="form-title">What amenities are provided for people?</p>
-                        <!-- work in progress -->
-                        <!-- work in progress -->
+                        <checkinput name="electricity" value="electricity" v-model="form.amenities">Electricity</checkinput>
+                        <checkinput name="a/c" value="a/c" v-model="form.amenities">a/c</checkinput>
+                        <checkinput name="wifi" value="wifi" v-model="form.amenities">wifi</checkinput>
+                        <checkinput name="soundSystem" value="sound system" v-model="form.amenities">Sound system</checkinput>
+                        <checkinput name="private entrance" value="private entrance" v-model="form.amenities">Private entrance</checkinput>
+                        <checkinput name="kitchen" value="kitchen" v-model="form.amenities">Kitchen</checkinput>
+                        <checkinput name="large table" value="large table" v-model="form.amenities">Large table</checkinput>
+                        <checkinput name="green screen" value="green screen" v-model="form.amenities">Green screen</checkinput>
+                        <checkinput name="stage" value="stage" v-model="form.amenities">Stage</checkinput>
+                        <checkinput name="changing room" value="changing room" v-model="form.amenities">Changing room</checkinput>
+                        <checkinput name="makeup room" value="makeup room" v-model="form.amenities">Makeup room</checkinput>
+                        <checkinput name="lounge" value="lounge" v-model="form.amenities">Lounge</checkinput>
+                        <checkinput name="soundproof" value="soundproof" v-model="form.amenities">Soundproof</checkinput>
                     </div>
 
-                    <!-- Form page six (wip) -->
+                    <!-- Form page six -->
                     <div class="fw" v-if="step == 6">
                         <p class="form-title">What accessibility does the place have?</p>
-                        <!-- work in progress -->
-                        <!-- work in progress -->
+                        <checkinput name="wheelchair" value="wheelchair" v-model="form.accessibility">Wheelchair</checkinput>
+                        <checkinput name="elevator" value="elevator" v-model="form.accessibility">Elevator</checkinput>
+                        <checkinput name="on-site parking" value="on-site parking" v-model="form.accessibility">On-site parking</checkinput>
+                        <checkinput name="parking near by" value="parking near by" v-model="form.accessibility">Parking near by</checkinput>
+                        <checkinput name="stairs" value="stairs" v-model="form.accessibility">Stairs</checkinput>
                     </div>
 
                     <!-- Form page seven (wip) -->
@@ -62,7 +83,8 @@
                     <!-- Form page eight (wip) -->
                     <div class="fw" v-if="step == 8">
                         <p class="form-title">How much are you charging to rent it out for a day? <span class="label-required">*</span></p>
-                        <baseinput placeholder="xxx" name="price" inputType="number" v-model="form.price"></baseinput>
+                        <currencyinput hasSlot mustFill name="currency" v-model="form.price.currency">Currency </currencyinput>
+                        <baseinput hasSlot mustFill placeholder="xxx" name="price" inputType="number" v-model="form.price.amount">Amount </baseinput>
                     </div>
 
                     <!-- Form page nine (photo upload) -->
@@ -80,10 +102,6 @@
                     <div class="fw" v-if="step == 10">
                         <p class="form-title">Tell us about the place</p>
                         <baseinput hasSlot isBold placeholder="Title of place" name="title" inputType="text" v-model="form.title">Give the place a short title </baseinput>
-                        <div class="normal-form">
-                            <label for="title" class="mb1">Give the place a short title</label>
-                            <input type="text" name="title" placeholder="Title of place" v-model="form.title">
-                        </div>
                         <div class="normal-form">
                             <label for="description" class="mb1">Describe the place</label>
                             <textarea name="description" placeholder="Tell people abut the rules of the place" maxlength="500" cols="30" rows="7"></textarea>
@@ -120,13 +138,19 @@ import createproplayout from "@/components/layout/createproplayout";
 import baseinput from '@/components/utilities/baseinput';
 import countryinput from '@/components/utilities/countryinput';
 import phonecodeinput from '@/components/utilities/phonecodeinput';
+import currencyinput from '@/components/utilities/currencyinput';
+import topinput from '@/components/utilities/topinput';
+import checkinput from '@/components/utilities/checkinput';
 
 export default {
     components: {
         createproplayout,
         baseinput,
         countryinput,
-        phonecodeinput
+        phonecodeinput,
+        currencyinput,
+        topinput,
+        checkinput
     },
     data() {
         return {
@@ -146,6 +170,7 @@ export default {
                 idealfor: [],
                 amenities: [],
                 accessibility: [],
+                typeof: 'studio',
                 country: 'Nigeria',
                 street: null,
                 city: null,
@@ -154,7 +179,10 @@ export default {
                 title: null,
                 size: null,
                 guest: null,
-                price: null,
+                price: {
+                    currency: 'NGN',
+                    amount: null,
+                },
             },
             
         }

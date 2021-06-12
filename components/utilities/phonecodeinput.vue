@@ -6,6 +6,7 @@
             <span v-else-if="isBold" class="label-bold">(optional)</span>
         </label>
 
+        <!-- country code dropdown input (AFRICA) -->
         <select id="country" :name="name" :value="value"  @input="$emit('input', $event.target.value)" >
             <option>select country</option>
             <option value="213">Algeria (213)</option>
