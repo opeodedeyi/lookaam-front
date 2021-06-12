@@ -26,14 +26,16 @@
             min="0"
             @input="$emit('input', $event.target.value) ">
         <!-- textarea input -->
-        <textarea 
-            v-if="controlType === 'textarea'" 
-            :name="name" 
-            :placeholder="placeholder" 
-            :maxlength="maxLength" 
-            cols="30" 
-            rows="7">
-        </textarea>
+        <div class="textarea" v-if="controlType === 'textarea'">
+            <textarea  
+                :name="name" 
+                :placeholder="placeholder" 
+                :maxlength="maxLength"
+                :value="value"
+                @input="$emit('input', $event.target.value) ">
+            </textarea>
+            <div class="textarea-count">{{ countLeft }}</div>
+        </div>
     </div>
 </template>
 
@@ -84,7 +86,15 @@ export default {
             required: false,
             default: false
         }
-    }
+    },
+    computed: {
+        countLeft() {
+            if (this.value===null) {
+                return this.maxLength
+            }
+            return this.maxLength-this.value.length
+        }
+    },
 }
 </script>
 
@@ -101,7 +111,8 @@ export default {
     margin-bottom: .9rem;
 }
 
-input {
+input,
+textarea {
     font-family: 'Jost';
 }
 
@@ -115,14 +126,41 @@ input {
     outline: none;
 }
 
-.normal-form textarea {
+.normal-form .textarea {
+    widows: 100%;
     font-size: .95rem;
     color: var(--color-dark);
-    padding: 9.2px 16px 30px;
+    padding: 10px 16px;
     background-color: var(--color-gray);
     border: none;
     border-radius: 20px;
     outline: none;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.textarea-count {
+    height: 20px;
+    width: 100%;
+    color: var(--color-company);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    font-size: .8rem;
+}
+
+textarea {
+    height: 150px;
+    width: 100%;
+    font-size: .95rem;
+    color: var(--color-dark);
+    background-color: var(--color-gray);
+    border: none;
+    outline: none;
+    resize: none;
+    overflow: hidden;
 }
 
 .label-required {
@@ -133,6 +171,7 @@ input {
     font-weight: 500;
 }
 
+/* below is to hide arrows for number input */
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -144,5 +183,6 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+/* above is to hide arrows for number input */
 
 </style>

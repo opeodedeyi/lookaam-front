@@ -14,7 +14,6 @@
                         <phonecodeinput hasSlot mustFill name="code" v-model="form.phone.code">Country </phonecodeinput>
                         <baseinput hasSlot mustFill placeholder="xxx-xxxx-xxxx" name="phone" inputType="number" v-model="form.phone.number">Phone number </baseinput>
                     </div>
-
                     <!-- Form page two -->
                     <div class="fw" v-if="step == 2">
                         <p class="form-title">Where is the place located?</p>
@@ -24,14 +23,12 @@
                         <baseinput hasSlot mustFill placeholder="State" name="state" v-model="form.state">State </baseinput>
                         <baseinput hasSlot mustFill placeholder="Zip" name="zip" v-model="form.zip">Zip code </baseinput>
                     </div>
-
                     <!-- Form page three -->
                     <div class="fw" v-if="step == 3">
                         <topinput hasSlot mustFill name="topinput" v-model="form.typeof">What type of place is this property? </topinput>
                         <baseinput hasSlot isBold placeholder="xx" name="size" inputType="number" v-model="form.size">What is the size of the place in sq ft? </baseinput>
-                        <baseinput hasSlot isBold placeholder="xx" name="guest" inputType="number" v-model="form.guest">How many people can it take? </baseinput>
+                        <baseinput hasSlot isBold placeholder="xx" name="maxguest" inputType="number" v-model="form.maxguest">How many people can it take? </baseinput>
                     </div>
-
                     <!-- Form page four -->
                     <div class="fw" v-if="step == 4">
                         <p class="form-title">The place is ideal for?</p>
@@ -44,7 +41,6 @@
                         <checkinput name="party" value="party" v-model="form.idealfor">Party</checkinput>
                         <checkinput name="conference" value="conference" v-model="form.idealfor">Conference</checkinput>
                     </div>
-
                     <!-- Form page five -->
                     <div class="fw" v-if="step == 5">
                         <p class="form-title">What amenities are provided for people?</p>
@@ -62,7 +58,6 @@
                         <checkinput name="lounge" value="lounge" v-model="form.amenities">Lounge</checkinput>
                         <checkinput name="soundproof" value="soundproof" v-model="form.amenities">Soundproof</checkinput>
                     </div>
-
                     <!-- Form page six -->
                     <div class="fw" v-if="step == 6">
                         <p class="form-title">What accessibility does the place have?</p>
@@ -72,22 +67,19 @@
                         <checkinput name="parking near by" value="parking near by" v-model="form.accessibility">Parking near by</checkinput>
                         <checkinput name="stairs" value="stairs" v-model="form.accessibility">Stairs</checkinput>
                     </div>
-
                     <!-- Form page seven (wip) -->
                     <div class="fw" v-if="step == 7">
                         <p class="form-title">How long is your place open?</p>
                         <!-- work in progress -->
                         <!-- work in progress -->
                     </div>
-
-                    <!-- Form page eight (wip) -->
+                    <!-- Form page eight -->
                     <div class="fw" v-if="step == 8">
                         <p class="form-title">How much are you charging to rent it out for a day? <span class="label-required">*</span></p>
                         <currencyinput hasSlot mustFill name="currency" v-model="form.price.currency">Currency </currencyinput>
                         <baseinput hasSlot mustFill placeholder="xxx" name="price" inputType="number" v-model="form.price.amount">Amount </baseinput>
                     </div>
-
-                    <!-- Form page nine (photo upload) -->
+                    <!-- Form page nine (photo upload)(wip) -->
                     <div class="fw" v-if="step == 9">
                         <div class="normal-form">
                             <label for="photo" class="mb1">Upload at least one photo 
@@ -97,24 +89,16 @@
                             <!-- work in progress -->
                         </div>
                     </div>
-
                     <!-- Form page ten -->
                     <div class="fw" v-if="step == 10">
                         <p class="form-title">Tell us about the place</p>
-                        <baseinput hasSlot isBold placeholder="Title of place" name="title" inputType="text" v-model="form.title">Give the place a short title </baseinput>
-                        <div class="normal-form">
-                            <label for="description" class="mb1">Describe the place</label>
-                            <textarea name="description" placeholder="Tell people abut the rules of the place" maxlength="500" cols="30" rows="7"></textarea>
-                        </div>
+                        <baseinput hasSlot mustFill placeholder="Title of place" name="title" inputType="text" v-model="form.title">Give the place a short title </baseinput>
+                        <baseinput hasSlot mustFill placeholder="You can also add any missing information we failed to collect" controlType="textarea" :maxLength=350 name="description" v-model="form.description">Describe the place</baseinput>
                     </div>
-
                     <!-- Form page eleven -->
                     <div class="fw" v-if="step == 11">
                         <p class="form-title">Are there rules people should be aware of?</p>
-                        <!-- rules -->
-                        <div class="normal-form">
-                            <textarea name="rules" placeholder="Tell people abut the rules of the place" maxlength="500" cols="30" rows="7"></textarea>
-                        </div>
+                        <baseinput placeholder="Tell people abut the rules of the place" controlType="textarea" :maxLength=350 name="rules" v-model="form.rules"></baseinput>
                     </div>
                     
                 </form>
@@ -176,13 +160,15 @@ export default {
                 city: null,
                 state: null,
                 zip: null,
-                title: null,
                 size: null,
-                guest: null,
+                maxguest: null,
+                rules: null,
+                title: null,
+                description: null,
                 price: {
                     currency: 'NGN',
                     amount: null,
-                },
+                }
             },
             
         }
