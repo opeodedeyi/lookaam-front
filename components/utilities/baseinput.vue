@@ -36,6 +36,13 @@
             </textarea>
             <div class="textarea-count">{{ countLeft }}</div>
         </div>
+        <!-- time input -->
+        <input 
+            v-if="controlType === 'input' && inputType ==='time'" 
+            type="time"
+            :name="name" 
+            :value="value" 
+            @input="$emit('input', $event.target.value) ">
     </div>
 </template>
 
@@ -124,6 +131,10 @@ textarea {
     border: none;
     border-radius: 20px;
     outline: none;
+}
+
+input[type=time] {
+    width: 140px;
 }
 
 .normal-form .textarea {

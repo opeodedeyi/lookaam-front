@@ -77,6 +77,8 @@
                             <radioinput name="yes" :value="true" v-model="form.time.alwaysopen">Yes</radioinput>
                             <radioinput name="no" :value="false" v-model="form.time.alwaysopen">No</radioinput>
                         </div>
+                        <baseinput v-if="!form.time.alwaysopen" hasSlot name="open" inputType="time" v-model="form.time.open">Opening time</baseinput>
+                        <baseinput v-if="!form.time.alwaysopen" hasSlot name="close" inputType="time" v-model="form.time.close">Closing time</baseinput>
                     </div>
                     <!-- Form page eight -->
                     <div class="fw" v-if="step == 8">
@@ -159,8 +161,8 @@ export default {
                 },
                 time: {
                     alwaysopen: true,
-                    open: null,
-                    close: null
+                    open: '00:00',
+                    close: '00:00'
                 },
                 idealfor: [],
                 amenities: [],
