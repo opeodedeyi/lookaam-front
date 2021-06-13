@@ -72,8 +72,10 @@
                     <!-- Form page seven (wip) -->
                     <div class="fw" v-if="step == 7">
                         <p class="form-title">How long is your place open?</p>
-                        <radioinput name="yes" :value="true" v-model="form.time.alwaysopen">Yes</radioinput>
-                        <radioinput name="no" :value="false" v-model="form.time.alwaysopen">No</radioinput>
+                        <div class="inline-radio">
+                            <radioinput name="yes" :value="true" v-model="form.time.alwaysopen">Yes</radioinput>
+                            <radioinput name="no" :value="false" v-model="form.time.alwaysopen">No</radioinput>
+                        </div>
                     </div>
                     <!-- Form page eight -->
                     <div class="fw" v-if="step == 8">
@@ -289,6 +291,14 @@ export default {
     font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 1.5rem;
+}
+
+.inline-radio {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 @media only screen and (max-width: 999.9px) {
