@@ -23,9 +23,11 @@
                         <baseinput hasSlot mustFill placeholder="State" name="state" v-model="form.state">State </baseinput>
                         <baseinput hasSlot mustFill placeholder="Zip" name="zip" v-model="form.zip">Zip code </baseinput>
                     </div>
-                    <!-- Form page three -->
+                    <!-- Form page three (wip) -->
                     <div class="fw" v-if="step == 3">
                         <topinput hasSlot mustFill name="topinput" v-model="form.typeof">What type of place is this property? </topinput>
+                        <controlinput hasSlot name="rooms" v-model.number="form.rooms" >How many rooms are in the place? </controlinput>
+                        <controlinput hasSlot name="toilet" v-model.number="form.toilet" >How many toilets are in the place? </controlinput>
                         <baseinput hasSlot isBold placeholder="xx" name="size" inputType="number" v-model="form.size">What is the size of the place in sq ft? </baseinput>
                         <baseinput hasSlot isBold placeholder="xx" name="maxguest" inputType="number" v-model="form.maxguest">How many people can it take? </baseinput>
                     </div>
@@ -70,8 +72,8 @@
                     <!-- Form page seven (wip) -->
                     <div class="fw" v-if="step == 7">
                         <p class="form-title">How long is your place open?</p>
-                        <!-- work in progress -->
-                        <!-- work in progress -->
+                        <radioinput name="yes" :value="true" v-model="form.time.alwaysopen">Yes</radioinput>
+                        <radioinput name="no" :value="false" v-model="form.time.alwaysopen">No</radioinput>
                     </div>
                     <!-- Form page eight -->
                     <div class="fw" v-if="step == 8">
@@ -125,6 +127,8 @@ import phonecodeinput from '@/components/utilities/phonecodeinput';
 import currencyinput from '@/components/utilities/currencyinput';
 import topinput from '@/components/utilities/topinput';
 import checkinput from '@/components/utilities/checkinput';
+import radioinput from '@/components/utilities/radioinput';
+import controlinput from '@/components/utilities/controlinput';
 
 export default {
     components: {
@@ -134,7 +138,9 @@ export default {
         phonecodeinput,
         currencyinput,
         topinput,
-        checkinput
+        checkinput,
+        radioinput,
+        controlinput
     },
     data() {
         return {
@@ -147,7 +153,7 @@ export default {
                     number: null
                 },
                 time: {
-                    alwaysopen: false,
+                    alwaysopen: true,
                     open: null,
                     close: null
                 },
@@ -160,6 +166,8 @@ export default {
                 city: null,
                 state: null,
                 zip: null,
+                rooms: 0,
+                toilet: 0,
                 size: null,
                 maxguest: null,
                 rules: null,
