@@ -69,7 +69,7 @@
                         <checkinput name="parking near by" value="parking near by" v-model="form.accessibility">Parking near by</checkinput>
                         <checkinput name="stairs" value="stairs" v-model="form.accessibility">Stairs</checkinput>
                     </div>
-                    <!-- Form page seven (wip) -->
+                    <!-- Form page seven -->
                     <div class="fw" v-if="step == 7">
                         <p class="form-title">How long is your place open?</p>
                         <baselabel mustFill name="alwaysopen">Always open 24/7 </baselabel>

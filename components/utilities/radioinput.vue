@@ -1,7 +1,7 @@
 <template>
-    <label :for="name" class="inline-form radio mt4">
+    <label :for="name" class="inline-form radio mt3">
         <slot></slot>
-        <input type="radio" :name="name" :id="name" class="radio-input" :checked="isChecked" :value="value" @change="$emit('change', $event.target.value)">
+        <input type="radio" :name="name" :id="name" class="radio-input" :checked="isChecked" :value="value" @change="$emit('change', value)">
         <div class="radio-radio"></div>
     </label>
 </template>
@@ -35,8 +35,8 @@ export default {
 </script>
 
 <style scoped>
-.mt4 {
-    margin-top: 0.4rem;
+.mt3 {
+    margin-top: 0.3rem;
 }
 
 .inline-form {
