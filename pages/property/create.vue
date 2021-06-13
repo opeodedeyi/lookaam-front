@@ -72,7 +72,8 @@
                     <!-- Form page seven (wip) -->
                     <div class="fw" v-if="step == 7">
                         <p class="form-title">How long is your place open?</p>
-                        <div class="inline-radio">
+                        <baselabel mustFill name="alwaysopen">Always open 24/7 </baselabel>
+                        <div class="inline-radio mb9">
                             <radioinput name="yes" :value="true" v-model="form.time.alwaysopen">Yes</radioinput>
                             <radioinput name="no" :value="false" v-model="form.time.alwaysopen">No</radioinput>
                         </div>
@@ -124,6 +125,7 @@
 <script>
 import createproplayout from "@/components/layout/createproplayout";
 import baseinput from '@/components/utilities/baseinput';
+import baselabel from '@/components/utilities/baselabel';
 import countryinput from '@/components/utilities/countryinput';
 import phonecodeinput from '@/components/utilities/phonecodeinput';
 import currencyinput from '@/components/utilities/currencyinput';
@@ -136,6 +138,7 @@ export default {
     components: {
         createproplayout,
         baseinput,
+        baselabel,
         countryinput,
         phonecodeinput,
         currencyinput,
@@ -212,6 +215,10 @@ export default {
 <style>
 .mb1 {
     margin-bottom: .3rem;
+}
+
+.mb9 {
+    margin-bottom: .9rem;
 }
 
 .label-required {
