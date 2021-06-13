@@ -135,6 +135,13 @@ textarea {
 
 input[type=time] {
     width: 140px;
+    /* background: url('~assets/svg/clock.svg') no-repeat var(--color-gray);
+    background-position: right 16px top 50%; */
+    -webkit-appearance: none;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+    background: url('~assets/svg/clock.svg') no-repeat var(--color-gray);
 }
 
 .normal-form .textarea {
