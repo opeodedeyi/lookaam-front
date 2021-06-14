@@ -23,7 +23,7 @@
                         <baseinput hasSlot mustFill placeholder="State" name="state" v-model="form.state">State </baseinput>
                         <baseinput hasSlot mustFill placeholder="Zip" name="zip" v-model="form.zip">Zip code </baseinput>
                     </div>
-                    <!-- Form page three (wip) -->
+                    <!-- Form page three -->
                     <div class="fw" v-if="step == 3">
                         <topinput hasSlot mustFill name="topinput" v-model="form.typeof">What type of place is this property? </topinput>
                         <controlinput hasSlot name="rooms" v-model.number="form.rooms" >How many rooms are in the place? </controlinput>
@@ -92,8 +92,7 @@
                             <label for="photo" class="mb1">Upload at least one photo 
                                 to your place, you can always add more later 
                                 <br>Make sure the enviroment is well lit and clean</label>
-                            <!-- work in progress -->
-                            <!-- work in progress -->
+                            <multiplephotoupload name="images" objId=""></multiplephotoupload>
                         </div>
                     </div>
                     <!-- Form page ten -->
@@ -135,6 +134,7 @@ import topinput from '@/components/utilities/topinput';
 import checkinput from '@/components/utilities/checkinput';
 import radioinput from '@/components/utilities/radioinput';
 import controlinput from '@/components/utilities/controlinput';
+import multiplephotoupload from '@/components/utilities/multiplephotoupload';
 
 export default {
     components: {
@@ -147,10 +147,12 @@ export default {
         topinput,
         checkinput,
         radioinput,
-        controlinput
+        controlinput,
+        multiplephotoupload
     },
     data() {
         return {
+            ObjectId: '219i3093i901i39023901393209090d09',
             progresstext: ["Contact details", "Location details", "Property details", "More details", "Amentites information", "Accessibility information", "Timing", "Pricing", "Upload photos of the place", "One more", "Finishing"],
             step: 1,
             totalsteps: 11,
