@@ -1,6 +1,6 @@
 <template>
     <div class="J-container">
-        <p>Discover your next location for your {{words[i]}}</p>
+        <p>Discover your next location for your <span class="highlight">{{words[i]}}</span></p>
     </div>
 </template>
 
@@ -43,6 +43,10 @@ export default {
         font-weight: 600;
         max-width: 600px;
         line-height: 4rem;
+    }
+
+    .highlight {
+        color: var(--color-company);
     }
 
     /* Small screens */
