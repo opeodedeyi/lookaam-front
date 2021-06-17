@@ -46,8 +46,7 @@ export default {
 
 <style scoped>
 .mini-card {
-    background: rgba(34, 34, 34, 0.5);
-    opacity: 0.6;
+    background: rgb(34, 34, 34, 0.5);
     grid-column: span 3;
     height: 140px;
     border-radius: 20px;
