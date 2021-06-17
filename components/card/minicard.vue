@@ -46,6 +46,8 @@ export default {
 
 <style scoped>
 .mini-card {
+    background: var(--color-dark);
+    opacity: 0.6;
     grid-column: span 3;
     height: 140px;
     border-radius: 20px;
