@@ -47,6 +47,7 @@ export default {
 
     .highlight {
         color: var(--color-company);
+        text-shadow: 0 0 1px var(--color-white), 0 0 1px var(--color-white), 0 0 1px var(--color-white), 0 0 1px var(--color-white);
     }
 
     /* Small screens */

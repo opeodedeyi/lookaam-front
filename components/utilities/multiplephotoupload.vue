@@ -122,7 +122,7 @@ export default {
 
 .file-gallery {
     width: 100%;
-    margin-top: 10px;
+    margin-top: 15px;
     border: none !important;
     display: grid;
     grid-template-columns: repeat(6, minmax(auto, 100px));
