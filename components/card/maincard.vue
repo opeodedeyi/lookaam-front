@@ -168,13 +168,14 @@ p {
 .gridd {
     position: relative;
     grid-column: span 12;
-    height: 200px;
+    height: 230px;
 }
 
 /* Screen gets bigger */
 @media only screen and (min-width: 572px) {
     .gridd {
         grid-column: span 6;
+        height: 200px;
     }
 }
 

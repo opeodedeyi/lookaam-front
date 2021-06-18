@@ -17,6 +17,7 @@ export default {
     gap: 20px;
     width: 100%;
     margin-top: 40px;
+    margin-bottom: 40px;
 }
 
 @media only screen and (max-width: 571.9px) {
@@ -29,6 +30,7 @@ export default {
     .grid-card-layout {
         gap: 20px;
         margin-top: 20px;
+        margin-bottom: 20px;
     }
 }
 
