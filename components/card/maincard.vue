@@ -165,12 +165,34 @@ p {
 }
 
 /* Small screens */
-@media only screen and (max-width: 999.9px) {
-
+.gridd {
+    position: relative;
+    grid-column: span 12;
+    height: 200px;
 }
 
-/* Large screens */
-@media only screen and (min-width: 1000px) {
-    
+/* Screen gets bigger */
+@media only screen and (min-width: 572px) {
+    .gridd {
+        grid-column: span 6;
+    }
+}
+
+@media only screen and (min-width: 840px) {
+    .gridd {
+        grid-column: span 4;
+    }
+}
+
+@media only screen and (min-width: 1149px) {
+    .gridd {
+        grid-column: span 3;
+    }
+}
+
+@media only screen and (min-width: 1300px) {
+    .gridd {
+        grid-column: span 3;
+    }
 }
 </style>

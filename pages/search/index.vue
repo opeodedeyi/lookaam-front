@@ -4,16 +4,77 @@
       <mainbutton :onClick="openFilter" size="filter sb" mode="filter"><img src="~/assets/svg/filter.svg" alt="" /><span>FILTER</span></mainbutton>
       <mainbutton :onClick="openDate" class="ml sb" size="filter" mode="filter"><img src="~/assets/svg/date.svg" class="img-s" alt="" /><span class="img-t">DATE</span></mainbutton>
     </div>
-    search result
+    <gridlayout>
+      <app-main-card 
+        hasLike="true" 
+        to="/card" 
+        Ptitle="Otedola mansion plaza lagos nigeria" 
+        Ptype="Restaurant"
+        Pprice="60,000">
+      </app-main-card>
+      <app-main-card 
+        hasLike="true" 
+        to="/card" 
+        Ptitle="Otedola mansion plaza lagos nigeria" 
+        Ptype="Restaurant"
+        Pprice="60,000">
+      </app-main-card>
+      <app-main-card 
+        hasLike="true" 
+        to="/card" 
+        Ptitle="Otedola mansion plaza lagos nigeria" 
+        Ptype="Restaurant"
+        Pprice="60,000">
+      </app-main-card>
+      <app-main-card 
+        hasLike="true" 
+        to="/card" 
+        Ptitle="Otedola mansion plaza lagos nigeria" 
+        Ptype="Restaurant"
+        Pprice="60,000">
+      </app-main-card>
+      <app-main-card 
+        hasLike="true" 
+        to="/card" 
+        Ptitle="Otedola mansion plaza lagos nigeria" 
+        Ptype="Restaurant"
+        Pprice="60,000">
+      </app-main-card>
+      <app-main-card 
+        hasLike="true" 
+        to="/card" 
+        Ptitle="Otedola mansion plaza lagos nigeria" 
+        Ptype="Restaurant"
+        Pprice="60,000">
+      </app-main-card>
+      <app-main-card 
+        hasLike="true" 
+        to="/card" 
+        Ptitle="Otedola mansion plaza lagos nigeria" 
+        Ptype="Restaurant"
+        Pprice="60,000">
+      </app-main-card>
+      <app-main-card 
+        hasLike="true" 
+        to="/card" 
+        Ptitle="Otedola mansion plaza lagos nigeria" 
+        Ptype="Restaurant"
+        Pprice="60,000">
+      </app-main-card>
+    </gridlayout>
   </div>
 </template>
 
 <script>
 import mainbutton from "@/components/utilities/mainbutton";
+import gridlayout from "@/components/layout/gridlayout";
+import maincard from "@/components/card/maincard.vue";
 
 export default {
   components: { 
-    mainbutton
+    'app-main-card': maincard,
+    mainbutton,
+    gridlayout
   },
   methods: {
     openFilter() {
