@@ -7,13 +7,13 @@
         <!-- email -->
         <div class="mb-form">
           <label for="email">Email</label>
-          <input class="mt4" type="email" name="email" placeholder="Email address">
+          <input class="mt4" type="email" name="email" placeholder="Email address" v-model="form.email">
         </div>
         <!-- password -->
         <div class="mb-form">
           <label for="password">Password</label>
           <div class="password-wrapper mt4">
-            <input :type="isShown?'password':'text'" name="password" class="" placeholder="Password">
+            <input :type="isShown?'password':'text'" name="password" class="" placeholder="Password" v-model="form.password">
             <eye/>
           </div>
         </div>
@@ -21,13 +21,14 @@
         <nuxt-link to="/resetpassword" class="form-link mb-form">forgot password?</nuxt-link>
 
         <div class="gen-wrapper mb-form">
-          <mainbutton :onClick="normalLogin" class="ml" size="max">Log into your account</mainbutton>
+          <mainbutton v-if="loading === false" :onClick="normalLogin" class="ml" size="max">Log into your account</mainbutton>
+          <mainbutton loading v-else class="ml" mode="loading" size="max">Logging in</mainbutton>
         </div>
 
         <p class="form-or form-center mb-form">OR</p>
 
         <div class="gen-wrapper mb-form">
-          <mainbutton :onClick="googleLogin" class="ml btn" size="max" mode="outline"><img src="~/assets/svg/google.svg" alt="" /><span>Log in with Google</span></mainbutton>
+          <mainbutton :onClick="googleLog" class="ml btn" size="max" mode="outline"><img src="~/assets/svg/google.svg" alt="" /><span>Log in with Google</span></mainbutton>
         </div>
         
         <p class="form-right mb-form"><span class="form-or">OR </span><nuxt-link to="/signup">Create an account instead</nuxt-link> </p>
@@ -52,6 +53,17 @@ export default {
     eye,
     mainbutton
   },
+  data() {
+    return {
+      loading: false,
+      error: false,
+      isLogin: true,
+      form: {
+        email: null,
+        password: null
+      }
+    }
+  },
   computed: {
     isShown() {
       return this.$store.getters["form/isPasswordVisible"]
@@ -59,10 +71,18 @@ export default {
   },
   methods: {
     normalLogin() {
-      console.log('Button clicked')
+      this.loading = true
+      this.$store.dispatch("profile/authenticateUser", {
+        isLogin: this.isLogin,
+        form: this.form
+      })
+      .then(() => {
+        this.$router.push('/')
+      })
+      .catch(e => console.log(e, 'failed to login'))
     },
-    googleLogin() {
-      console.log('Button clicked')
+    googleLog() {
+      this.loading = true
     }
   }
 }

@@ -17,9 +17,8 @@ export default {
             const btn = event.key;
             if (btn === "Enter") {
                 const search_terms = event.target.value;
-                console.log(search_terms);
                 // this.$store.dispatch("search", search_terms);
-                // this.$router.push("/search");
+                this.$router.push(`/search?${search_terms}`);
             }
         }
     }

@@ -40,7 +40,6 @@ export default {
     },
     props: {
         typeofcard: {
-            // gridd, flexx
             type: String,
             required: false,
             default: "gridd"
@@ -78,9 +77,6 @@ export default {
             type: String,
             required: false
         },
-    },
-    filters: {
-        
     }
 }
 </script>

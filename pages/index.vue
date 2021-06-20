@@ -73,6 +73,7 @@
 </template>
 
 <script>
+// https://lookaam.herokuapp.com      url
 import jumbotron from "@/components/homepage/jumbotron.vue";
 import jumbotronbottom from "@/components/homepage/jumbotronbottom.vue";
 import explorejumbotron from "@/components/homepage/explorejumbotron.vue";

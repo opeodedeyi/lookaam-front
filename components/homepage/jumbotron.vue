@@ -6,7 +6,7 @@
 
 <script>
 export default {
-     data() {
+    data() {
         return {
             words: ["Video Shoot", "Events", "House Party"],
             i: 0

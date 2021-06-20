@@ -1,36 +1,37 @@
 <template>
   <formlayout>
-    <template v-slot:default>
+    <template v-slot:default v-if="error === false">
       <p class="form-title">Create your account</p>
 
-      <form action="" class="form-body-cont">
+      <form class="form-body-cont" @submit.prevent="onSubmit">
         <!-- email -->
         <div class="mb-form">
           <label for="email">Email</label>
-          <input class="mt4" type="email" name="email" placeholder="Email address">
+          <input class="mt4" type="email" name="email" placeholder="Email address" v-model="form.email">
         </div>
         <!-- fullname -->
         <div class="mb-form">
           <label for="fullname">Full name</label>
-          <input class="mt4" type="text" name="fullname" placeholder="Full name">
+          <input class="mt4" type="text" name="fullname" placeholder="Full name" v-model="form.fullname">
         </div>
         <!-- password -->
         <div class="mb-form">
           <label for="password">Password</label>
           <div class="password-wrapper mt4">
-            <input :type="isShown?'password':'text'" name="password" class="" placeholder="Password">
+            <input :type="isShown?'password':'text'" name="password" class="" placeholder="Password" v-model="form.password">
             <eye/>
           </div>
         </div>
         
         <div class="gen-wrapper mb-form">
-          <mainbutton :onClick="consoleClick" class="ml" size="max">Create your account</mainbutton>
+          <mainbutton v-if="loading === false" :onClick="createAccount" class="ml" size="max">Create your account</mainbutton>
+          <mainbutton loading v-else :onClick="doNothing" class="ml" mode="loading" size="max">Creating your account</mainbutton>
         </div>
 
         <p class="form-or form-center mb-form">OR</p>
 
         <div class="gen-wrapper mb-form">
-          <mainbutton :onClick="consoleClick" class="ml btn" size="max" mode="outline"><img src="~/assets/svg/google.svg" alt="" /><span>Sign in using Google</span></mainbutton>
+          <mainbutton :onClick="googleLog" class="ml btn" size="max" mode="outline"><img src="~/assets/svg/google.svg" alt="" /><span>Sign in using Google</span></mainbutton>
         </div>
         
         <p class="form-right mb-form"><span class="form-or">Already have an account? </span><nuxt-link to="/login">Sign in instead</nuxt-link> </p>
@@ -55,14 +56,41 @@ export default {
     eye,
     mainbutton
   },
+  data() {
+    return {
+      loading: false,
+      error: false,
+      isSignup: true,
+      form: {
+        email: null,
+        fullname: null,
+        password: null
+      }
+    }
+  },
   computed: {
     isShown() {
       return this.$store.getters["form/isPasswordVisible"]
     }
   },
+  
   methods: {
-    consoleClick() {
-      console.log('Button clicked')
+    createAccount() {
+      this.loading = true
+      this.$store.dispatch("profile/authenticateUser", {
+        isSignup: this.isSignup,
+        form: this.form
+      })
+      .then(() => {
+        this.$router.push('/loginsuccess')
+      })
+      .catch(e => console.log(e))
+    },
+    googleLog() {
+      this.loading = true
+    },
+    doNothing() {
+      return
     }
   }
 }
@@ -149,6 +177,50 @@ input {
 
 .password-wrapper input {
   padding: 11.2px 42px 11.2px 16px;
+}
+
+/* mail sent section */
+.mbm {
+  margin-bottom: .5rem;
+}
+
+.mail-sent {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 400px;
+}
+
+.mail-sent-top {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mail-sent-title {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.mail-sent-text {
+  text-align: center;
+}
+
+.mail-sent-link {
+  text-align: center;
+  color: var(--color-company);
+  cursor: pointer;
+}
+
+.mail-sent-link:hover {
+  color: var(--color-company2);
+}
+
+.mail-sent-icon {
+  height: 60px;
 }
 
 @media only screen and (min-width: 1000px) {

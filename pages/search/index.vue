@@ -7,56 +7,7 @@
     <gridlayout>
       <app-main-card 
         hasLike="true" 
-        to="/card" 
-        Ptitle="Otedola mansion plaza lagos nigeria" 
-        Ptype="Restaurant"
-        Pprice="60,000">
-      </app-main-card>
-      <app-main-card 
-        hasLike="true" 
-        to="/card" 
-        Ptitle="Otedola mansion plaza lagos nigeria" 
-        Ptype="Restaurant"
-        Pprice="60,000">
-      </app-main-card>
-      <app-main-card 
-        hasLike="true" 
-        to="/card" 
-        Ptitle="Otedola mansion plaza lagos nigeria" 
-        Ptype="Restaurant"
-        Pprice="60,000">
-      </app-main-card>
-      <app-main-card 
-        hasLike="true" 
-        to="/card" 
-        Ptitle="Otedola mansion plaza lagos nigeria" 
-        Ptype="Restaurant"
-        Pprice="60,000">
-      </app-main-card>
-      <app-main-card 
-        hasLike="true" 
-        to="/card" 
-        Ptitle="Otedola mansion plaza lagos nigeria" 
-        Ptype="Restaurant"
-        Pprice="60,000">
-      </app-main-card>
-      <app-main-card 
-        hasLike="true" 
-        to="/card" 
-        Ptitle="Otedola mansion plaza lagos nigeria" 
-        Ptype="Restaurant"
-        Pprice="60,000">
-      </app-main-card>
-      <app-main-card 
-        hasLike="true" 
-        to="/card" 
-        Ptitle="Otedola mansion plaza lagos nigeria" 
-        Ptype="Restaurant"
-        Pprice="60,000">
-      </app-main-card>
-      <app-main-card 
-        hasLike="true" 
-        to="/card" 
+        to="/property/34984389q8498q49" 
         Ptitle="Otedola mansion plaza lagos nigeria" 
         Ptype="Restaurant"
         Pprice="60,000">
@@ -66,6 +17,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import mainbutton from "@/components/utilities/mainbutton";
 import gridlayout from "@/components/layout/gridlayout";
 import maincard from "@/components/card/maincard.vue";
@@ -76,6 +28,9 @@ export default {
     mainbutton,
     gridlayout
   },
+  asyncData(context) {
+    return axios.get('https://lookaam.herokuapp.com/resetpassword/place')
+  },
   methods: {
     openFilter() {
       console.log('filter button clicked')
@@ -83,7 +38,12 @@ export default {
     openDate() {
       console.log('date button clicked')
     }
-  }
+  },
+  data() {
+    return {
+      properties: []
+    }
+  },
 }
 </script>
 
