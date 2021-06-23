@@ -62,7 +62,7 @@ import eye from "@/components/utilities/eye";
 import mainbutton from "@/components/utilities/mainbutton";
 
 export default {
-  middleware: 'altauth',
+  middleware: 'notAuth',
   components: {
     formlayout,
     eye,

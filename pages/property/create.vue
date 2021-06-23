@@ -137,7 +137,7 @@ import controlinput from '@/components/utilities/controlinput';
 import multiplephotoupload from '@/components/utilities/multiplephotoupload';
 
 export default {
-    middleware: 'auth',
+    middleware: ['isAuth'],
     components: {
         createproplayout,
         baseinput,

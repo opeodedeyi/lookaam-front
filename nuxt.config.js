@@ -55,10 +55,9 @@ export default {
     middleware: 'check-auth'
   },
 
-  // auth: {
-  //   strategies: {
-  //     local: { /* ... */ },
-  //     github: { /* ... */ },
-  //   }
-  // }
+  auth: {
+    strategies: {
+      local: { /* ... */ },
+    }
+  }
 }

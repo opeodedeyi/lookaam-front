@@ -25,7 +25,7 @@
 import formlayout from "@/components/layout/formlayout";
 
 export default {
-    middleware: ['auth'],
+    middleware: ['isAuth'],
     components: {
         formlayout
     },

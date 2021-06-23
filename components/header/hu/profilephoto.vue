@@ -6,7 +6,7 @@
 
     <ul class="dropdown" :class="{ show: dropdown }">
       <nuxt-link to="/profile" tag="li" class="first">Profile</nuxt-link>
-      <nuxt-link to="/help" tag="li" class="mid">Host a place</nuxt-link>
+      <nuxt-link to="/getstarted" tag="li" class="mid">Host a place</nuxt-link>
       <nuxt-link to="/help" tag="li" >Manage my places</nuxt-link>
       <nuxt-link to="/help" tag="li" >Saved places</nuxt-link>
       <nuxt-link to="/help" tag="li" >Help</nuxt-link>
@@ -116,14 +116,14 @@ export default {
     /* Large screens */
     @media only screen and (min-width: 1000px) {
       .mid {
-        display: none;
+        display: block;
       }
     }
 
     /* Larger screens */
     @media only screen and (min-width: 1260px) {
       .mid {
-        display: block;
+        display: none;
       }
     }
 </style>
