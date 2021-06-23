@@ -53,16 +53,6 @@ import mainbutton from "@/components/utilities/mainbutton";
 
 export default {
   middleware: ['altauth'],
-  head: {
-    htmlAttrs: {
-      itemscope: true,
-      itemtype: "http://schema.org/Article"
-    },
-    script: [
-      { src: "//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" },
-      { src: "https://apis.google.com/js/client:platform.js?onload=start", async: true , defer: true },
-    ]
-  },
   components: {
     formlayout,
     eye,
@@ -96,19 +86,13 @@ export default {
         form: this.form
       })
       .catch(err => {
-        // handle errors here
+        // handle login errors here
         this.loading = false
         console.log(err.response)
       })
     },
     googleLog() {
       this.gloading = true
-
-
-      this.auth2.grantOfflineAccess()
-      .then(signInCallback => {
-        console.log(signInCallback);
-      });
       this.$store.dispatch("profile/authenticateUser", {
         isGoogle: true,
         form: this.form
@@ -117,19 +101,7 @@ export default {
     doNothing() {
       return
     }
-  },
-  mounted: (
-    function start() {
-      gapi.load('auth2', function() {
-        auth2 = gapi.auth2.init({
-          client_id: '156377464736-vlgvsdtk4ka382a36bnb48r2m82afdfd.apps.googleusercontent.com',
-          // Scopes to request in addition to 'profile' and 'email'
-          //scope: 'additional_scope'
-          response_type: "id_token"
-        });
-      });
-    }
-  )
+  }
 }
 </script>
 
