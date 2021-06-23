@@ -4,16 +4,9 @@
       <p class="form-title">Create your account</p>
 
       <form class="form-body-cont" @submit.prevent="onSubmit">
-        <!-- email -->
-        <div class="mb-form">
-          <label for="email">Email</label>
-          <input class="mt4" type="email" name="email" placeholder="Email address" v-model="form.email">
-        </div>
-        <!-- fullname -->
-        <div class="mb-form">
-          <label for="fullname">Full name</label>
-          <input class="mt4" type="text" name="fullname" placeholder="Full name" v-model="form.fullname">
-        </div>
+        <baseinput hasSlot placeholder="Email address" name="email" inputType="email" v-model="form.email">Email</baseinput>
+        <baseinput hasSlot placeholder="Full name" name="fullname" v-model="form.fullname">Full name</baseinput>
+
         <!-- password -->
         <div class="mb-form">
           <label for="password">Password</label>
@@ -46,6 +39,7 @@
 
 
 <script>
+import baseinput from '@/components/utilities/baseinput';
 import formlayout from "@/components/layout/formlayout";
 import eye from "@/components/utilities/eye";
 import mainbutton from "@/components/utilities/mainbutton";
@@ -59,6 +53,7 @@ export default {
     ]
   },
   components: {
+    baseinput,
     formlayout,
     eye,
     mainbutton,

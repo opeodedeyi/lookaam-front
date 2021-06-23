@@ -48,6 +48,7 @@ export const actions = {
             if (authData.isSignup) {
                 this.$router.push('/signup/success')
             }
+            this.$router.push('/')
         })
     },
     saveToken({ commit }, token){

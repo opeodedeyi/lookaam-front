@@ -5,52 +5,15 @@
             <span v-if="mustFill" class="label-required">*</span>
             <span v-else-if="isBold" class="label-bold">(optional)</span>
         </label>
-
-        <!-- text input -->
-        <input 
-            v-if="controlType === 'input' && inputType ==='text'" 
-            type="text" 
-            maxlength="50"
-            :name="name" 
-            :placeholder="placeholder" 
-            :value="value" 
-            @input="$emit('input', $event.target.value) ">
-        <!-- email input -->
-        <input 
-            v-if="controlType === 'input' && inputType ==='email'" 
-            type="email" 
-            :name="name" 
-            :placeholder="placeholder" 
-            :value="value" 
-            @input="$emit('input', $event.target.value) ">
-        <!-- number input -->
-        <input 
-            v-if="controlType === 'input' && inputType ==='number'" 
-            type="number" 
-            maxlength="12"
-            :name="name" 
-            :placeholder="placeholder" 
-            :value="value" 
-            min="0"
-            @input="$emit('input', $event.target.value) ">
-        <!-- textarea input -->
-        <div class="textarea" v-if="controlType === 'textarea'">
-            <textarea  
-                :name="name" 
-                :placeholder="placeholder" 
-                :maxlength="maxLength"
+        <!-- password input -->
+        <div class="password">
+            <input  
+                :name="name"
+                :type="isShown?'password':'text'" 
+                :placeholder="placeholder"
                 :value="value"
                 @input="$emit('input', $event.target.value) ">
-            </textarea>
-            <div class="textarea-count">{{ countLeft }}</div>
         </div>
-        <!-- time input -->
-        <input 
-            v-if="controlType === 'input' && inputType ==='time'" 
-            type="time"
-            :name="name" 
-            :value="value" 
-            @input="$emit('input', $event.target.value) ">
     </div>
 </template>
 
@@ -77,21 +40,6 @@ export default {
             required: false,
             default: false
         },
-        inputType: {
-            type: String,
-            required: false,
-            default: "text"
-        },
-        controlType: {
-            type: String,
-            required: false,
-            default: 'input'
-        },
-        maxLength: {
-            type: Number,
-            required: false,
-            default: 300
-        },
         value: {
             type: String,
             default: ''
@@ -100,14 +48,6 @@ export default {
             type: Boolean,
             required: false,
             default: false
-        }
-    },
-    computed: {
-        countLeft() {
-            if (this.value===null) {
-                return this.maxLength
-            }
-            return this.maxLength-this.value.length
         }
     },
 }
