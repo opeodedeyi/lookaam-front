@@ -19,7 +19,7 @@ export default {
     },
     computed: {
         isLoggedIn() {
-            return this.$store.getters["profile/isloggedin"]
+            return this.$store.getters["profile/check"]
         }
     }
 }

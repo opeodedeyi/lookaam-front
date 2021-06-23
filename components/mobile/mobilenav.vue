@@ -7,7 +7,7 @@
             </div>
             <div class="nav-profile" v-if="isLoggedIn">
                 <profilephoto/>
-                <p>Hi, {{ name }}</p>
+                <p>Hi, {{ user.fullname }}</p>
             </div>
             <ul class="nav-main" @click="cancel">
                 <nuxt-link to="/signup" tag="li" active-class="active" v-if="!isLoggedIn"><a>Create an account</a></nuxt-link>
@@ -15,10 +15,10 @@
                 <nuxt-link to="/getstarted" tag="li" active-class="active" v-if="!isLoggedIn"><a>Become a Host</a></nuxt-link>
 
                 <nuxt-link to="/profile" tag="li" active-class="active" v-if="isLoggedIn"><a>My Profile</a></nuxt-link>
-                <nuxt-link to="/profile" tag="li" active-class="active" v-if="isLoggedIn"><a>Manage my Places</a></nuxt-link>
+                <nuxt-link to="/property" tag="li" active-class="active" v-if="isLoggedIn"><a>Manage my Places</a></nuxt-link>
                 <nuxt-link to="/getstarted" tag="li" active-class="active" v-if="isLoggedIn"><a>Host a Place</a></nuxt-link>
                 <nuxt-link to="/profile" tag="li" active-class="active" v-if="isLoggedIn"><a>Saved Places</a></nuxt-link>
-                <nuxt-link to="/profile" tag="li" active-class="active" v-if="isLoggedIn"><a>Sign out</a></nuxt-link>
+                <li active-class="active" @click.prevent="logOut" v-if="isLoggedIn">Sign out</li>
             </ul>
 
             <ul class="nav-secondary" @click="cancel">
@@ -58,16 +58,20 @@ export default {
             return this.$store.getters["mobilenav/isvisible"]
         },
         isLoggedIn() {
-            return this.$store.getters["profile/isloggedin"]
+            return this.$store.getters["profile/check"]
         },
-        name() {
-            return this.$store.getters["profile/thefullname"]
+        user() {
+            return this.$store.getters["profile/user"]
         }
     },
     methods: {
         cancel() {
             this.$store.commit("mobilenav/hidemobilenav");
             this.$store.commit("mobileoverlay/hideoverlay");
+        },
+        async logOut() {
+            await this.$store.dispatch("profile/logOut");
+            this.$router.push('/')
         }
     }
 }
@@ -125,11 +129,14 @@ export default {
         justify-content: flex-start;
     }
 
-    ul a {
+    ul a,
+    ul li {
         width: 100%;
+        cursor: pointer;
     }
 
-    a {
+    a,
+    li {
         text-decoration: none;
         font-weight: 500;
         color: var(--color-dark);

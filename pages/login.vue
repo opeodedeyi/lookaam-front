@@ -48,6 +48,7 @@ import eye from "@/components/utilities/eye";
 import mainbutton from "@/components/utilities/mainbutton";
 
 export default {
+  middleware: ['altauth'],
   components: {
     formlayout,
     eye,

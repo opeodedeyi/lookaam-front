@@ -10,7 +10,7 @@
       <nuxt-link to="/help" tag="li" >Manage my places</nuxt-link>
       <nuxt-link to="/help" tag="li" >Saved places</nuxt-link>
       <nuxt-link to="/help" tag="li" >Help</nuxt-link>
-      <nuxt-link to="/signout" tag="li" class="last">Log out</nuxt-link>
+      <li class="last" @click.prevent="logOut">Log out</li>
     </ul>
   </div>
 </template>
@@ -34,6 +34,10 @@ export default {
     },
     showdropdown() {
       this.$store.commit("dropdown/showdropdown");
+    },
+    async logOut() {
+      await this.$store.dispatch("profile/logOut");
+      this.$router.push('/')
     }
   },
 }

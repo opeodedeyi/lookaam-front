@@ -31,7 +31,8 @@
         <p class="form-or form-center mb-form">OR</p>
 
         <div class="gen-wrapper mb-form">
-          <mainbutton :onClick="googleLog" class="ml btn" size="max" mode="outline"><img src="~/assets/svg/google.svg" alt="" /><span>Sign in using Google</span></mainbutton>
+          <mainbutton v-if="gloading === false" :onClick="googleLog" class="ml btn" size="max" mode="outline"><img src="~/assets/svg/google.svg" alt="" /><span>Sign in using Google</span></mainbutton>
+          <mainbutton loading v-else :onClick="doNothing" class="ml btn" size="max" mode="google"><img src="~/assets/svg/google.svg" alt="" /><span>Sign in using Google</span></mainbutton>
         </div>
         
         <p class="form-right mb-form"><span class="form-or">Already have an account? </span><nuxt-link to="/login">Sign in instead</nuxt-link> </p>
@@ -51,6 +52,17 @@ import eye from "@/components/utilities/eye";
 import mainbutton from "@/components/utilities/mainbutton";
 
 export default {
+  middleware: ['altauth'],
+  head: {
+    htmlAttrs: {
+      itemscope: true,
+      itemtype: "http://schema.org/Article"
+    },
+    script: [
+      { src: "//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" },
+      { src: "https://apis.google.com/js/client:platform.js?onload=start", async: true , defer: true },
+    ]
+  },
   components: {
     formlayout,
     eye,
@@ -59,9 +71,11 @@ export default {
   data() {
     return {
       loading: false,
+      gloading: false,
       error: false,
       isSignup: true,
       form: {
+        tokenId: null,
         email: null,
         fullname: null,
         password: null
@@ -81,18 +95,41 @@ export default {
         isSignup: this.isSignup,
         form: this.form
       })
-      .then(() => {
-        this.$router.push('/loginsuccess')
+      .catch(err => {
+        // handle errors here
+        this.loading = false
+        console.log(err.response)
       })
-      .catch(e => console.log(e))
     },
     googleLog() {
-      this.loading = true
+      this.gloading = true
+
+
+      this.auth2.grantOfflineAccess()
+      .then(signInCallback => {
+        console.log(signInCallback);
+      });
+      this.$store.dispatch("profile/authenticateUser", {
+        isGoogle: true,
+        form: this.form
+      })
     },
     doNothing() {
       return
     }
-  }
+  },
+  mounted: (
+    function start() {
+      gapi.load('auth2', function() {
+        auth2 = gapi.auth2.init({
+          client_id: '156377464736-vlgvsdtk4ka382a36bnb48r2m82afdfd.apps.googleusercontent.com',
+          // Scopes to request in addition to 'profile' and 'email'
+          //scope: 'additional_scope'
+          response_type: "id_token"
+        });
+      });
+    }
+  )
 }
 </script>
 

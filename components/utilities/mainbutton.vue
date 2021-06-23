@@ -136,6 +136,16 @@ export default {
         background-color: var(--color-gray);
     }
 
+    .google {
+        background-color: var(--color-gray);
+        color: var(--color-dark);
+        border: 1px solid var(--color-dark);
+    }
+
+    .google:hover {
+        background-color: var(--color-gray);
+    }
+
     .filter {
         background-color: var(--color-gray);
         color: var(--color-dark);
