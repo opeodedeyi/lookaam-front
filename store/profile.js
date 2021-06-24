@@ -51,6 +51,14 @@ export const actions = {
             this.$router.push('/')
         })
     },
+    directLogin(vuexContext, data){
+        const token = data.token
+        const user = data.user
+        vuexContext.dispatch('saveToken', token)
+        vuexContext.dispatch('updateUser', user)
+        this.$axios.setToken(token, 'Bearer')
+        this.$router.push('/')
+    },
     saveToken({ commit }, token){
         commit('setToken', token);
         Cookie.set('token', token);
