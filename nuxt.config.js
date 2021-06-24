@@ -5,13 +5,16 @@ export default {
     htmlAttrs: {
       lang: 'en'
     },
+    script: [
+      { src: "https://apis.google.com/js/platform.js" },
+    ],
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/face.png' }
     ]
   },
 
@@ -51,8 +54,5 @@ export default {
   },
   router: {
     middleware: 'check-auth'
-    // middleware: [
-    //   'check-auth'
-    // ]
   }
 }

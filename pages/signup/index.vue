@@ -6,15 +6,8 @@
       <form class="form-body-cont" @submit.prevent="onSubmit">
         <baseinput hasSlot placeholder="Email address" name="email" inputType="email" v-model="form.email">Email</baseinput>
         <baseinput hasSlot placeholder="Full name" name="fullname" v-model="form.fullname">Full name</baseinput>
+        <passwordinput hasSlot placeholder="Password" name="password" inputType="password" v-model="form.password">Password</passwordinput>
 
-        <!-- password -->
-        <div class="mb-form">
-          <label for="password">Password</label>
-          <div class="password-wrapper mt4">
-            <input :type="isShown?'password':'text'" name="password" class="" placeholder="Password" v-model="form.password">
-            <eye/>
-          </div>
-        </div>
         
         <div class="gen-wrapper mb-form">
           <mainbutton v-if="loading === false" :onClick="createAccount" class="ml" size="max">Create your account</mainbutton>
@@ -40,8 +33,8 @@
 
 <script>
 import baseinput from '@/components/utilities/baseinput';
+import passwordinput from '@/components/utilities/passwordinput';
 import formlayout from "@/components/layout/formlayout";
-import eye from "@/components/utilities/eye";
 import mainbutton from "@/components/utilities/mainbutton";
 import googleSignIn from 'google-signin-vue/src/googleSignIn.vue';
 
@@ -54,8 +47,8 @@ export default {
   },
   components: {
     baseinput,
+    passwordinput,
     formlayout,
-    eye,
     mainbutton,
     googleSignIn
   },

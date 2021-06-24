@@ -6,13 +6,17 @@
             <span v-else-if="isBold" class="label-bold">(optional)</span>
         </label>
         <!-- password input -->
-        <div class="password">
+        <div class="password-input">
             <input  
                 :name="name"
                 :type="isShown?'password':'text'" 
                 :placeholder="placeholder"
                 :value="value"
                 @input="$emit('input', $event.target.value) ">
+            <div class="si" @click="togglepassword">
+                <img v-if="isShown" src="~/assets/svg/eye.svg" alt="" />
+                <img v-else src="~/assets/svg/eyehide.svg" alt="" />
+            </div>
         </div>
     </div>
 </template>
@@ -20,6 +24,11 @@
 
 <script>
 export default {
+    data() {
+        return {
+            isShown: true,
+        }
+    },
     props: {
         name: {
             type: String,
@@ -50,6 +59,11 @@ export default {
             default: false
         }
     },
+    methods: {
+        togglepassword() {
+            this.isShown = !this.isShown;
+        }
+    }
 }
 </script>
 
@@ -66,69 +80,30 @@ export default {
     margin-bottom: .9rem;
 }
 
-input,
-textarea {
-    font-family: 'Jost';
-}
-
-.normal-form input {
-    font-size: .95rem;
-    color: var(--color-dark);
-    padding: 9.2px 16px;
-    background-color: var(--color-gray);
-    border: none;
-    border-radius: 20px;
-    outline: none;
-}
-
-input[type=time] {
-    width: 140px;
-    background: url('~assets/svg/clock.svg') no-repeat var(--color-gray);
-    background-position: right 16px top 50%;
-    -webkit-appearance: none;
-}
-
-input[type="time"]::-webkit-calendar-picker-indicator {
-    background: url('~assets/svg/clock.svg') no-repeat var(--color-gray);
-    background-position: right 5px top 50%;
-    background-size: 15px;
-}
-
-.normal-form .textarea {
-    widows: 100%;
-    font-size: .95rem;
-    color: var(--color-dark);
-    padding: 10px 16px;
-    background-color: var(--color-gray);
-    border: none;
-    border-radius: 20px;
-    outline: none;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-}
-
-.textarea-count {
-    height: 20px;
-    width: 100%;
-    color: var(--color-company);
+.password-input {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: flex-end;
-    font-size: .8rem;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    outline: none;
+    border: none;
+    background-color: var(--color-gray);
+    border-radius: 20px;
+    height: 40px;
+    width: 100%;
+    padding: 0 16px;
 }
 
-textarea {
-    height: 150px;
-    width: 100%;
+.password-input input {
     font-size: .95rem;
     color: var(--color-dark);
     background-color: var(--color-gray);
     border: none;
+    border-radius: 20px;
     outline: none;
-    resize: none;
-    overflow: hidden;
+    flex-grow: 1;
 }
 
 .label-required {
@@ -139,18 +114,17 @@ textarea {
     font-weight: 500;
 }
 
-/* below is to hide arrows for number input */
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+.si {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    cursor: pointer;
 }
 
-/* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
+img {
+    height: 1.3rem;
+    color: blue;
 }
-/* above is to hide arrows for number input */
-
 </style>

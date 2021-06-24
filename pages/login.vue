@@ -5,16 +5,9 @@
 
       <form action="" class="form-body-cont">
         <baseinput hasSlot placeholder="Email address" name="email" inputType="email" v-model="form.email">Email</baseinput>
-        <!-- password -->
-        <div class="mb-form">
-          <label for="password">Password</label>
-          <div class="password-wrapper mt4">
-            <input :type="isShown?'password':'text'" name="password" class="" placeholder="Password" v-model="form.password">
-            <eye/>
-          </div>
-        </div>
+        <passwordinput hasSlot placeholder="Password" name="password" inputType="password" v-model="form.password">Password</passwordinput>
 
-        <!-- forget password -->
+        <!-- forgot password -->
         <nuxt-link to="/resetpassword" class="form-link mb-form">forgot password?</nuxt-link>
 
         <div class="gen-wrapper mb-form">
@@ -41,8 +34,8 @@
 
 <script>
 import baseinput from '@/components/utilities/baseinput';
+import passwordinput from '@/components/utilities/passwordinput';
 import formlayout from "@/components/layout/formlayout";
-import eye from "@/components/utilities/eye";
 import mainbutton from "@/components/utilities/mainbutton";
 import googleSignIn from 'google-signin-vue/src/googleSignIn.vue';
 
@@ -55,8 +48,8 @@ export default {
   },
   components: {
     baseinput,
+    passwordinput,
     formlayout,
-    eye,
     mainbutton,
     googleSignIn
   },
@@ -88,7 +81,10 @@ export default {
       .then(() => {
         this.$router.push('/')
       })
-      .catch(e => console.log(e, 'failed to login'))
+      .catch(e => {
+        this.loading = false
+        console.log(e, 'failed to login')
+      })
     },
     getSuccessData(user) {
       let googleIdToken = user.id_token

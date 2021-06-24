@@ -6,11 +6,7 @@
       <p class="form-explain">Enter the email associated with your account and we will send an email with instructions to reset your password</p>
 
       <form action="" class="form-body-cont">
-        <!-- email -->
-        <div class="mb-form">
-          <label for="email">Email</label>
-          <input class="mt4" type="email" name="email" placeholder="Email address" v-model="form.email">
-        </div>
+        <baseinput hasSlot placeholder="Email address" name="email" inputType="email" v-model="form.email">Email</baseinput>
         <!-- button -->
         <div class="gen-wrapper mb-form">
           <mainbutton v-if="loading === false" :onClick="resetPassword" class="ml" size="max">Send Instructions</mainbutton>
@@ -57,15 +53,15 @@
 
 
 <script>
+import baseinput from '@/components/utilities/baseinput';
 import formlayout from "@/components/layout/formlayout";
-import eye from "@/components/utilities/eye";
 import mainbutton from "@/components/utilities/mainbutton";
 
 export default {
   middleware: 'notAuth',
   components: {
+    baseinput,
     formlayout,
-    eye,
     mainbutton
   },
   data() {
