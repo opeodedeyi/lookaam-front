@@ -11,9 +11,13 @@ const cookieFromRequest = (request, key) => {
 }
 
 export const state = () => ({
+    discoverPlaces: [],
 })
  
 export const mutations = {
+    searchResult(state, result) {
+        state.discoverPlaces = result
+    },
 }
  
 export const actions = {
@@ -22,8 +26,23 @@ export const actions = {
         if (!!token) {
             commit('profile/setToken', token);
         }
+
+        return this.$axios
+        .$get('https://lookaam.herokuapp.com/place', { params: 
+            {
+                limit: 8,
+            }
+        })
+        .then(data => {
+            let result = data.results
+            commit('searchResult', result)
+        })
+        .catch(e => console.log(e))
     }
 }
  
 export const getters = {
+    discoverPlaces(state) {
+        return state.discoverPlaces
+    }
 }

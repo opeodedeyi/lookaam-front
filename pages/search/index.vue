@@ -4,32 +4,52 @@
       <mainbutton :onClick="openFilter" size="filter sb" mode="filter"><img src="~/assets/svg/filter.svg" alt="" /><span>FILTER</span></mainbutton>
       <mainbutton :onClick="openDate" class="ml sb" size="filter" mode="filter"><img src="~/assets/svg/date.svg" class="img-s" alt="" /><span class="img-t">DATE</span></mainbutton>
     </div>
-    <gridlayout>
+    <loadinglayout v-if="loading"></loadinglayout>
+    <gridlayout v-else-if="searchResult.length>0">
       <app-main-card 
+        v-for="result in searchResult"
+        :key="result._id"
+        :id="result._id"
         hasLike="true" 
-        to="/property/34984389q8498q49" 
-        Ptitle="Otedola mansion plaza lagos nigeria" 
-        Ptype="Restaurant"
-        Pprice="60,000">
+        :to="`/property/${result._id}`" 
+        :Ptitle="result.title"
+        :Ptype="result.typeof"
+        :Pprice="result.price">
       </app-main-card>
     </gridlayout>
+    <centerlayout v-else>
+      <template v-slot:default>
+        <p class="no-content-text">There are no properties available in this area.</p>
+      </template>
+    </centerlayout>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
 import mainbutton from "@/components/utilities/mainbutton";
 import gridlayout from "@/components/layout/gridlayout";
+import loadinglayout from "@/components/layout/loadinglayout";
+import centerlayout from "@/components/layout/centerlayout";
 import maincard from "@/components/card/maincard.vue";
 
 export default {
   components: { 
     'app-main-card': maincard,
     mainbutton,
-    gridlayout
+    gridlayout,
+    loadinglayout,
+    centerlayout
   },
-  asyncData(context) {
-    return axios.get('https://lookaam.herokuapp.com/resetpassword/place')
+  computed:{
+    searchQuery() {
+      return this.$store.getters["search/query"]
+    },
+    searchResult() {
+      return this.$store.getters["search/searchResult"]
+    },
+    loading() {
+      return this.$store.getters["search/loading"]
+    },
   },
   methods: {
     openFilter() {
@@ -37,13 +57,28 @@ export default {
     },
     openDate() {
       console.log('date button clicked')
-    }
+    },
+    search() {
+      this.$axios.get('/place', { params: 
+        {
+          search: searchQuery
+        }
+      })
+      .then(result => {
+        if (result) {
+          console.log('loading', result);
+        }
+      })
+      .catch(e => {
+        
+      })
+    },
   },
   data() {
     return {
       properties: []
     }
-  },
+  }
 }
 </script>
 
@@ -79,6 +114,13 @@ export default {
 
 .img-t {
   margin-top: .2rem;
+}
+
+.no-content-text {
+  color: var(--color-dark);
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
 }
 
 @media only screen and (max-width: 999.9px) {

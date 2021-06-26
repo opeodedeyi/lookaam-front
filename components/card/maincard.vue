@@ -70,7 +70,7 @@ export default {
             required: true
         },
         Pprice: {
-            type: String,
+            type: Number,
             required: true
         },
         Pimage: {

@@ -2,6 +2,7 @@
     <button v-if="!link" :class="[size, mode]" @click.prevent="onClick">
         <slot/>
         <div v-if="loading" class="loading-spinner"></div>
+        <div v-else-if="gloading" class="black-loading-spinner"></div>
     </button>
     <nuxt-link v-else :to="to" :class="[size, mode]">
         <slot/>
@@ -22,6 +23,11 @@ export default {
             default: "normal"
         },
         loading: {
+            type: Boolean,
+            required: false,
+            default: false
+        },
+        gloading: {
             type: Boolean,
             required: false,
             default: false
@@ -228,7 +234,8 @@ export default {
     }
 }
 
-.loading-spinner {
+.loading-spinner,
+.black-loading-spinner {
     -webkit-animation-duration: 0.75s;
     -moz-animation-duration: 0.75s;
     animation-duration: 0.75s;
@@ -243,9 +250,17 @@ export default {
     animation-timing-function: linear;
     height: 16px;
     width: 16px;
-    border: 3px solid #ffffff;
-    border-right-color: transparent;
     border-radius: 50%;
     margin-left: .5rem;
+}
+
+.loading-spinner {
+    border: 3px solid var(--color-white);
+    border-right-color: transparent;
+}
+
+.black-loading-spinner {
+    border: 3px solid var(--color-dark);
+    border-right-color: var(--color-gray);
 }
 </style>

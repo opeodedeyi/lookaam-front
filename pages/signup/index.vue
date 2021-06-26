@@ -17,7 +17,7 @@
         <p class="form-or form-center mb-form">OR</p>
 
         <googleSignIn class="gen-wrapper mb-form" customButton customButtonId='gsignin' :clientId="'156377464736-vlgvsdtk4ka382a36bnb48r2m82afdfd.apps.googleusercontent.com'" :successCallBack="getSuccessData" :failureCallBack="getFailureData">
-          <mainbutton  :loading="gloading" id="gsignin" :onClick="setLoading" class="ml btn" size="max" mode="outline"><img src="~/assets/svg/google.svg" alt="" /><span>Sign in using Google</span></mainbutton>
+          <mainbutton  :gloading="gloading" id="gsignin" :onClick="setLoading" class="ml btn" size="max" mode="outline"><img src="~/assets/svg/google.svg" alt="" /><span>Sign in using Google</span></mainbutton>
         </googleSignIn>
         
         <p class="form-right mb-form"><span class="form-or">Already have an account? </span><nuxt-link to="/login">Sign in instead</nuxt-link> </p>

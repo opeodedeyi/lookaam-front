@@ -4,67 +4,14 @@
     <app-explore-jumbotron>
       <app-main-card 
         typeofcard="flexx" 
+        v-for="result in explorePlaces"
+        :key="result._id"
+        :id="result._id"
         hasLike="true" 
-        to="/card" 
-        Ptitle="Otedola mansion plaza lagos nigeria" 
-        Ptype="Restaurant"
-        Pprice="60,000">
-      </app-main-card>
-      <app-main-card 
-        typeofcard="flexx" 
-        hasLike="true" 
-        to="/card" 
-        Ptitle="Otedola mansion plaza lagos nigeria" 
-        Ptype="Restaurant"
-        Pprice="60,000">
-      </app-main-card>
-      <app-main-card 
-        typeofcard="flexx" 
-        hasLike="true" 
-        to="/card" 
-        Ptitle="Otedola mansion plaza lagos nigeria" 
-        Ptype="Restaurant"
-        Pprice="60,000">
-      </app-main-card>
-      <app-main-card 
-        typeofcard="flexx" 
-        hasLike="true" 
-        to="/card" 
-        Ptitle="Otedola mansion plaza lagos nigeria" 
-        Ptype="Restaurant"
-        Pprice="60,000">
-      </app-main-card>
-      <app-main-card 
-        typeofcard="flexx" 
-        hasLike="true" 
-        to="/card" 
-        Ptitle="Otedola mansion plaza lagos nigeria" 
-        Ptype="Restaurant"
-        Pprice="60,000">
-      </app-main-card>
-      <app-main-card 
-        typeofcard="flexx" 
-        hasLike="true" 
-        to="/card" 
-        Ptitle="Otedola mansion plaza lagos nigeria" 
-        Ptype="Restaurant"
-        Pprice="60,000">
-      </app-main-card>
-      <app-main-card 
-        typeofcard="flexx" 
-        hasLike="true" 
-        to="/card" 
-        Ptitle="Otedola mansion plaza lagos nigeria" 
-        Ptype="Restaurant"
-        Pprice="60,000">
-      </app-main-card>
-      <app-main-card 
-        typeofcard="flexx" 
-        hasLike="true" 
-        to="/card" 
-        Ptitle="Otedola mansion plaza lagos nigeria" 
-        Ptype="Restaurant"
-        Pprice="60,000">
+        :to="`/property/${result._id}`"
+        :Ptitle="result.title"
+        :Ptype="result.typeof"
+        :Pprice="result.price">
       </app-main-card>
     </app-explore-jumbotron>
     <app-jumbotron-bottom></app-jumbotron-bottom>
@@ -86,7 +33,12 @@ export default {
     'app-explore-jumbotron': explorejumbotron,
     'app-main-card': maincard,
     'app-footer': footer
-  }
+  },
+  computed:{
+    explorePlaces() {
+      return this.$store.getters["discoverPlaces"]
+    },
+  },
 }
 </script>
 

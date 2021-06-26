@@ -6,13 +6,19 @@
                 <slot/>
             </div>
         </div>
-        <nuxt-link to="/" class="e-j-explore">See more places ></nuxt-link>
+        <div class="e-j-explore" @click.prevent="explorePlaces">See more places ></div>
     </div>
 </template>
 
 <script>
 export default {
-    
+    methods: {
+        explorePlaces() {
+            console.log("clicked");
+            this.$store.dispatch("search/search", "");
+            this.$router.push('/search');
+        },
+    },
 }
 </script>
 
@@ -25,13 +31,14 @@ export default {
     justify-content: flex-start;
 }
 
-.explore-Jumbotron a {
+.e-j-explore {
     text-decoration: none;
     color: var(--color-company);
     font-size: 1.1rem;
+    cursor: pointer;
 }
 
-.explore-Jumbotron a:hover {
+.e-j-explore:hover {
     text-decoration: none;
     color: var(--color-company2);
 }

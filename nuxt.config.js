@@ -19,7 +19,7 @@ export default {
   },
 
   // loading indicator
-  loading: { color: '#4D69B4', failedColor: '#F25858', duration: 5000, throttle: 0 },
+  loading: { height: '5px', color: '#4D69B4', failedColor: '#F25858', duration: 10000, throttle: 0 },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
