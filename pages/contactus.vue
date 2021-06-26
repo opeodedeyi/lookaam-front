@@ -6,24 +6,12 @@
       <p class="form-explain">Are you interested in collaborating with us? or do you have a problem with our service? Please do not hesitate to contact us if you have any questions or concerns.</p>
 
       <form action="" class="form-body-cont">
-        <!-- email -->
-        <div class="mb-form">
-          <label for="email">Email</label>
-          <input class="mt4" type="email" name="email" placeholder="Your email address">
-        </div>
-        <!-- title -->
-        <div class="mb-form">
-          <label for="title">Title</label>
-          <input class="mt4" type="text" name="title" placeholder="The subject of the message">
-        </div>
-        <!-- message -->
-        <div class="mb-form">
-          <label for="message">Message</label>
-          <textarea class="mt4" name="message" placeholder="Tell us the problem or suggestion" cols="30" rows="5"></textarea>
-        </div>
+        <baseinput v-if="!isLoggedin" hasSlot placeholder="E-mail" name="email" inputType="email" v-model="form.email">Email</baseinput>
+        <baseinput hasSlot placeholder="The message's subject is.." name="title" inputType="text" v-model="form.title">Title</baseinput>
+        <baseinput hasSlot placeholder="Please describe the issue or provide a suggestion." controlType="textarea" :maxLength=350 name="message" v-model="form.message">Message</baseinput>
         <!-- button -->
         <div class="gen-wrapper mb-form mb-cont">
-          <mainbutton :onClick="consoleClick" class="ml" size="max">Send Message</mainbutton>
+          <mainbutton :onClick="sendMessage" class="ml" size="max">Send Message</mainbutton>
         </div>
 
       </form>
@@ -39,19 +27,32 @@
 <script>
 import formlayout from "@/components/layout/formlayout";
 import mainbutton from "@/components/utilities/mainbutton";
+import baseinput from '@/components/utilities/baseinput';
 
 export default {
   components: {
+    baseinput,
     formlayout,
     mainbutton
   },
+  data() {
+    return {
+      loading: false,
+      error: false,
+      form: {
+        email: null,
+        title: null,
+        message: null
+      }
+    }
+  },
   computed: {
-    isShown() {
-      return this.$store.getters["form/isPasswordVisible"]
+    isLoggedin() {
+      return this.$store.getters["profile/check"]
     }
   },
   methods: {
-    consoleClick() {
+    sendMessage() {
       console.log('Button clicked')
     }
   }

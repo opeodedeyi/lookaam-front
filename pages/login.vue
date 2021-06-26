@@ -1,5 +1,6 @@
 <template>
-  <formlayout>
+  <loadinglayout v-if="gloading"></loadinglayout>
+  <formlayout v-else>
     <template v-slot:default>
       <p class="form-title">Welcome Back</p>
 
@@ -33,6 +34,7 @@
 
 
 <script>
+import loadinglayout from "@/components/layout/loadinglayout";
 import baseinput from '@/components/utilities/baseinput';
 import passwordinput from '@/components/utilities/passwordinput';
 import formlayout from "@/components/layout/formlayout";
@@ -47,6 +49,7 @@ export default {
     ]
   },
   components: {
+    loadinglayout,
     baseinput,
     passwordinput,
     formlayout,
@@ -66,14 +69,9 @@ export default {
       }
     }
   },
-  computed: {
-    isShown() {
-      return this.$store.getters["form/isPasswordVisible"]
-    }
-  },
   methods: {
     normalLogin() {
-      this.loading = true
+      this.gloading = true
       this.$store.dispatch("profile/authenticateUser", {
         isLogin: this.isLogin,
         form: this.form
@@ -82,20 +80,19 @@ export default {
         this.$router.push('/')
       })
       .catch(e => {
-        this.loading = false
+        this.gloading = false
         console.log(e, 'failed to login')
       })
     },
     getSuccessData(user) {
       let googleIdToken = user.id_token
-      console.log(googleIdToken);
       this.form.tokenId = googleIdToken
       this.$store.dispatch("profile/authenticateUser", {
         isGoogle: true,
         form: this.form
       })
       .catch(err => {
-        this.gloading = true
+        this.gloading = false
         console.log(err.response)
       })
     },

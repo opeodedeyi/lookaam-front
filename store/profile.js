@@ -39,7 +39,6 @@ export const actions = {
         return await this.$axios
         .$post(authUrl, authData.form)
         .then(data => {
-            console.log(data);
             const token = data.token
             const user = data.user
             vuexContext.dispatch('saveToken', token)
@@ -66,7 +65,6 @@ export const actions = {
     async fetchUser({ commit }){
         try{
             const { data } = await this.$axios.get('/me');
-            console.log(data);
             commit('fetchUserSuccess', data);
         }catch(e){
             Cookie.remove('token');

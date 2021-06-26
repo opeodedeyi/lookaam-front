@@ -7,9 +7,8 @@
     <ul class="dropdown" :class="{ show: dropdown }">
       <nuxt-link to="/profile" tag="li" class="first">Profile</nuxt-link>
       <nuxt-link to="/getstarted" tag="li" class="mid">Host a place</nuxt-link>
-      <nuxt-link to="/help" tag="li" >Manage my places</nuxt-link>
-      <nuxt-link to="/help" tag="li" >Saved places</nuxt-link>
-      <nuxt-link to="/help" tag="li" >Help</nuxt-link>
+      <nuxt-link to="/profile/manageplaces" tag="li" >Manage my places</nuxt-link>
+      <nuxt-link to="/profile/savedplaces" tag="li" >Saved places</nuxt-link>
       <li class="last" @click.prevent="logOut">Log out</li>
     </ul>
   </div>

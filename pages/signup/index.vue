@@ -1,5 +1,6 @@
 <template>
-  <formlayout>
+  <loadinglayout v-if="gloading"></loadinglayout>
+  <formlayout v-else>
     <template v-slot:default v-if="error === false">
       <p class="form-title">Create your account</p>
 
@@ -32,6 +33,7 @@
 
 
 <script>
+import loadinglayout from "@/components/layout/loadinglayout";
 import baseinput from '@/components/utilities/baseinput';
 import passwordinput from '@/components/utilities/passwordinput';
 import formlayout from "@/components/layout/formlayout";
@@ -46,6 +48,7 @@ export default {
     ]
   },
   components: {
+    loadinglayout,
     baseinput,
     passwordinput,
     formlayout,
@@ -73,27 +76,26 @@ export default {
   },
   methods: {
     createAccount() {
-      this.loading = true
+      this.gloading = true
       this.$store.dispatch("profile/authenticateUser", {
         isSignup: this.isSignup,
         form: this.form
       })
       .catch(err => {
         // handle errors here
-        this.loading = false
+        this.gloading = false
         console.log(err.response)
       })
     },
     getSuccessData(user) {
       let googleIdToken = user.id_token
-      console.log(googleIdToken);
       this.form.tokenId = googleIdToken
       this.$store.dispatch("profile/authenticateUser", {
         isGoogle: true,
         form: this.form
       })
       .catch(err => {
-        this.gloading = true
+        this.gloading = false
         console.log(err.response)
       })
     },

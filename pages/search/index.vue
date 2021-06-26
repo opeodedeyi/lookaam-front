@@ -11,7 +11,7 @@
         :key="result._id"
         :id="result._id"
         hasLike="true" 
-        :to="`/property/${result._id}`" 
+        :to="`/property/${result._id}`"  
         :Ptitle="result.title"
         :Ptype="result.typeof"
         :Pprice="result.price">

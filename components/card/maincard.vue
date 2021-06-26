@@ -1,6 +1,6 @@
 <template>
     <nuxt-link v-if="hasLikebtn" :to="to" class="main-card" :class="[typeofcard]">
-        <img v-if="Pimage" :src="Pimage" alt="ima"  class="main-card-area cardimage"/>
+        <img v-if="photo" :src="photo" alt="ima"  class="main-card-area cardimage"/>
         <img v-else src="~/assets/images/cardimage.webp" alt="ima"  class="main-card-area cardimage"/>
         <div class="main-card-area cardtext">
             <div class="card-top">
@@ -16,7 +16,7 @@
     </nuxt-link>
 
     <nuxt-link v-else :to="to" class="main-card" :class="[typeofcard]">
-        <img v-if="Pimage" :src="Pimage" alt="ima"  class="main-card-area cardimage"/>
+        <img v-if="photo" :src="photo" alt="ima"  class="main-card-area cardimage"/>
         <img v-else src="~/assets/images/cardimage.webp" alt="ima"  class="main-card-area cardimage"/>
         <div class="card-top">
 
@@ -56,6 +56,10 @@ export default {
             required: false,
             default: '/'
         },
+        id: {
+            type: String,
+            required: false,
+        },
         liked: {
             type: Boolean,
             required: false,
@@ -77,6 +81,30 @@ export default {
             type: String,
             required: false
         },
+    },
+    data() {
+        return {
+            loading: false,
+            photo: null
+        }
+    },
+    methods: {
+        getPhoto() {
+            this.loading = true
+            this.$axios.get(`/place/${this.id}/onephoto`)
+            .then(result => {
+                const img = result.data.location
+                this.photo = img
+                this.loading = false
+            })
+            .catch(e => {
+                console.log("failed to get card image");
+                this.loading = false
+            })
+        }
+    },
+    mounted() {
+        this.getPhoto()
     }
 }
 </script>
