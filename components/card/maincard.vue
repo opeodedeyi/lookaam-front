@@ -104,7 +104,7 @@ export default {
         }
     },
     mounted() {
-        this.getPhoto()
+        // this.getPhoto()
     }
 }
 </script>

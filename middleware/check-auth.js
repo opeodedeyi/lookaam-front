@@ -1,3 +1,4 @@
+// Attaches the token to the header so they can be sent per request
 export default async ({ $axios, store }) => {
     const token = store.getters['profile/token'];
     if (process.server) {

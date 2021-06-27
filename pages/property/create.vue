@@ -137,7 +137,7 @@ import controlinput from '@/components/utilities/controlinput';
 import multiplephotoupload from '@/components/utilities/multiplephotoupload';
 
 export default {
-    middleware: ['isAuth'],
+    middleware: [ 'isVerified' ],
     components: {
         createproplayout,
         baseinput,
@@ -202,12 +202,10 @@ export default {
         },
         backPressed() {
             this.step--
-            console.log("Back button has been clicked");
         },
         nextPressed() {
             this.step++
             console.log(this.form);
-            console.log("Next button has been clicked");
         },
         finishPressed() {
             console.log("Finish button has been clicked");

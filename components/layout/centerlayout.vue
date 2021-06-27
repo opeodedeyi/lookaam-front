@@ -19,11 +19,13 @@ export default {
     flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
+    padding: 20px;
 }
 
 @media only screen and (min-width: 1000px) {
     .center-layout {
         min-height: 500px;
+        padding: 50px;
     }
 }
 </style>

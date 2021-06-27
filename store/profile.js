@@ -65,6 +65,7 @@ export const actions = {
     async fetchUser({ commit }){
         try{
             const { data } = await this.$axios.get('/me');
+            console.log(data); //remove later
             commit('fetchUserSuccess', data);
         }catch(e){
             Cookie.remove('token');
@@ -100,6 +101,9 @@ export const getters = {
     },
     check(state) {
         return state.user !== null
+    },
+    verifiedEmail(state) {
+        return state.user.isEmailConfirmed === false
     },
     user(state) {
         return state.user
