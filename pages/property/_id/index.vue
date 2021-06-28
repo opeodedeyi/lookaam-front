@@ -60,7 +60,12 @@
                     <basetag v-for="item in propertyDetails.accessibility" :key="item">{{item}}</basetag>
                 </div>
             </div>
-
+            <!-- Add {{{ mobile }}} only availability -->
+            <div v-if="propertyDetails.rules" class="flex-c-full p-t-b b-b mobile-only"><!-- {{{ mobile }}} only property rules -->
+                <label for="rules" class="general-title p-b s-btw"><p>Rules</p><img src="~/assets/svg/selectarrow.svg" alt=""></label>
+                <input type="checkbox" name="rules" id="rules" class="hidecheckbox">
+                <p class="general-text collapsed-item">{{ propertyDetails.rules }}</p>
+            </div>
         </template>
         
         <template v-slot:prop-right> <!-- desktop content on right side of page -->
