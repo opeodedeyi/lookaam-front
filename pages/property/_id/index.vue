@@ -10,12 +10,11 @@
                 <img v-else src="~/assets/images/cardimage.webp" alt="ima"  class="p-d-image propimage"/>
             </div>
             <!-- mobile only save and share goes here -->
-            <div class="p-d-title m-t-b">
+            <div class="p-d-title p-t-b b-b" v-if="propertyDetails.title">
                 <!-- contains title -->
-                <p v-if="propertyDetails.title" class="p-d-title-cont">{{ propertyDetails.title }}</p>
-                <p v-else class="p-d-title-cont">No Title</p>
+                <p class="p-d-title-cont">{{ propertyDetails.title }}</p>
             </div>
-            <div class="p-d-det p-t-b b-b b-t">
+            <div class="p-d-det p-t-b b-b">
                 <!-- contains basic details like (typeof,size, maxguest, rooms,toilets about the property) -->
                 <p v-if="propertyDetails.typeof" class="p-d-det-cont p-r">{{ propertyDetails.typeof }}</p>
                 <p v-if="propertyDetails.size" class="p-d-det-cont p-r">{{ propertyDetails.size }} sq/ft</p>
@@ -91,7 +90,7 @@ export default {
                     isVerified: false
                 },
                 // user details end
-                title: null,
+                title: "Royal gerden mansion",
                 typeof: "Restaurant",
                 toilet: "1",
                 rooms: "1",
