@@ -41,8 +41,8 @@ export default {
     centerlayout
   },
   computed:{
-    searchQuery() {
-      return this.$store.getters["search/query"]
+    searchTerms() {
+      return this.$store.getters["search/searchTerms"]
     },
     searchResult() {
       return this.$store.getters["search/searchResult"]
@@ -51,6 +51,12 @@ export default {
       return this.$store.getters["search/loading"]
     },
   },
+  data() {
+    return {
+      next: null,
+      previous: null
+    }
+  },
   methods: {
     openFilter() {
       console.log('filter button clicked')
@@ -58,26 +64,12 @@ export default {
     openDate() {
       console.log('date button clicked')
     },
-    search() {
-      this.$axios.get('/place', { params: 
-        {
-          search: searchQuery
-        }
-      })
-      .then(result => {
-        if (result) {
-          console.log('loading', result);
-        }
-      })
-      .catch(e => {
-        
-      })
+    getAddress() {
+      this.$router.push(`/search?search=${this.searchTerms}`);
     },
   },
-  data() {
-    return {
-      properties: []
-    }
+  mounted() {
+    // this.getAddress()
   }
 }
 </script>

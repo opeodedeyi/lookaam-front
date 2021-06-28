@@ -104,7 +104,7 @@ export default {
         }
     },
     mounted() {
-        // this.getPhoto()
+        this.getPhoto()
     }
 }
 </script>
@@ -138,7 +138,8 @@ p {
 }
 
 .main-card:hover img {
-    filter: grayscale(100%);
+    -webkit-filter: blur(1px); /* Safari 6.0 - 9.0 */
+    filter: blur(1px);
 }
 
 .cardimage,

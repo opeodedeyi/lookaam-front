@@ -25,7 +25,9 @@ export const actions = {
         return this.$axios
         .$get('https://lookaam.herokuapp.com/place', { params: 
             {
-            search: search_terms
+                search: search_terms,
+                page: 1,
+                limit: 15,
             }
         })
         .then(data => {
