@@ -7,9 +7,7 @@
         </div>
 
         <div class="form-layout-right">
-            <div class="form-art">
-                <slot name="prop-right"></slot>
-            </div>
+            <slot name="prop-right"></slot>
         </div>
     </div>
 </template>
@@ -27,7 +25,8 @@ export default {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    justify-content: flex-start;
 }
   
 .form-layout-left {
@@ -51,6 +50,9 @@ export default {
     flex-wrap: nowrap;
     justify-content: flex-start;
     align-items: center;
+    width: 40%;
+    max-width: 500px;
+    margin-left: 90px;
 }
 
 @media only screen and (min-width: 1000px) {

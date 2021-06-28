@@ -36,20 +36,42 @@
                 <div class="p-d-cont-link"  @click.prevent="openContactPopup">Contact Host</div>
             </div>
             <!-- mobile only location -->
+
         </template>
         
         <template v-slot:prop-right>
-            
+            <!-- desktop only save and share goes here -->
+            <div class="flex-c-full p-t-b b-b b-t">
+                <!-- contains location of the property -->
+                <p class="general-title p-b">Location</p>
+                <p class="general-text">{{ propertyDetails.street }}, {{ propertyDetails.city }}, {{ propertyDetails.state }}, {{ propertyDetails.country }}, {{ propertyDetails.zip }}</p>
+            </div>
+            <div v-if="propertyDetails.idealfor.length>0" class="flex-c-full p-t-b b-b">
+                <!-- contains what the property is ideal for -->
+                <p class="general-title p-b">Ideal for</p>
+                <div class="general-tags">
+                    <basetag v-for="item in propertyDetails.idealfor" :key="item">{{item}}</basetag>
+                </div>
+            </div>
+            <div v-if="propertyDetails.amenities.length>0" class="flex-c-full p-t-b b-b">
+                <!-- contains what the property amenities are -->
+                <p class="general-title p-b">Amenities</p>
+                <div class="general-tags">
+                    <basetag v-for="item in propertyDetails.amenities" :key="item">{{item}}</basetag>
+                </div>
+            </div>
         </template>
     </propdetailslayout>
 </template>
 
 <script>
 import propdetailslayout from "@/components/layout/propdetailslayout";
+import basetag from "@/components/utilities/basetag";
 
 export default {
     components: {
-        propdetailslayout
+        propdetailslayout,
+        basetag
     },
     data() {
         return {
@@ -70,7 +92,16 @@ export default {
                 toilet: "1",
                 rooms: "1",
                 size: "125",
-                maxguest: "1000"
+                maxguest: "1000",
+                // location start,
+                country: 'Nigeria',
+                street: "Lorem ipsum",
+                city: "null",
+                state: "null",
+                zip: null,
+                // location end,
+                idealfor: ["reception", "production", "meeting", "performance", "dinner", "wedding"],
+                amenities: ["electricity", "a/c", "wifi", "sound system", "private entrance", "kitchen", "large table", "tv"],
             }
         }
     },
@@ -127,6 +158,14 @@ export default {
 .p-r {
     padding-right: 2rem;
 }
+
+.p-b {
+    padding-bottom: .7rem;
+}
+
+.full-width {
+    width: 100%;
+}
 /* margin and padding styling ending */
 
 .p-d-image-area {
@@ -137,16 +176,34 @@ export default {
 }
 
 .p-d-image-area:hover img {
-    -webkit-filter: blur(1px); /* Safari 6.0 - 9.0 */
-    filter: blur(1px);
+    -webkit-filter: brightness(0.9); /* Safari 6.0 - 9.0 */
+    filter: brightness(0.9);
 }
 
 .p-d-image {
     width: 100%;
     height: 100%;
+    border-radius: 10px;
 }
 
 .p-d-det {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.flex-c-full {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.general-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.general-tags {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -215,7 +272,6 @@ export default {
     position: absolute;
     height: 100%;
     width: 100%;
-    border-radius: 5px;
     object-fit: cover;
 }
 

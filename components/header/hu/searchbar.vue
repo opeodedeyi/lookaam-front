@@ -57,7 +57,7 @@ export default {
     }
 
 /* Small screens */
-@media only screen and (max-width: 999px) {
+@media only screen and (max-width: 999.9px) {
     .search-box {
         height: 40px;
         max-width: 990px;
