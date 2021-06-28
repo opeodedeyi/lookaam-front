@@ -7,20 +7,17 @@
                 <img v-else src="~/assets/images/cardimage.webp" alt="ima"  class="p-d-image propimage"/>
             </div>
             <!-- mobile only save and share goes here -->
-            <div class="p-d-title p-t-b b-b" v-if="propertyDetails.title">
-                <!-- contains title -->
+            <div class="p-d-title p-t-b b-b" v-if="propertyDetails.title"><!-- contains title -->
                 <p class="p-d-title-cont">{{ propertyDetails.title }}</p>
             </div>
-            <div class="p-d-det p-t-b b-b">
-                <!-- contains basic details like (typeof,size, maxguest, rooms,toilets about the property) -->
+            <div class="p-d-det p-t-b b-b"><!-- contains basic details like (typeof, size, maxguest, rooms, toilets about the property) -->
                 <p v-if="propertyDetails.typeof" class="p-d-det-cont p-r">{{ propertyDetails.typeof }}</p>
                 <p v-if="propertyDetails.size" class="p-d-det-cont p-r">{{ propertyDetails.size }} sq/ft</p>
                 <p v-if="propertyDetails.maxguest" class="p-d-det-cont p-r">{{ propertyDetails.maxguest }} guests</p>
                 <p v-if="propertyDetails.rooms" class="p-d-det-cont p-r">{{ propertyDetails.rooms }} room(s)</p>
                 <p v-if="propertyDetails.toilet" class="p-d-det-cont p-r">{{ propertyDetails.toilet }} toilet(s)</p>
             </div>
-            <div class="p-d-cont p-t-b b-b">
-                <!-- contains owner of property -->
+            <div class="p-d-cont p-t-b b-b"><!-- contains owner of property -->
                 <div class="p-d-cont-det">
                     <div class="p-d-cont-det-image">
                         <img v-if="propertyDetails.user.photo" :src="propertyDetails.user.photo" alt="">
@@ -31,46 +28,66 @@
                 </div>
                 <div class="p-d-cont-link"  @click.prevent="openContactPopup">Contact Host</div>
             </div>
-            <div class="flex-c-full p-t-b b-b mobile-only">
-                <!-- contains location of the property -->
+            <div class="flex-c-full p-t-b b-b mobile-only"><!-- contains location of the property -->
                 <p class="general-title p-b">Location</p>
                 <p class="general-text">{{ propertyDetails.street }}, {{ propertyDetails.city }}, {{ propertyDetails.state }}, {{ propertyDetails.country }}, {{ propertyDetails.zip }}</p>
             </div>
-            <div v-if="propertyDetails.description" class="flex-c-full p-t-b b-b">
-                <!-- contains description of the property -->
+            <div v-if="propertyDetails.description" class="flex-c-full p-t-b b-b"><!-- contains description of the property -->
                 <p class="general-text">{{ propertyDetails.description }}</p>
             </div>
-            <div v-if="propertyDetails.rules" class="flex-c-full p-t-b b-b desktop-only">
-                <!-- contains rules of the property -->
+            <div v-if="propertyDetails.rules" class="flex-c-full p-t-b b-b desktop-only"><!-- {{{ desktop }}} only rules of the property -->
                 <p class="general-title p-b">Rules</p>
                 <p class="general-text">{{ propertyDetails.rules }}</p>
+            </div>
+            <div v-if="propertyDetails.idealfor.length>0" class="flex-c-full p-t-b b-b mobile-only"><!-- {{{ mobile }}} only property is ideal for -->
+                <label for="propertydetails" class="general-title p-b s-btw"><p>Ideal for</p><img src="~/assets/svg/selectarrow.svg" alt=""></label>
+                <input type="checkbox" name="propertydetails" id="propertydetails" class="hidecheckbox">
+                <div class="general-tags collapsed-item">
+                    <basetag v-for="item in propertyDetails.idealfor" :key="item">{{item}}</basetag>
+                </div>
+            </div>
+            <div v-if="propertyDetails.amenities.length>0" class="flex-c-full p-t-b b-b mobile-only"><!-- {{{ mobile }}} only property Amenities -->
+                <label for="amenitiesdetails" class="general-title p-b s-btw"><p>Amenities</p><img src="~/assets/svg/selectarrow.svg" alt=""></label>
+                <input type="checkbox" name="amenitiesdetails" id="amenitiesdetails" class="hidecheckbox">
+                <div class="general-tags collapsed-item">
+                    <basetag v-for="item in propertyDetails.amenities" :key="item">{{item}}</basetag>
+                </div>
+            </div>
+            <div v-if="propertyDetails.accessibility.length>0" class="flex-c-full p-t-b b-b mobile-only"><!-- {{{ mobile }}} only property accessibility -->
+                <label for="accessibilitydetails" class="general-title p-b s-btw"><p>Accessibility</p><img src="~/assets/svg/selectarrow.svg" alt=""></label>
+                <input type="checkbox" name="accessibilitydetails" id="accessibilitydetails" class="hidecheckbox">
+                <div class="general-tags collapsed-item">
+                    <basetag v-for="item in propertyDetails.accessibility" :key="item">{{item}}</basetag>
+                </div>
             </div>
 
         </template>
         
-        <template v-slot:prop-right>
-            <!-- desktop only save and share goes here -->
-            <div class="flex-c-full p-t-b b-b">
-                <!-- contains location of the property -->
+        <template v-slot:prop-right> <!-- desktop content on right side of page -->
+            <!-- {{{ desktop }}} only save and share goes here -->
+            <div class="flex-c-full p-t-b b-b"><!-- contains location of the property -->
                 <p class="general-title p-b">Location</p>
                 <p class="general-text">{{ propertyDetails.street }}, {{ propertyDetails.city }}, {{ propertyDetails.state }}, {{ propertyDetails.country }}, {{ propertyDetails.zip }}</p>
             </div>
-            <div v-if="propertyDetails.idealfor.length>0" class="flex-c-full p-t-b b-b">
-                <!-- contains what the property is ideal for -->
+            <div v-if="propertyDetails.idealfor.length>0" class="flex-c-full p-t-b b-b"><!-- contains what the property is ideal for -->
                 <p class="general-title p-b">Ideal for</p>
                 <div class="general-tags">
                     <basetag v-for="item in propertyDetails.idealfor" :key="item">{{item}}</basetag>
                 </div>
             </div>
-            <div v-if="propertyDetails.amenities.length>0" class="flex-c-full p-t-b b-b">
-                <!-- contains what the property amenities are -->
+            <div v-if="propertyDetails.amenities.length>0" class="flex-c-full p-t-b b-b"><!-- contains what the property amenities are -->
                 <p class="general-title p-b">Amenities</p>
                 <div class="general-tags">
                     <basetag v-for="item in propertyDetails.amenities" :key="item">{{item}}</basetag>
                 </div>
             </div>
-            <div class="flex-c-full p-t-b">
-                <!-- contains opening and cloaing time -->
+            <div v-if="propertyDetails.accessibility.length>0" class="flex-c-full p-t-b b-b"><!-- contains what the property accessibilities are -->
+                <p class="general-title p-b">Accessibility</p>
+                <div class="general-tags">
+                    <basetag v-for="item in propertyDetails.accessibility" :key="item">{{item}}</basetag>
+                </div>
+            </div>
+            <div class="flex-c-full p-t-b"><!-- contains opening and cloaing time -->
                 <p class="general-title p-b">Availability</p>
                 
             </div>
@@ -123,6 +140,7 @@ export default {
                 // Timing end,
                 idealfor: ["reception", "production", "meeting", "performance", "dinner", "wedding"],
                 amenities: ["electricity", "a/c", "wifi", "sound system", "private entrance", "kitchen", "large table", "tv"],
+                accessibility: ["wheelchair", "elevator", "on-site parking", "parking near by", "stairs"],
             }
         }
     },
@@ -186,6 +204,14 @@ export default {
 
 .full-width {
     width: 100%;
+}
+
+.s-btw {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
 }
 /* margin and padding styling ending */
 
@@ -303,6 +329,18 @@ export default {
 
 .desktop-only {
     display: none;
+}
+
+.hidecheckbox {
+    display: none;
+}
+
+.collapsed-item {
+    display: none;
+}
+
+.hidecheckbox:checked + .collapsed-item {
+    display: flex;
 }
 
 @media only screen and (min-width: 1000px) {
