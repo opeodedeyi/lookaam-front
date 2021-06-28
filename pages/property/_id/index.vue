@@ -35,7 +35,11 @@
                 </div>
                 <div class="p-d-cont-link"  @click.prevent="openContactPopup">Contact Host</div>
             </div>
-            <!-- mobile only location -->
+            <div class="flex-c-full p-t-b b-b mobile-only">
+                <!-- contains location of the property -->
+                <p class="general-title p-b">Location</p>
+                <p class="general-text">{{ propertyDetails.street }}, {{ propertyDetails.city }}, {{ propertyDetails.state }}, {{ propertyDetails.country }}, {{ propertyDetails.zip }}</p>
+            </div>
 
         </template>
         
@@ -170,7 +174,7 @@ export default {
 
 .p-d-image-area {
     position: relative;
-    height: 400px;
+    height: 300px;
     cursor: pointer;
     width: 100%;
 }
@@ -280,9 +284,13 @@ export default {
     font-weight: 500;
 }
 
-@media only screen and (max-width: 999.9px) {
+@media only screen and (min-width: 1000px) {
     .p-d-image-area {
-        height: 300px;
+        height: 400px;
+    }
+
+    .mobile-only {
+        display: none;
     }
 }
 </style>
