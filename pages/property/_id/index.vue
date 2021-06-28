@@ -40,12 +40,17 @@
                 <!-- contains description of the property -->
                 <p class="general-text">{{ propertyDetails.description }}</p>
             </div>
+            <div v-if="propertyDetails.rules" class="flex-c-full p-t-b b-b desktop-only">
+                <!-- contains rules of the property -->
+                <p class="general-title p-b">Rules</p>
+                <p class="general-text">{{ propertyDetails.rules }}</p>
+            </div>
 
         </template>
         
         <template v-slot:prop-right>
             <!-- desktop only save and share goes here -->
-            <div class="flex-c-full p-t-b b-b b-t">
+            <div class="flex-c-full p-t-b b-b">
                 <!-- contains location of the property -->
                 <p class="general-title p-b">Location</p>
                 <p class="general-text">{{ propertyDetails.street }}, {{ propertyDetails.city }}, {{ propertyDetails.state }}, {{ propertyDetails.country }}, {{ propertyDetails.zip }}</p>
@@ -63,6 +68,11 @@
                 <div class="general-tags">
                     <basetag v-for="item in propertyDetails.amenities" :key="item">{{item}}</basetag>
                 </div>
+            </div>
+            <div class="flex-c-full p-t-b">
+                <!-- contains opening and cloaing time -->
+                <p class="general-title p-b">Availability</p>
+                
             </div>
         </template>
     </propdetailslayout>
@@ -98,6 +108,7 @@ export default {
                 size: "125",
                 maxguest: "1000",
                 description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+                rules: "No smoking, drinking, fighting",
                 // location start,
                 country: 'Nigeria',
                 street: "Lorem ipsum",
@@ -105,6 +116,11 @@ export default {
                 state: "null",
                 zip: null,
                 // location end,
+                // Timing start,
+                alwaysopen: true,
+                open: "12:30",
+                close: "21:00",
+                // Timing end,
                 idealfor: ["reception", "production", "meeting", "performance", "dinner", "wedding"],
                 amenities: ["electricity", "a/c", "wifi", "sound system", "private entrance", "kitchen", "large table", "tv"],
             }
@@ -285,6 +301,10 @@ export default {
     font-weight: 500;
 }
 
+.desktop-only {
+    display: none;
+}
+
 @media only screen and (min-width: 1000px) {
     .p-d-image-area {
         height: 400px;
@@ -292,6 +312,10 @@ export default {
 
     .mobile-only {
         display: none;
+    }
+
+    .desktop-only {
+        display: flex;
     }
 }
 </style>
