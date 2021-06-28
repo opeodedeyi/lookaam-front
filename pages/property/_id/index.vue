@@ -1,7 +1,4 @@
 <template>
-    <!-- <div class="property-details-container">
-        property {{ $route.params.id }}
-    </div> -->
     <propdetailslayout>
         <template v-slot:default>
             <div class="p-d-image-area" @click.prevent="openImagePopup">
@@ -38,6 +35,10 @@
                 <!-- contains location of the property -->
                 <p class="general-title p-b">Location</p>
                 <p class="general-text">{{ propertyDetails.street }}, {{ propertyDetails.city }}, {{ propertyDetails.state }}, {{ propertyDetails.country }}, {{ propertyDetails.zip }}</p>
+            </div>
+            <div v-if="propertyDetails.description" class="flex-c-full p-t-b b-b">
+                <!-- contains description of the property -->
+                <p class="general-text">{{ propertyDetails.description }}</p>
             </div>
 
         </template>
@@ -96,6 +97,7 @@ export default {
                 rooms: "1",
                 size: "125",
                 maxguest: "1000",
+                description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
                 // location start,
                 country: 'Nigeria',
                 street: "Lorem ipsum",

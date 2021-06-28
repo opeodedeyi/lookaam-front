@@ -25,7 +25,6 @@ export default {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    /* justify-content: space-between; */
     justify-content: flex-start;
 }
   
