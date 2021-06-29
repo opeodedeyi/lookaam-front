@@ -20,11 +20,11 @@
             <div class="p-d-cont p-t-b b-b"><!-- contains owner of property -->
                 <div class="p-d-cont-det">
                     <div class="p-d-cont-det-image">
-                        <img v-if="propertyDetails.user.photo" :src="propertyDetails.user.photo" alt="">
-                        <img v-else src="~/assets/images/pp.webp" alt="">
+                        <img v-if="!propertyDetails.uphoto" src="~/assets/images/pp.webp" alt="">
+                        <img v-else :src="propertyDetails.user.photo" alt="">
                     </div>
-                    <p class="p-d-cont-det-name">by {{ propertyDetails.user.fullname | shortenText(14, '...') }}</p>
-                    <div class="p-d-cont-det-verified"><img src="~/assets/svg/verified.svg" v-if="propertyDetails.user.isVerified" alt=""><img src="~/assets/svg/notverified.svg" v-else alt=""></div>
+                    <p class="p-d-cont-det-name">by {{ propertyDetails.ufullname | shortenText(14, '...') }}</p>
+                    <div class="p-d-cont-det-verified"><img src="~/assets/svg/verified.svg" v-if="propertyDetails.uisVerified" alt=""><img src="~/assets/svg/notverified.svg" v-else alt=""></div>
                 </div>
                 <div class="p-d-cont-link"  @click.prevent="openContactPopup">Contact Host</div>
             </div>
@@ -60,7 +60,15 @@
                     <basetag v-for="item in propertyDetails.accessibility" :key="item">{{item}}</basetag>
                 </div>
             </div>
-            <!-- Add {{{ mobile }}} only availability -->
+            <div class="flex-c-full p-t-b mobile-only"><!-- contains opening and cloaing time -->
+                <label for="availability" class="general-title p-b s-btw"><p>Availability</p><img src="~/assets/svg/selectarrow.svg" alt=""></label>
+                <input type="checkbox" name="availability" id="availability" class="hidecheckbox">
+                <p class="general-text collapsed-item" v-if="propertyDetails.alwaysopen">Always Open 24/7</p>
+                <div v-else class="collapsed-item f-col">
+                    <p class="general-text p-b">Opening time - {{ propertyDetails.open }}</p>
+                    <p class="general-text">Closing time - {{ propertyDetails.close }}</p>
+                </div>
+            </div>
             <div v-if="propertyDetails.rules" class="flex-c-full p-t-b b-b mobile-only"><!-- {{{ mobile }}} only property rules -->
                 <label for="rules" class="general-title p-b s-btw"><p>Rules</p><img src="~/assets/svg/selectarrow.svg" alt=""></label>
                 <input type="checkbox" name="rules" id="rules" class="hidecheckbox">
@@ -94,7 +102,11 @@
             </div>
             <div class="flex-c-full p-t-b"><!-- contains opening and cloaing time -->
                 <p class="general-title p-b">Availability</p>
-                
+                <p class="general-text" v-if="propertyDetails.alwaysopen">Always Open 24/7</p>
+                <div v-else>
+                    <p class="general-text p-b">Opening time - {{ propertyDetails.open }}</p>
+                    <p class="general-text p-b">Closing time - {{ propertyDetails.close }}</p>
+                </div>
             </div>
         </template>
     </propdetailslayout>
@@ -116,36 +128,34 @@ export default {
             propertyImages: [],
             propertyDetails: {
                 // user details start
-                user: {
-                    photo: null,
-                    fullname: "kfdnfkjdnkjfdnjfdnkjdfnkjfdnkjfdnkjfdnkjfdn",
-                    email: null,
-                    isVerified: false
-                },
+                uid: null,
+                ufullname: "",
+                uphoto: null,
+                uisVerified: null,
                 // user details end
-                title: "Royal gerden mansion",
-                typeof: "Restaurant",
-                toilet: "1",
-                rooms: "1",
-                size: "125",
-                maxguest: "1000",
-                description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-                rules: "No smoking, drinking, fighting",
+                title: null,
+                typeof: null,
+                toilet: null,
+                rooms: null,
+                size: null,
+                maxguest: null,
+                description: null,
+                rules: null,
                 // location start,
-                country: 'Nigeria',
-                street: "Lorem ipsum",
-                city: "null",
-                state: "null",
+                country: null,
+                street: null,
+                city: null,
+                state: null,
                 zip: null,
                 // location end,
                 // Timing start,
-                alwaysopen: true,
-                open: "12:30",
-                close: "21:00",
+                alwaysopen: null,
+                open: null,
+                close: null,
                 // Timing end,
-                idealfor: ["reception", "production", "meeting", "performance", "dinner", "wedding"],
-                amenities: ["electricity", "a/c", "wifi", "sound system", "private entrance", "kitchen", "large table", "tv"],
-                accessibility: ["wheelchair", "elevator", "on-site parking", "parking near by", "stairs"],
+                idealfor: [],
+                amenities: [],
+                accessibility: [],
             }
         }
     },
@@ -156,6 +166,35 @@ export default {
         openContactPopup() {
             console.log("contact popup opened");
         },
+        getProperty() {
+            this.$axios.get(`/place/${this.$route.params.id}`)
+            .then(result => {
+                const property = result.data
+                this.propertyDetails.accessibility = property.accessibility
+                this.propertyDetails.amenities = property.amenities
+                this.propertyDetails.description = property.description
+                this.propertyDetails.idealfor = property.idealfor
+                this.propertyDetails.price = property.price
+                this.propertyDetails.title = property.title
+                this.propertyDetails.rooms = property.rooms
+                this.propertyDetails.toilet = property.toilet
+                this.propertyDetails.typeof = property.typeof
+                this.propertyDetails.rules = property.rules
+                this.propertyDetails.alwaysopen = property.time.alwaysopen
+                this.propertyDetails.open = property.time.open
+                this.propertyDetails.close = property.time.close
+                this.propertyDetails.maxguest = property.maxguest
+                this.propertyDetails.size = property.size
+                this.propertyDetails.phone = property.phone
+                this.propertyDetails.unavailabledate = property.unavailabledate
+                this.propertyDetails.ufullname = property.owner.fullname
+                this.propertyDetails.uphoto = property.owner.profilePhoto.location
+                this.propertyDetails.uisVerified = property.owner.isVerified
+            })
+            .catch(e => {
+                console.log(e);
+            })
+        },
         getPhoto() {
             this.$axios.get(`/place/${this.$route.params.id}/onephoto`)
             .then(result => {
@@ -165,10 +204,22 @@ export default {
             .catch(e => {
                 console.log("failed to get card image");
             })
+        },
+        getPropertyImages() {
+            this.$axios.get(`/place/${this.$route.params.id}/photo`)
+            .then(result => {
+                const images = result.data
+                this.propertyImages = images
+            })
+            .catch(e => {
+                console.log("failed to get card image");
+            })
         }
     },
     mounted() {
+        this.getProperty()
         this.getPhoto()
+        this.getPropertyImages()
     }
 }
 </script>
@@ -217,6 +268,11 @@ export default {
     flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
+}
+
+.f-col {
+    display: flex;
+    flex-direction: column;
 }
 /* margin and padding styling ending */
 
