@@ -220,9 +220,10 @@ export default {
         },
         firstFormSubmit() {
             this.loading = true
-            this.$axios.post('/place')
+            this.$axios.post('/place', this.form)
             .then(result => {
                 console.log(result);
+                this.nextStep()
             })
             .catch(e => {
                 console.log(e);
@@ -246,7 +247,7 @@ export default {
                 this.nextStep()
             } else if (this.step == 8) {
                 if (!this.form.price.amount || !this.form.price.currency) {
-                    return this.errorMessage = "How much does it cost to rent the space for the day?"
+                    return this.errorMessage = "Please fill out all fields with an *asterisk*"
                 } else if (!this.objectid) {
                     console.log(this.form);
                     this.firstFormSubmit()

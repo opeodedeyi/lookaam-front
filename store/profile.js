@@ -77,7 +77,7 @@ export const actions = {
     },
     async logOut(vuexContext) {
         return this.$axios
-        .$post(`${process.env.BASE_URL}/logout/`)
+        .$post(`${process.env.BASE_URL}/logout`)
         .then(data => {
             Cookie.remove('token');
             vuexContext.commit('logOut');
