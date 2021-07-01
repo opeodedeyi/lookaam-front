@@ -222,10 +222,13 @@ export default {
             this.loading = true
             this.$axios.post('/place', this.form)
             .then(result => {
-                console.log(result);
+                const id = result.data._id
+                this.objectid = id
+                this.loading = false
                 this.nextStep()
             })
             .catch(e => {
+                this.loading = false
                 console.log(e);
             })
         },
