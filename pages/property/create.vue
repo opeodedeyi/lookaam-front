@@ -11,25 +11,28 @@
                     <!-- Form page one -->
                     <div class="fw" v-if="step == 1">
                         <p class="form-title">What phone number can be called about this location?</p>
+                        <p v-if="errorMessage" class="form-error">{{ errorMessage }}</p>
                         <phonecodeinput hasSlot mustFill name="code" v-model="form.phone.code">Country </phonecodeinput>
                         <baseinput hasSlot mustFill placeholder="xxx-xxxx-xxxx" name="phone" inputType="number" v-model="form.phone.number">Phone number </baseinput>
                     </div>
                     <!-- Form page two -->
                     <div class="fw" v-if="step == 2">
                         <p class="form-title">Where is the place located?</p>
-                        <countryinput hasSlot mustFill name="country" v-model="form.country">Country </countryinput>
-                        <baseinput hasSlot mustFill placeholder="Street" name="street" v-model="form.street">Street </baseinput>
-                        <baseinput hasSlot mustFill placeholder="City" name="city" v-model="form.city">City / Town </baseinput>
-                        <baseinput hasSlot mustFill placeholder="State" name="state" v-model="form.state">State </baseinput>
-                        <baseinput hasSlot mustFill placeholder="Zip" name="zip" v-model="form.zip">Zip code </baseinput>
+                        <p v-if="errorMessage" class="form-error">{{ errorMessage }}</p>
+                        <countryinput hasSlot mustFill name="country" v-model="form.location.country">Country </countryinput>
+                        <baseinput hasSlot mustFill placeholder="Street" name="street" v-model="form.location.street">Street </baseinput>
+                        <baseinput hasSlot mustFill placeholder="City" name="city" v-model="form.location.city">City / Town </baseinput>
+                        <baseinput hasSlot mustFill placeholder="State" name="state" v-model="form.location.state">State / Region </baseinput>
+                        <baseinput hasSlot placeholder="Zip" name="zip" v-model="form.location.zip">Zip code </baseinput>
                     </div>
                     <!-- Form page three -->
                     <div class="fw" v-if="step == 3">
+                        <p v-if="errorMessage" class="form-error">{{ errorMessage }}</p>
                         <topinput hasSlot mustFill name="topinput" v-model="form.typeof">What type of place is this property? </topinput>
                         <controlinput hasSlot name="rooms" v-model.number="form.rooms" >How many rooms are in the place? </controlinput>
                         <controlinput hasSlot name="toilet" v-model.number="form.toilet" >How many toilets are in the place? </controlinput>
-                        <baseinput hasSlot isBold placeholder="xx" name="size" inputType="number" v-model="form.size">What is the size of the place in sq ft? </baseinput>
-                        <baseinput hasSlot isBold placeholder="xx" name="maxguest" inputType="number" v-model="form.maxguest">How many people can it take? </baseinput>
+                        <numberinput hasSlot isBold placeholder="xx" name="size" v-model.number="form.size">What is the size of the place in sq ft? </numberinput>
+                        <numberinput hasSlot isBold placeholder="xx" name="maxguest" v-model.number="form.maxguest">How many people can it take? </numberinput>
                     </div>
                     <!-- Form page four -->
                     <div class="fw" v-if="step == 4">
@@ -82,9 +85,10 @@
                     </div>
                     <!-- Form page eight -->
                     <div class="fw" v-if="step == 8">
-                        <p class="form-title">How much are you charging to rent it out for a day? <span class="label-required">*</span></p>
+                        <p class="form-title">How much are you charging to rent it out for a day?</p>
+                        <p v-if="errorMessage" class="form-error">{{ errorMessage }}</p>
                         <currencyinput hasSlot mustFill name="currency" v-model="form.price.currency">Currency </currencyinput>
-                        <baseinput hasSlot mustFill placeholder="xxx" name="price" inputType="number" v-model="form.price.amount">Amount </baseinput>
+                        <numberinput hasSlot mustFill placeholder="xxx" name="price" v-model.number="form.price.amount">Amount </numberinput>
                     </div>
                     <!-- Form page nine (photo upload)(wip) -->
                     <div class="fw" v-if="step == 9">
@@ -113,7 +117,7 @@
             <template v-slot:button>
                 <div class="btn-container"><button class="button-back f-btn" @click.prevent="backPressed" v-if="step != 1">Back</button></div>
                 <div class="btn-container" v-if="step < 11"><button class="button-onward f-btn" @click.prevent="nextPressed">Next</button></div>
-                <div class="btn-container" v-if="step == 11"> <button class="button-onward f-btn" @click.prevent="finishPressed">Create place</button></div>
+                <div class="btn-container" v-if="step == 11"> <button class="button-onward f-btn" @click.prevent="submitForm">Create place</button></div>
             </template>
             
             <template v-slot:image>
@@ -126,6 +130,7 @@
 <script>
 import createproplayout from "@/components/layout/createproplayout";
 import baseinput from '@/components/utilities/baseinput';
+import numberinput from '@/components/utilities/numberinput';
 import baselabel from '@/components/utilities/baselabel';
 import countryinput from '@/components/utilities/countryinput';
 import phonecodeinput from '@/components/utilities/phonecodeinput';
@@ -141,6 +146,7 @@ export default {
     components: {
         createproplayout,
         baseinput,
+        numberinput,
         baselabel,
         countryinput,
         phonecodeinput,
@@ -153,10 +159,12 @@ export default {
     },
     data() {
         return {
-            ObjectId: '219i3093i901i39023901393209090d09',
+            objectid: null,
+            loading: false,
             progresstext: ["Contact details", "Location details", "Property details", "More details", "Amentites information", "Accessibility information", "Timing", "Pricing", "Upload photos of the place", "One more", "Finishing"],
             step: 1,
             totalsteps: 11,
+            errorMessage: null,
             form: {
                 phone: {
                     code: '234',
@@ -171,11 +179,13 @@ export default {
                 amenities: [],
                 accessibility: [],
                 typeof: 'studio',
-                country: 'Nigeria',
-                street: null,
-                city: null,
-                state: null,
-                zip: null,
+                location: {
+                    country: 'Nigeria',
+                    street: null,
+                    city: null,
+                    state: null,
+                    zip: null
+                },
                 rooms: 0,
                 toilet: 0,
                 size: null,
@@ -202,13 +212,58 @@ export default {
         },
         backPressed() {
             this.step--
+            this.errorMessage = null
+        },
+        nextStep() {
+            this.step++
+            this.errorMessage = null
+        },
+        firstFormSubmit() {
+            this.loading = true
+            this.$axios.post('/place')
+            .then(result => {
+                console.log(result);
+            })
+            .catch(e => {
+                console.log(e);
+            })
         },
         nextPressed() {
-            this.step++
-            console.log(this.form);
+            if (this.step == 1) {
+                if (!this.form.phone.number || this.form.phone.number.length<9 || this.form.phone.number.length > 11) {
+                    return this.errorMessage = "Please provide a valid phone number"
+                }
+                this.nextStep()
+            } else if (this.step == 2) {
+                if (!this.form.location.country || !this.form.location.street || !this.form.location.city || !this.form.location.state ) {
+                    return this.errorMessage = "Please fill out all fields with an *asterisk*"
+                }
+                this.nextStep()
+            } else if (this.step == 3) {
+                if (!this.form.typeof ) {
+                    return this.errorMessage = "Please fill out all fields with an *asterisk*"
+                }
+                this.nextStep()
+            } else if (this.step == 8) {
+                if (!this.form.price.amount || !this.form.price.currency) {
+                    return this.errorMessage = "How much does it cost to rent the space for the day?"
+                } else if (!this.objectid) {
+                    console.log(this.form);
+                    this.firstFormSubmit()
+                }
+                this.nextStep()
+            } else {
+                this.nextStep()
+            }
         },
         finishPressed() {
             console.log("Finish button has been clicked");
+        },
+        submitForm() {
+            if (this.step == 11) {
+                return
+            }
+            this.nextPressed()
         }
     },
     layout: 'form'
@@ -301,6 +356,12 @@ export default {
     font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 1.5rem;
+}
+
+.form-error {
+    font-size: .9rem;
+    color: var(--color-danger);
+    margin-bottom: .6rem;
 }
 
 .inline-radio {

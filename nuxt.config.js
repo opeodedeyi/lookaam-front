@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -41,12 +43,13 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/dotenv',
     '@nuxtjs/axios',
   ],
 
   axios: {
-    baseURL: process.env.BASE_URL || 'https://lookaam.herokuapp.com',
-    Credentials: false 
+    baseURL: process.env.BASE_URL,
+    Credentials: false
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

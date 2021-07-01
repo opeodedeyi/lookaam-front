@@ -8,9 +8,9 @@
                 <saved v-else></saved>
             </div>
             <div class="card-bottom">
-                <p class="card-p-title">{{ Ptitle | shortenText(24, '...') }}</p>
+                <p class="card-p-title" v-if="Ptitle">{{ Ptitle | shortenText(24, '...') }}</p>
                 <p class="card-p-type">{{ Ptype }}</p>
-                <p class="card-p-price"><span class="cless">{{ Pprice }}</span>/day</p>
+                <p class="card-p-price" v-if="Pprice"><span class="cless">{{ Pprice }}</span>/day</p>
             </div>
         </div>
     </nuxt-link>
@@ -22,9 +22,9 @@
 
         </div>
         <div class="card-bottom">
-            <p class="card-p-title">{{ Ptitle | shortenText(24, '...') }}</p>
+            <p class="card-p-title" v-if="Ptitle">{{ Ptitle | shortenText(24, '...') }}</p>
             <p class="card-p-type">{{ Ptype }}</p>
-            <p class="card-p-price"><span class="cless">{{ Pprice }}</span>/day</p>
+            <p class="card-p-price" v-if="Pprice"><span class="cless">{{ Pprice }}</span>/day</p>
         </div>
     </nuxt-link>
 </template>

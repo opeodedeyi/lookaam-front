@@ -28,12 +28,12 @@ export const mutations = {
 
 export const actions = {
     async authenticateUser(vuexContext, authData) {
-        let authUrl = 'https://lookaam.herokuapp.com/signup/'
+        let authUrl = `${process.env.BASE_URL}/signup/`
         if (authData.isLogin) {
-            authUrl = 'https://lookaam.herokuapp.com/login/'
+            authUrl = `${process.env.BASE_URL}/login/`
         }
         else if (authData.isGoogle) {
-            authUrl = 'https://lookaam.herokuapp.com/googlelogin/'
+            authUrl = `${process.env.BASE_URL}/googlelogin/`
         }
 
         return await this.$axios
@@ -65,7 +65,7 @@ export const actions = {
     async fetchUser({ commit }){
         try{
             const { data } = await this.$axios.get('/me');
-            console.log(data); //remove later
+            console.log(data, process.env.BASE_URL); //remove later
             commit('fetchUserSuccess', data);
         }catch(e){
             Cookie.remove('token');
@@ -77,7 +77,7 @@ export const actions = {
     },
     async logOut(vuexContext) {
         return this.$axios
-        .$post('https://lookaam.herokuapp.com/logout/')
+        .$post(`${process.env.BASE_URL}/logout/`)
         .then(data => {
             Cookie.remove('token');
             vuexContext.commit('logOut');

@@ -28,7 +28,7 @@ export const actions = {
         }
 
         return this.$axios
-        .$get('https://lookaam.herokuapp.com/place', { params: 
+        .$get(`${process.env.BASE_URL}/place`, { params: 
             {
                 limit: 8,
             }

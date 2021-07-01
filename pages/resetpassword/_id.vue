@@ -71,7 +71,6 @@ export default {
             const data = result.data
             console.log(data);
             this.$store.dispatch("profile/directLogin",data)
-            // this.$router.push('/login')
         })
         .catch(e => {
             this.error = true

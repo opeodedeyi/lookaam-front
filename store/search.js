@@ -23,7 +23,7 @@ export const actions = {
     search(vuexContext, search_terms) {
         vuexContext.commit('loadingTrue')
         return this.$axios
-        .$get('https://lookaam.herokuapp.com/place', { params: 
+        .$get(`${process.env.BASE_URL}/place`, { params: 
             {
                 search: search_terms,
                 page: 1,
