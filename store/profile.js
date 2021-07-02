@@ -28,13 +28,12 @@ export const mutations = {
 
 export const actions = {
     async authenticateUser(vuexContext, authData) {
-        let authUrl = `${process.env.BASE_URL}/signup/`
+        let authUrl = '/signup'
         if (authData.isLogin) {
-            authUrl = `${process.env.BASE_URL}/login/`
+            authUrl = '/login'
         }
         else if (authData.isGoogle) {
-            authUrl = `${process.env.BASE_URL}/googlelogin/`
-        }
+            authUrl = '/googlelogin'        }
 
         return await this.$axios
         .$post(authUrl, authData.form)
