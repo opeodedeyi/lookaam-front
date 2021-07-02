@@ -18,7 +18,7 @@
 
         <p class="form-or form-center mb-form">OR</p>
 
-        <googleSignIn class="gen-wrapper mb-form" customButton customButtonId='gsignin' :clientId="`${process.env.GOOGLE_CLIENT_ID}.apps.googleusercontent.com`" :successCallBack="getSuccessData" :failureCallBack="getFailureData">
+        <googleSignIn class="gen-wrapper mb-form" customButton customButtonId='gsignin' :clientId="`${clientID}.apps.googleusercontent.com`" :successCallBack="getSuccessData" :failureCallBack="getFailureData">
           <mainbutton  :gloading="gloading" id="gsignin" :onClick="setLoading" class="ml btn" size="max" mode="outline"><img src="~/assets/svg/google.svg" alt="" /><span>Login using Google</span></mainbutton>
         </googleSignIn>
         
@@ -58,6 +58,7 @@ export default {
   },
   data() {
     return {
+      clientID: process.env.GOOGLE_CLIENT_ID,
       loading: false,
       gloading: false,
       error: false,
