@@ -154,6 +154,13 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     background-size: 15px;
 }
 
+input:-internal-autofill-selected {
+    appearance: menulist-button;
+    background-color: var(--color-gray);
+    background-image: none !important;
+    color: var(--color-dark);
+}
+
 .normal-form .textarea {
     widows: 100%;
     font-size: .95rem;
