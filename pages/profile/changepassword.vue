@@ -4,6 +4,7 @@
       <p class="form-title">Change your password</p>
 
       <form action="" class="form-body-cont">
+        <p v-if="errorMessage" class="form-error">{{ errorMessage }}</p>
         <passwordinput hasSlot placeholder="Old Password" name="old password" inputType="password" v-model="form.oldPassword">Old Password</passwordinput>
         <passwordinput hasSlot placeholder="New Password" name="new password" inputType="password" v-model="form.password">New Password</passwordinput>
         <!-- button -->
@@ -59,7 +60,7 @@ export default {
       loading: false,
       success: false,
       error: false,
-      message: '',
+      errorMessage: null,
       form: {
         oldPassword: null,
         password: null
@@ -68,24 +69,28 @@ export default {
   },
   computed: {
     isShown() {
-        return this.$store.getters["form/isPasswordVisible"]
+      return this.$store.getters["form/isPasswordVisible"]
     }
   },
   methods: {
     resetPassword() {
-        this.loading = true
-        this.$axios.patch('/me/password/', this.form)
-        .then(result => {
-            if (result.status==200) {
-                this.loading = false
-                this.success = true
-                this.error = false
-            }
-        })
-        .catch(e => {
-            this.error = true
-            console.log(e);
-        })
+      this.loading = true
+      if ( !this.form.password || this.form.password.length<8 ) {
+        this.loading = false
+        return this.errorMessage = "New password must be at least 8 characters"
+      }
+      this.$axios.patch('/me/password/', this.form)
+      .then(result => {
+        if (result.status==200) {
+          this.loading = false
+          this.success = true
+          this.error = false
+        }
+      })
+      .catch(e => {
+        this.error = true
+        console.log(e);
+      })
     },
     falseSuccess() {
       this.loading = false
@@ -147,6 +152,11 @@ input {
   outline: none;
 }
 
+.form-error {
+  font-size: .9rem;
+  color: var(--color-danger);
+  margin-bottom: .6rem;
+}
 
 /* mail sent section */
 .mbm {

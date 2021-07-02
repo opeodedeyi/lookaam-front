@@ -217,6 +217,7 @@ export default {
         nextStep() {
             this.step++
             this.errorMessage = null
+            console.log(this.objectid);
         },
         firstFormSubmit() {
             this.loading = true

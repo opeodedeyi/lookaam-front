@@ -5,6 +5,7 @@
       <p class="form-title">Welcome Back</p>
 
       <form action="" class="form-body-cont">
+        <p v-if="errorMessage" class="form-error">{{ errorMessage }}</p>
         <baseinput hasSlot placeholder="Email address" name="email" inputType="email" v-model="form.email">Email</baseinput>
         <passwordinput hasSlot placeholder="Password" name="password" inputType="password" v-model="form.password">Password</passwordinput>
 
@@ -58,6 +59,7 @@ export default {
   },
   data() {
     return {
+      errorMessage: null,
       loading: false,
       gloading: false,
       error: false,
@@ -72,6 +74,13 @@ export default {
   methods: {
     normalLogin() {
       this.gloading = true
+      if ( !this.form.password || this.form.password.length<8 ) {
+        this.gloading = false
+        return this.errorMessage = "Password must be at least 8 characters"
+      } else if ( !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.form.email) ) {
+        this.gloading = false
+        return this.errorMessage = "Please provide a valid email address"
+      }
       this.$store.dispatch("profile/authenticateUser", {
         isLogin: this.isLogin,
         form: this.form
@@ -188,6 +197,12 @@ input {
 
 .password-wrapper input {
   padding: 11.2px 42px 11.2px 16px;
+}
+
+.form-error {
+  font-size: .9rem;
+  color: var(--color-danger);
+  margin-bottom: .6rem;
 }
 
 @media only screen and (min-width: 1000px) {

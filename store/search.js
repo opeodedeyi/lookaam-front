@@ -23,7 +23,7 @@ export const actions = {
     search(vuexContext, search_terms) {
         vuexContext.commit('loadingTrue')
         return this.$axios
-        .$get(`${process.env.BASE_URL}/place`, { params: 
+        .$get('/place', { params: 
             {
                 search: search_terms,
                 page: 1,
