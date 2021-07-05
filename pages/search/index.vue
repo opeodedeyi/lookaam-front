@@ -4,6 +4,8 @@
       <mainbutton :onClick="openFilter" size="filter sb" mode="filter"><img src="~/assets/svg/filter.svg" alt="" /><span>FILTER</span></mainbutton>
       <mainbutton :onClick="openDate" class="ml sb" size="filter" mode="filter"><img src="~/assets/svg/date.svg" class="img-s" alt="" /><span class="img-t">DATE</span></mainbutton>
     </div>
+    <mainpopup v-if="filterPopup" @close-popup="closeFilterPopup" title="Filters" ftBtnTxt="Show results"></mainpopup>
+    <mainpopup v-if="datePopup" @close-popup="closeDatePopup" title="When is the planned date" bkBtnTxt="Clear" ftBtnTxt="Search"></mainpopup>
     <loadinglayout v-if="loading"></loadinglayout>
     <gridlayout v-else-if="searchResult.length>0">
       <app-main-card 
@@ -27,6 +29,7 @@
 
 <script>
 import mainbutton from "@/components/utilities/mainbutton";
+import mainpopup from "@/components/popups/mainpopup";
 import gridlayout from "@/components/layout/gridlayout";
 import loadinglayout from "@/components/layout/loadinglayout";
 import centerlayout from "@/components/layout/centerlayout";
@@ -38,7 +41,8 @@ export default {
     mainbutton,
     gridlayout,
     loadinglayout,
-    centerlayout
+    centerlayout,
+    mainpopup
   },
   computed:{
     searchTerms() {
@@ -53,20 +57,28 @@ export default {
   },
   data() {
     return {
+      datePopup: false,
+      filterPopup: false,
       next: null,
       previous: null
     }
   },
   methods: {
     openFilter() {
-      console.log('filter button clicked')
+      this.filterPopup = true;
     },
     openDate() {
-      console.log('date button clicked')
+      this.datePopup = true;
     },
     getAddress() {
       this.$router.push(`/search?search=${this.searchTerms}`);
     },
+    closeFilterPopup() {
+      this.filterPopup = false;
+    },
+    closeDatePopup() {
+      this.datePopup = false;
+    }
   },
   mounted() {
     // this.getAddress()
