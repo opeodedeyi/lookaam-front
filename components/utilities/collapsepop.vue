@@ -1,7 +1,7 @@
 <template>
     <div class="flex-c-full p-t-b">
-        <input v-if="isChecked" type="checkbox" name="name" checked id="name" class="hidecheckbox">
-        <input v-else type="checkbox" name="name" id="name" class="hidecheckbox">
+        <input v-if="isChecked" type="checkbox" :name="name" checked :id="name" class="hidecheckbox">
+        <input v-else type="checkbox" :name="name" :id="name" class="hidecheckbox">
         <label for="name" class="general-title p-b s-btw ptr"><p class="sub-title">{{ title }}</p> <div class="arrow-show-all f-c-a"><p>show all</p><img src="~/assets/svg/selectarrow.svg" alt=""></div> <div class="arrow-hide-all f-c-a"><p>hide all</p><img src="~/assets/svg/selectarrowup.svg" alt=""></div></label>
         <div class="collapsed-item">
             <slot></slot>
@@ -99,7 +99,7 @@ export default {
     font-weight: 500;
 }
 
-.hidecheckbox:checked ~ .collapsed-item {
+.hidecheckbox:checked + label + .collapsed-item {
     display: flex;
 }
 
@@ -107,7 +107,7 @@ export default {
     display: none;
 }
 
-.hidecheckbox:checked ~ .general-title .arrow-hide-all {
+.hidecheckbox:checked + label .arrow-hide-all {
     display: flex;
 }
 /* checkbox hack */

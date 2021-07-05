@@ -84,7 +84,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    margin-bottom: .4rem;
+    margin-bottom: .7rem;
 }
 
 .checkbox {
@@ -93,8 +93,8 @@ export default {
 
 .checkbox input,
 .checkbox svg {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   display: block;
 }
 
@@ -132,8 +132,8 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   transform: scale(var(--scale, 1)) translateZ(0);
 }
 
@@ -142,7 +142,7 @@ export default {
 }
 
 .checkbox.bounce input:checked {
-    --s: 9px;
+    --s: 10px;
 }
 
 .checkbox.bounce input:checked + svg {
