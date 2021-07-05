@@ -4,10 +4,10 @@
           <div class="popup-header">
             <div class="popup-header-empty"></div>
             <div v-if="title" class="popup-header-title">{{ title }}</div>
-            <img class="popup-header-title" src="~/assets/svg/cancel.svg" alt="" @click="closePopup"/>
+            <img class="popup-header-cancel" src="~/assets/svg/cancel.svg" alt="" @click="closePopup"/>
           </div>
           <div class="popup-body">
-            
+            <slot></slot>
           </div>
           <div class="popup-footer">
             <div class="popup-footer-btn"><button class="button-back f-btn" @click.prevent="bkBtnPressed" v-if="bkBtnTxt">{{ bkBtnTxt }}</button></div>
@@ -18,6 +18,7 @@
 </template>
 
 <script>
+
 export default {
   methods: {
     closePopup() {
@@ -68,6 +69,7 @@ export default {
     width: 100%;
     height: 100%;
     position: relative;
+    cursor: default;
   }
 
   .popup-header,
@@ -81,6 +83,8 @@ export default {
     align-items: center;
     padding: 0 20px;
     position: absolute;
+    background-color: var(--color-white);
+    z-index: 101;
   }
 
   .popup-header {
@@ -91,6 +95,15 @@ export default {
   .popup-footer {
     border-top: 1px solid var(--color-gray);
     bottom: 0;
+  }
+
+  .popup-body {
+    height: 100%;
+    padding: 100px 20px;
+    position: relative;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
   }
 
   .popup-header-empty {
@@ -104,6 +117,13 @@ export default {
   .popup-header-title {
     font-size: 1.125rem;
     font-weight: 500;
+  }
+
+  .popup-header-cancel {
+    font-size: 1.125rem;
+    font-weight: 500;
+    cursor: pointer;
+    z-index: 101;
   }
 
   .popup-footer-btn {
@@ -142,16 +162,21 @@ export default {
   }
 
   /* desktop screen */
-  @media only screen and (min-width: 650px) {
+  @media only screen and (min-width: 610px) {
     .main-popup-content {
-      max-width: 620px;
-      max-height: 500px;
+      max-width: 600px;
+      max-height: 570px;
       border-radius: 10px;
     }
 
     .popup-header,
     .popup-footer {
       padding: 0 50px;
+      border: none;
+    }
+
+    .popup-body {
+      padding: 100px 50px;
     }
 
     .popup-footer-btn {

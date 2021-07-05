@@ -1,5 +1,5 @@
 <template>
-    <div class="normal-form">
+    <div class="normal-form" :class="{ maxxx: overlay }">
         <label :for="name" v-if="hasSlot" class="mb1">
             <slot></slot>
             <span v-if="mustFill" class="label-required">*</span>
@@ -7,7 +7,7 @@
         </label>
 
         <!-- Type of place dropdown input -->
-        <select id="topinput" :name="name" :value="value"  @input="$emit('input', $event.target.value)" >
+        <select id="topinput" :name="name" :value="value" @input="$emit('input', $event.target.value)" >
             <option value="studio">Studio</option>
             <option value="hall">Hall</option>
             <option value="house">House</option>
@@ -35,6 +35,11 @@ export default {
             required: true
         },
         mustFill: {
+            type: Boolean,
+            required: false,
+            default: false
+        },
+        overlay: {
             type: Boolean,
             required: false,
             default: false
@@ -68,6 +73,14 @@ export default {
     flex-wrap: nowrap;
     width: 100%;
     margin-bottom: .9rem;
+}
+
+.maxxx {
+    max-width: 260px;
+}
+
+.maxxx label {
+    font-weight: 500;
 }
 
 select {

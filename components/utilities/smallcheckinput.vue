@@ -84,7 +84,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    margin-bottom: .9rem;
+    margin-bottom: .4rem;
 }
 
 .checkbox {
@@ -93,8 +93,8 @@ export default {
 
 .checkbox input,
 .checkbox svg {
-  width: 21px;
-  height: 21px;
+  width: 16px;
+  height: 16px;
   display: block;
 }
 
@@ -132,8 +132,8 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  width: 21px;
-  height: 21px;
+  width: 16px;
+  height: 16px;
   transform: scale(var(--scale, 1)) translateZ(0);
 }
 
@@ -142,12 +142,12 @@ export default {
 }
 
 .checkbox.bounce input:checked {
-    --s: 11px;
+    --s: 9px;
 }
 
 .checkbox.bounce input:checked + svg {
-    -webkit-animation: bounce 0.4s linear forwards 0.2s;
-    animation: bounce 0.4s linear forwards 0.2s;
+    -webkit-animation: bounce 0.1s linear forwards 0.2s;
+    animation: bounce 0.1s linear forwards 0.2s;
 }
 
 .checkbox.bounce svg {

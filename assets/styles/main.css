@@ -31,6 +31,27 @@ html, body {
     background-color: var(--color-white);
 }
 
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: var(--color-white);
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--color-gray-darker);
+}
+
+/* Handle on hover */
+/* ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-dark);
+} */
+
 *,
 *::before,
 *::after {
