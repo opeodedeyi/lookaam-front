@@ -4,7 +4,7 @@
       <mainbutton :onClick="openFilter" size="filter sb" mode="filter"><img src="~/assets/svg/filter.svg" alt="" /><span>FILTER</span></mainbutton>
       <mainbutton :onClick="openDate" class="ml sb" size="filter" mode="filter"><img src="~/assets/svg/date.svg" class="img-s" alt="" /><span class="img-t">DATE</span></mainbutton>
     </div>
-    <mainpopup v-if="filterPopup" @close-popup="closeFilterPopup" title="Filters" ftBtnTxt="Show results">
+    <mainpopup v-if="filterPopup" @close-popup="closeFilterPopup" title="Filters" ftBtnTxt="Show results" bkBtnTxt="Clear">
       <template>
         <div class="vertical-layout">
           <topinput hasSlot name="topinput" overlay v-model="form.typeof">Type of place</topinput>

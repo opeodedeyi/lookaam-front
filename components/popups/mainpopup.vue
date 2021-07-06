@@ -9,7 +9,7 @@
           <div class="popup-body">
             <slot></slot>
           </div>
-          <div class="popup-footer">
+          <div class="popup-footer" v-if="bkBtnTxt || ftBtnTxt">
             <div class="popup-footer-btn"><button class="button-back f-btn" @click.prevent="bkBtnPressed" v-if="bkBtnTxt">{{ bkBtnTxt }}</button></div>
             <div class="popup-footer-btn"><button class="button-onward f-btn" @click.prevent="ftBtnPressed" v-if="ftBtnTxt">{{ ftBtnTxt }}</button></div>
           </div>
