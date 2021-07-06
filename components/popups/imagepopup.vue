@@ -96,23 +96,16 @@ export default {
         align-items: center;
         padding: 0 20px;
         position: absolute;
-        background-color: var(--color-white);
         z-index: 101;
     }
 
     .popup-header {
-        border-bottom: 1px solid var(--color-gray);
         top: 0;
-    }
-
-    .popup-footer {
-        border-top: 1px solid var(--color-gray);
-        bottom: 0;
     }
 
     .popup-body {
         height: 100%;
-        padding: 100px 20px 0;
+        padding: 50px 20px 50px;
         width: 100%;
         display: flex;
         flex-direction: row;
