@@ -1,5 +1,5 @@
 <template>
-    <div class="main-popup" v-touch:swipe.left="previousImage" v-touch:swipe.right="nextImage">
+    <div class="main-popup" v-touch:swipe.left="nextImage" v-touch:swipe.right="previousImage">
         <div class="main-popup-content">
             <div class="popup-header">
                 <div class="popup-header-empty"></div>
