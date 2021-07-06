@@ -138,7 +138,7 @@ export default {
             thumbnail: null,
             propertyImages: [],
             property: null,
-            sharePopUp: true
+            sharePopUp: false
         }
     },
     methods: {
