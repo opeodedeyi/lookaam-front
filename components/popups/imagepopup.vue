@@ -1,5 +1,5 @@
 <template>
-    <div class="main-popup">
+    <div class="main-popup" v-touch:swipe.left="previousImage" v-touch:swipe.right="nextImage">
         <div class="main-popup-content">
             <div class="popup-header">
                 <div class="popup-header-empty"></div>
@@ -17,6 +17,10 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import Vue2TouchEvents from 'vue2-touch-events'
+
+Vue.use(Vue2TouchEvents)
 
 export default {
     props: {
@@ -53,8 +57,30 @@ export default {
                 return this.current++
             }
             return
+        },
+        handleKeydown (e) {
+            switch (e.keyCode) {
+                case 37:
+                this.previousImage();
+                break;
+                case 32:
+                this.nextImage();
+                break;
+                case 39: 
+                this.nextImage();
+                break;
+                case 27: 
+                this.closePopup();
+                break;
+            }
         }
     },
+    beforeMount () {
+        window.addEventListener('keydown', this.handleKeydown, null);
+    },
+    beforeDestroy () {
+        window.removeEventListener('keydown', this.handleKeydown);
+    }
 }
 </script>
 

@@ -15,7 +15,8 @@
     "core-js": "^3.9.1",
     "google-signin-vue": "^1.2.2",
     "js-cookie": "^2.2.1",
-    "nuxt": "^2.15.3"
+    "nuxt": "^2.15.3",
+    "vue2-touch-events": "^3.2.2"
   },
   "devDependencies": {}
 }
