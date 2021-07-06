@@ -45,7 +45,7 @@ export default {
 
 .h-l-container {
     margin-top: 2rem;
-    /* position: relative; */
+    position: relative;
     width: 100%;
     height: 230px;
     overflow-x: scroll;
@@ -79,7 +79,7 @@ export default {
     flex-wrap: nowrap;
     justify-content: flex-start;
     align-items: center;
-    /* position: absolute; */
+    position: absolute;
 }
 
 /* Small screens */
