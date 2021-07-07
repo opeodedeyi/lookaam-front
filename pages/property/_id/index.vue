@@ -22,8 +22,9 @@
                 <div v-if="property.owner" class="p-d-cont p-t-b b-b"><!-- contains owner of property -->
                     <div class="p-d-cont-det">
                         <div class="p-d-cont-det-image">
-                            <img v-if="!property.owner.profilePhoto" src="~/assets/images/pp.webp" alt="">
-                            <img v-else :src="property.owner.profilePhoto.location" alt="">
+                            <img v-if="!!property.owner.profilePhoto.location" :src="property.owner.profilePhoto.location" alt="">
+                            <img v-else src="~/assets/images/pp.webp" alt="">
+                            <!-- <img v-else :src="property.owner.profilePhoto.location" alt=""> -->
                         </div>
                         <p class="p-d-cont-det-name">by {{ property.owner.fullname | shortenText(14, '...') }}</p>
                         <div class="p-d-cont-det-verified"><img src="~/assets/svg/verified.svg" v-if="property.owner.isVerified" alt=""><img src="~/assets/svg/notverified.svg" v-else alt=""></div>

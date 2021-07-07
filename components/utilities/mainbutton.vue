@@ -100,6 +100,17 @@ export default {
         height: 2.5rem;
     }
 
+    .maxx {
+        font-size: 1rem;
+        width: 100%;
+        height: 2.5rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin-top: 1rem;
+    }
+
     .filter {
         width: 110px;
         height: 2.5rem;
@@ -139,6 +150,16 @@ export default {
     }
 
     .outline:hover {
+        background-color: var(--color-gray);
+    }
+
+    .outline-b {
+        background-color: var(--color-white);
+        color: var(--color-dark);
+        border: 1px solid var(--color-company);
+    }
+
+    .outline-b:hover {
         background-color: var(--color-gray);
     }
 

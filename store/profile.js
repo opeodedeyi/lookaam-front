@@ -83,6 +83,15 @@ export const actions = {
         })
         .catch(e => console.log(e))
     },
+    async logOutAll(vuexContext) {
+        return this.$axios
+        .$post('/logoutall')
+        .then(data => {
+            Cookie.remove('token');
+            vuexContext.commit('logOut');
+        })
+        .catch(e => console.log(e))
+    },
 }
 
 export const getters = {
@@ -91,7 +100,10 @@ export const getters = {
     },
     profilephoto(state) {
         if (!!state.user.profilePhoto) {
-            return state.user.profilePhoto.location
+            if (!!state.user.profilePhoto.location) {
+                return state.user.profilePhoto.location
+            }
+            return state.photo
         }
         return state.photo;
     },
