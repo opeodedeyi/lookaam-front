@@ -1,10 +1,10 @@
 <template>
     <div class="profile-body">
         <div class="full-width">
-            <div class="profile-body-photo">
+            <div v-if="photo" class="profile-body-photo">
                 <img :src="photo" alt="">
             </div>
-            <p class="profile-body-name">{{ user.fullname }}</p>
+            <p v-if="user.fullname" class="profile-body-name">{{ user.fullname }}</p>
             <mainbutton link to="/profile/manageplaces" size="maxx">Manage my places</mainbutton>
             <mainbutton link to="/profile/changepassword" size="maxx" mode="outline-b">Change my password</mainbutton>
             <mainbutton v-if="!user.isEmailConfirmed" :gloading="vloading" size="maxx" mode="outline-b" :onClick="sendVerificationEmail">Resend verification Email</mainbutton>
@@ -57,7 +57,7 @@ export default {
         async logoutAll(e) {
             e.preventDefault();
             this.logloading = true
-            await this.$store.dispatch("profile/logOutAll");
+            await this.$store.dispatch("profile/devicesLogOut", null);
         },
     }
 }

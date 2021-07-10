@@ -74,21 +74,23 @@ export const actions = {
     updateUser({ commit }, payload){
         commit('updateUser', payload);
     },
-    async logOut(vuexContext) {
+    async logOut(vuexContext, payload) {
         return this.$axios
         .$post('/logout')
         .then(data => {
             Cookie.remove('token');
             vuexContext.commit('logOut');
+            this.$router.push('/')
         })
         .catch(e => console.log(e))
     },
-    async logOutAll(vuexContext) {
+    async devicesLogOut(vuexContext, payload) {
         return this.$axios
         .$post('/logoutall')
         .then(data => {
             Cookie.remove('token');
             vuexContext.commit('logOut');
+            this.$router.push('/')
         })
         .catch(e => console.log(e))
     },
@@ -103,7 +105,7 @@ export const getters = {
             if (!!state.user.profilePhoto.location) {
                 return state.user.profilePhoto.location
             }
-            return state.photo
+            return state.photo;
         }
         return state.photo;
     },

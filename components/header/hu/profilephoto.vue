@@ -1,6 +1,6 @@
 <template>
   <div @click="toggledropdown" @mouseover="showdropdown" @mouseleave="hidedropdown">
-    <nuxt-link to="/profile" tag="div" class="container">
+    <nuxt-link v-if="photo" to="/profile" tag="div" class="container">
       <img :src="photo" alt="">
     </nuxt-link>
 
