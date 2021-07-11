@@ -15,9 +15,9 @@
                 <nuxt-link to="/getstarted" tag="li" active-class="active" v-if="!isLoggedIn"><a>Become a Host</a></nuxt-link>
 
                 <nuxt-link to="/profile" tag="li" active-class="active" v-if="isLoggedIn"><a>My Profile</a></nuxt-link>
-                <nuxt-link to="/property" tag="li" active-class="active" v-if="isLoggedIn"><a>Manage my Places</a></nuxt-link>
+                <nuxt-link to="/profile/manageplaces" tag="li" active-class="active" v-if="isLoggedIn"><a>Manage my Places</a></nuxt-link>
                 <nuxt-link to="/getstarted" tag="li" active-class="active" v-if="isLoggedIn"><a>Host a Place</a></nuxt-link>
-                <nuxt-link to="/profile" tag="li" active-class="active" v-if="isLoggedIn"><a>Saved Places</a></nuxt-link>
+                <nuxt-link to="/profile/savedplaces" tag="li" active-class="active" v-if="isLoggedIn"><a>Saved Places</a></nuxt-link>
                 <li active-class="active" @click.prevent="logOut" v-if="isLoggedIn">Sign out</li>
             </ul>
 
