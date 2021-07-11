@@ -31,6 +31,8 @@ export const actions = {
         .$get(`${process.env.BASE_URL}/place`, { params: 
             {
                 limit: 8,
+                img: true,
+                page: 1
             }
         })
         .then(data => {

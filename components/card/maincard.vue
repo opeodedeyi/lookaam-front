@@ -3,10 +3,11 @@
         <img v-if="photo" :src="photo" alt="ima"  class="main-card-area cardimage"/>
         <img v-else src="~/assets/images/cardimage.webp" alt="ima"  class="main-card-area cardimage"/>
         <div class="main-card-area cardtext">
-            <div class="card-top">
+            <div class="card-top" v-if="isLoggedIn">
                 <save v-if="!liked"></save>
                 <saved v-else></saved>
             </div>
+            <div class="card-top very-empty" v-else></div>
             <div class="card-bottom">
                 <p class="card-p-title" v-if="Ptitle">{{ Ptitle | shortenText(24, '...') }}</p>
                 <p class="card-p-type">{{ Ptype }}</p>
@@ -18,13 +19,15 @@
     <nuxt-link v-else :to="to" class="main-card" :class="[typeofcard]">
         <img v-if="photo" :src="photo" alt="ima"  class="main-card-area cardimage"/>
         <img v-else src="~/assets/images/cardimage.webp" alt="ima"  class="main-card-area cardimage"/>
-        <div class="card-top">
+        <div class="main-card-area cardtext">
+            <div class="card-top">
 
-        </div>
-        <div class="card-bottom">
-            <p class="card-p-title" v-if="Ptitle">{{ Ptitle | shortenText(24, '...') }}</p>
-            <p class="card-p-type">{{ Ptype }}</p>
-            <p class="card-p-price" v-if="Pprice"><span class="cless">{{ Pprice }}</span>/day</p>
+            </div>
+            <div class="card-bottom">
+                <p class="card-p-title" v-if="Ptitle">{{ Ptitle | shortenText(24, '...') }}</p>
+                <p class="card-p-type">{{ Ptype }}</p>
+                <p class="card-p-price" v-if="Pprice"><span class="cless">{{ Pprice }}</span>/day</p>
+            </div>
         </div>
     </nuxt-link>
 </template>
@@ -67,7 +70,7 @@ export default {
         },
         Ptitle: {
             type: String,
-            required: true
+            required: false
         },
         Ptype: {
             type: String,
@@ -81,6 +84,11 @@ export default {
             type: String,
             required: false
         },
+    },
+    computed: {
+        isLoggedIn() {
+            return this.$store.getters["profile/check"]
+        }
     },
     data() {
         return {
@@ -170,6 +178,10 @@ p {
     flex-wrap: nowrap;
     justify-content: flex-end;
     align-items: center;
+}
+
+.very-empty {
+    content: "";
 }
 
 .card-bottom {

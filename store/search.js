@@ -28,6 +28,7 @@ export const actions = {
                 search: search_terms,
                 page: 1,
                 limit: 15,
+                img: true,
             }
         })
         .then(data => {
