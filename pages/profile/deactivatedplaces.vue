@@ -31,6 +31,7 @@ import centerlayout from "@/components/layout/centerlayout";
 import maincard from "@/components/card/maincard.vue";
 
 export default {
+    middleware: 'isAuth',
     components: { 
         secondheader,
         'app-main-card': maincard,
