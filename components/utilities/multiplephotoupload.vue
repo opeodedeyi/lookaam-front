@@ -1,17 +1,16 @@
 <template>
-    <form>
+    <div>
         <div class="file" @dragover.prevent="addDragOvFeedback" @dragleave.prevent="removeDragOvFeedback" @drop.prevent="drop($event)">
             <input type="file" name="file" id="file" class="file-input" accept="image/*" @change="onFilePicked" multiple>
             <label  for="file" class="file-button">
                 <img class="file-button-image" src="~/assets/svg/upload.svg" alt="" /><span>upload photos</span>
             </label>
             <div class="file-gallery" @drop.prevent="drop($event)">
-                <app-mini-card uploaded cardImage="https://www.ndtv.com/education/cache-static/media/presets/625X400/article_images/2021/4/27/iit-madras-3d-house.webp" @remove-image="removeSingleImage"></app-mini-card>
-                <app-mini-card cardImage="https://www.ndtv.com/education/cache-static/media/presets/625X400/article_images/2021/4/27/iit-madras-3d-house.webp"></app-mini-card>
-                <app-mini-card cardImage="https://www.ndtv.com/education/cache-static/media/presets/625X400/article_images/2021/4/27/iit-madras-3d-house.webp"></app-mini-card>
+                <app-mini-card v-for="(item, index) in uploading" :key="index" :cardImage="item"></app-mini-card>
+                <!-- <app-mini-card v-for="(uploadedItem, uploadedIndex) in uploaded" :key="uploadedIndex" uploaded :cardImage="uploadedItem" @remove-image="removeSingleImage"></app-mini-card> -->
             </div>
         </div>
-    </form>
+    </div>
 </template>
 
 
@@ -24,7 +23,8 @@ export default {
     },
     data() {
         return {
-            img: []
+            uploading: [],
+            uploaded: []
         }
     },
     props: {
@@ -61,11 +61,46 @@ export default {
             const files = e.target.files;
             this.handleFiles(files);
         },
+        saveToBackend(file, result) {
+            // compress image
+
+            
+            // save to aws
+
+
+            // save image to backend
+
+
+            // remove from uploading
+            const upload = this.uploading
+            const newUpload = upload.filter((uploadingImage) => {
+                uploadingImage != result
+            })
+            this.uploading = newUpload
+
+            // add to uploaded the actual image i get from aws and can be deletable
+        },
+        readFiles(file) {
+            const reader = new FileReader();
+            reader.readAsDataURL(file)
+            reader.onload = () => {
+                const uploading = this.uploading
+                const result = reader.result
+                uploading.push(result)
+                this.uploading = uploading
+                
+
+                // upload to aws
+                this.saveToBackend(file, result)
+            }
+        },
         handleFiles(files) {
             const Files = Array.from(files);
             var imageType = /image.*/;
             Files.forEach(file => {
-                console.log(file.type);
+                // display the image
+                this.readFiles(file)
+                // console.log(uploadingImageUrl);
             });
             console.log(Files, "loaded files");
         },

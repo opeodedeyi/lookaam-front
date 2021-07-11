@@ -2,10 +2,10 @@
     <div class="search-container">
         <secondheader></secondheader>
         <loadinglayout v-if="loading"></loadinglayout>
-        <gridlayout v-else-if="myProperties.length>0">
+        <gridlayout v-else-if="myDeactivatedProperties.length>0">
             <app-main-card 
                 :hasLikebtn="false"
-                v-for="result in myProperties"
+                v-for="result in myDeactivatedProperties"
                 :key="result._id"
                 :id="result._id"
                 hasLike="true" 
@@ -17,7 +17,7 @@
         </gridlayout>
         <centerlayout v-else>
         <template v-slot:default>
-            <p class="no-content-text">You don't have any active place that you created</p>
+            <p class="no-content-text">You have no deactivated place</p>
         </template>
         </centerlayout>
     </div>
@@ -40,17 +40,17 @@ export default {
     },
     data() {
         return {
-            myProperties: [],
+            myDeactivatedProperties: [],
             loading: false,
             next: null,
             previous: null
         }
     },
     methods: {
-        getActivePlaces() {
+        getdeactivePlaces() {
             this.loading = true
             this.$axios
-            .get('/myactiveplaces?', { params: 
+            .get('/mydeactivatedplaces?', { params: 
                 {
                     page: 1,
                     limit: 2
@@ -68,7 +68,7 @@ export default {
         },
     },
     mounted() {
-        this.getActivePlaces()
+        this.getdeactivePlaces()
     }
 }
 </script>

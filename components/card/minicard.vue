@@ -8,7 +8,7 @@
     <div v-else class="mini-card">
         <img :src="cardImage" alt="ima"  class="mini-card-image"/>
         <div class="mini-card- pos" @click="removeImage">
-            <cancletwo></cancletwo>
+            <!-- loading animation goes here -->
         </div>
     </div>
 </template>
