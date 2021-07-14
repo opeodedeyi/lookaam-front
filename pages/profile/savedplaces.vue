@@ -1,5 +1,6 @@
 <template>
     <div class="search-container">
+        <titleheader></titleheader>
         <loadinglayout v-if="loading"></loadinglayout>
         <gridlayout v-else-if="myProperties.length>0">
             <app-main-card 
@@ -23,7 +24,7 @@
 </template>
 
 <script>
-import secondheader from "@/components/header/secondheader";
+import titleheader from "@/components/header/titleheader";
 import gridlayout from "@/components/layout/gridlayout";
 import loadinglayout from "@/components/layout/loadinglayout";
 import centerlayout from "@/components/layout/centerlayout";
@@ -32,7 +33,7 @@ import maincard from "@/components/card/maincard.vue";
 export default {
     middleware: 'isAuth',
     components: { 
-        secondheader,
+        titleheader,
         'app-main-card': maincard,
         gridlayout,
         loadinglayout,
@@ -41,7 +42,7 @@ export default {
     data() {
         return {
             myProperties: [],
-            loading: false,
+            loading: true,
             next: null,
             previous: null
         }

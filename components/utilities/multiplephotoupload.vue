@@ -72,11 +72,11 @@ export default {
 
 
             // remove from uploading
-            const upload = this.uploading
-            const newUpload = upload.filter((uploadingImage) => {
-                uploadingImage != result
-            })
-            this.uploading = newUpload
+            // const upload = this.uploading
+            // const newUpload = upload.filter((uploadingImage) => {
+            //     uploadingImage != result
+            // })
+            // this.uploading = newUpload
 
             // add to uploaded the actual image i get from aws and can be deletable
         },
@@ -96,11 +96,13 @@ export default {
         },
         handleFiles(files) {
             const Files = Array.from(files);
-            var imageType = /image.*/;
             Files.forEach(file => {
-                // display the image
-                this.readFiles(file)
-                // console.log(uploadingImageUrl);
+                // check if image is a valid image
+                if (file.type.includes('image')) {
+                    // display the image
+                    return this.readFiles(file)
+                }
+                return
             });
             console.log(Files, "loaded files");
         },

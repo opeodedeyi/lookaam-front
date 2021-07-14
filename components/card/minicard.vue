@@ -7,18 +7,20 @@
     </div>
     <div v-else class="mini-card">
         <img :src="cardImage" alt="ima"  class="mini-card-image"/>
-        <div class="mini-card- pos" @click="removeImage">
-            <!-- loading animation goes here -->
+        <div class="mini-card- pos">
+            <miniloading></miniloading>
         </div>
     </div>
 </template>
 
 <script>
 import cancletwo from "@/components/utilities/cancletwo";
+import miniloading from "@/components/utilities/miniloading";
 
 export default {
     components: {
-        cancletwo
+        cancletwo,
+        miniloading
     },
     props: {
         objId: {
