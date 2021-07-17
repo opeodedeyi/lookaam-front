@@ -16,10 +16,33 @@
 
 <script>
 import minicard from "@/components/card/minicard.vue";
+import S3 from "aws-s3";
 
 export default {
     components: {
         'app-mini-card': minicard
+    },
+    computed: {
+        config(){
+            return {
+                bucketName: process.env.AWS_BUCKET_NAME,
+                // dirName: 'photos', /* optional */
+                region: process.env.AWS_REGION,
+                accessKeyId: process.env.AWS_ID,
+                secretAccessKey: process.env.AWS_SECRET,
+                s3Url: process.env.AWS_URL,
+            }
+        },
+        S3Client(){
+            return new S3({
+                bucketName: process.env.AWS_BUCKET_NAME,
+                // dirName: 'photos', /* optional */
+                region: process.env.AWS_REGION,
+                accessKeyId: process.env.AWS_ID,
+                secretAccessKey: process.env.AWS_SECRET,
+                s3Url: process.env.AWS_URL,
+            });
+        }
     },
     data() {
         return {
@@ -38,6 +61,16 @@ export default {
         }
     },
     methods: {
+        getRandomName(length) {
+            var result           = '';
+            var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var charactersLength = characters.length;
+            for ( var i = 0; i < length; i++ ) {
+                result += characters. charAt(Math. floor(Math. random() * 
+                charactersLength));
+            }
+            return result;
+        },
         addDragOvFeedback(e) {
             e.preventDefault();
             e.stopPropagation();
@@ -61,12 +94,40 @@ export default {
             const files = e.target.files;
             this.handleFiles(files);
         },
-        saveToBackend(file, result) {
-            // compress image
+        convertImage(file) {
+            return new Promise((resolve) => {
+                // convert image
+                let src = URL.createObjectURL(file)
+                let canvas = document.createElement('canvas');
+                let ctx = canvas.getContext('2d')
 
-            
+                let userImage = new Image();
+                userImage.src = src
+
+                userImage.onload = function() {
+                    canvas.width = userImage.width;
+                    canvas.height = userImage.height;
+                    ctx.drawImage(userImage, 0, 0);
+
+                    let webpImage = canvas.toDataURL("image/webp");
+                    return resolve(webpImage);
+                }
+            });    
+        },
+        async saveToBackend(file, result) {
+            // convert images to webp
+            let webpFile = await this.convertImage(file)
+            let fileExtension = "webp"
+
             // save to aws
-
+            this.S3Client
+            .uploadFile(webpFile, this.getRandomName(10))
+            .then(data => {
+                console.log(data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
 
             // save image to backend
 
@@ -89,8 +150,7 @@ export default {
                 uploading.push(result)
                 this.uploading = uploading
                 
-
-                // upload to aws
+                // convert files, upload to aws, send to backend
                 this.saveToBackend(file, result)
             }
         },
@@ -104,7 +164,7 @@ export default {
                 }
                 return
             });
-            console.log(Files, "loaded files");
+            // console.log(Files, "loaded files");
         },
         removeSingleImage(imageObjId) {
             console.log(imageObjId);
