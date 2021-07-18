@@ -4,7 +4,7 @@
       <mainbutton :onClick="openFilter" size="filter sb" mode="filter"><img src="~/assets/svg/filter.svg" alt="" /><span>FILTER</span></mainbutton>
       <mainbutton :onClick="openDate" class="ml sb" size="filter" mode="filter"><img src="~/assets/svg/date.svg" class="img-s" alt="" /><span class="img-t">DATE</span></mainbutton>
     </div>
-    <mainpopup v-if="filterPopup" @close-popup="closeFilterPopup" title="Filters" ftBtnTxt="Show results" bkBtnTxt="Clear">
+    <mainpopup v-if="filterPopup" @close-popup="closeFilterPopup" @fw-btn="filterSearch" @bk-btn="clearFilter" title="Filters" ftBtnTxt="Show results" bkBtnTxt="Clear">
       <template>
         <div class="vertical-layout">
           <topinput hasSlot name="topinput" overlay v-model="form.typeof">Type of place</topinput>
@@ -101,6 +101,9 @@ export default {
     loading() {
       return this.$store.getters["search/loading"]
     },
+    rtSearchTerms() {
+      return this.$store.getters["search/rtSearchTerms"]
+    },
   },
   data() {
     return {
@@ -122,8 +125,21 @@ export default {
     openDate() {
       this.datePopup = true;
     },
-    getAddress() {
-      this.$router.push(`/search?search=${this.searchTerms}`);
+    filterSearch() {
+      // search the filter
+      const search_terms = this.rtSearchTerms
+      // this.$route.query.search = search_terms
+      this.$router.push(`/search?search=${this.rtSearchTerms}`);
+      this.$store.dispatch("search/search", { search_terms, search_query: this.form });
+    },
+    clearFilter() {
+      this.form.typeof = null,
+      this.form.idealfor = [],
+      this.form.amenities = []
+    },
+    reloadSearch() {
+      const searchParams = this.$route.query
+      this.$store.dispatch("search/search", {search_terms: searchParams.search, search_query: searchParams});
     },
     closeFilterPopup() {
       this.filterPopup = false;
@@ -133,7 +149,7 @@ export default {
     }
   },
   mounted() {
-    // this.getAddress()
+    this.reloadSearch()
   }
 }
 </script>

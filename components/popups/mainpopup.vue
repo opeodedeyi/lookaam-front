@@ -24,6 +24,12 @@ export default {
     closePopup() {
       this.$emit("close-popup", this.objId);
     },
+    ftBtnPressed() {
+      this.$emit("fw-btn", this.objId);
+    },
+    bkBtnPressed() {
+      this.$emit("bk-btn", this.objId);
+    },
     doNothing() {
       return
     }

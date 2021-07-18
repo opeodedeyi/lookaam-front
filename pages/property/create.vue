@@ -9,7 +9,7 @@
                 <form @submit.prevent="submitForm" class="form-body-cont">
 
                     <!-- Form page one -->
-                    <div class="fw" v-if="step == 0">
+                    <div class="fw" v-if="step == 1">
                         <p class="form-title">What phone number can be called about this location?</p>
                         <p v-if="errorMessage" class="form-error">{{ errorMessage }}</p>
                         <phonecodeinput hasSlot mustFill name="code" v-model="form.phone.code">Country </phonecodeinput>
@@ -91,7 +91,7 @@
                         <numberinput hasSlot mustFill placeholder="xxx" name="price" v-model.number="form.price.amount">Amount </numberinput>
                     </div>
                     <!-- Form page nine (photo upload)(wip) -->
-                    <div class="fw" v-if="step == 1">
+                    <div class="fw" v-if="step == 9">
                         <div class="normal-form">
                             <label for="photo" class="mb1">Upload at least one photo 
                                 to your place, you can always add more later 

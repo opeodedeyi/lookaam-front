@@ -1,7 +1,7 @@
 <template>
     <div class="search-box">
         <searchicon class="searchsvg"/>
-        <input type="text" class="search-input" placeholder="Search for a location" @keypress="search">
+        <input type="text" class="search-input" placeholder="Search for a location" @keypress="search" v-model="terms" @keyup="updateST">
     </div>
 </template>
 
@@ -12,16 +12,29 @@ export default {
     components: {
         searchicon
     },
+    data() {
+        return {
+            terms: null || this.$route.query.search,
+            form: {
+                typeof: null,
+                idealfor: [],
+                amenities: []
+            }
+        }
+    },
     methods: {
+        updateST() {
+            this.$store.commit("search/updateRTSearchTerms", this.terms);
+        },
         search(event) {
             const btn = event.key;
             if (btn === "Enter") {
-                const search_terms = event.target.value;
-                this.$store.dispatch("search/search", search_terms);
+                const search_terms = this.terms;
+                this.$store.dispatch("search/search", {search_terms, search_query: this.form});
                 this.$router.push(`/search?search=${search_terms}`);
             }
         }
-    }
+    },
 }
 </script>
 

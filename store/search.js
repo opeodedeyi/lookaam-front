@@ -1,4 +1,5 @@
 export const state = () => ({
+    rtSearchTerms: null,
     searchTerms: null,
     loading: false,
     result: []
@@ -16,16 +17,22 @@ export const mutations = {
     },
     loadingTrue(state) {
         state.loading = true
+    },
+    updateRTSearchTerms(state, payload) {
+        state.rtSearchTerms = payload
     }
 }
  
 export const actions = {
-    search(vuexContext, search_terms) {
+    search(vuexContext, {search_terms, search_query}) {
         vuexContext.commit('loadingTrue')
         return this.$axios
         .$get('/place', { params: 
             {
                 search: search_terms,
+                typeof: search_query.typeof,
+                idealfor: search_query.idealfor,
+                amenities: search_query.amenities,
                 page: 1,
                 limit: 15,
                 img: true,
@@ -33,6 +40,7 @@ export const actions = {
         })
         .then(data => {
             let searchResult = data.results
+            console.log(search_query);
             vuexContext.commit('searchResult', searchResult)
             vuexContext.commit('loadingFalse')
         })
@@ -52,5 +60,8 @@ export const getters = {
     },
     loading(state) {
         return state.loading
+    },
+    rtSearchTerms(state) {
+        return state.rtSearchTerms
     }
 }
