@@ -2,7 +2,11 @@ export const state = () => ({
     rtSearchTerms: null,
     searchTerms: null,
     loading: false,
-    result: []
+    result: [],
+    page: 1,
+    limit: 15,
+    next: null,
+    previous: null
 })
  
 export const mutations = {
@@ -12,11 +16,19 @@ export const mutations = {
     searchResult(state, result) {
         state.result = result
     },
+    setNext(state, payload) {
+        state.next = payload
+    },
     loadingFalse(state) {
         state.loading = false
     },
     loadingTrue(state) {
         state.loading = true
+    },
+    resetSearch(state) {
+        state.page = 1
+        state.next = null
+        state.previous = null
     },
     updateRTSearchTerms(state, payload) {
         state.rtSearchTerms = payload
@@ -26,6 +38,7 @@ export const mutations = {
 export const actions = {
     search(vuexContext, {search_terms, search_query}) {
         vuexContext.commit('loadingTrue')
+        vuexContext.commit('resetSearch')
         return this.$axios
         .$get('/place', { params: 
             {
@@ -33,15 +46,50 @@ export const actions = {
                 typeof: search_query.typeof,
                 idealfor: search_query.idealfor,
                 amenities: search_query.amenities,
-                page: 1,
-                limit: 15,
+                page: vuexContext.getters.pageNo,
+                limit: vuexContext.getters.limitNo,
                 img: true,
             }
         })
         .then(data => {
             let searchResult = data.results
-            console.log(search_query);
+            let nextNumber = null
+            if (!!data.next) {
+                nextNumber = data.next
+            }
             vuexContext.commit('searchResult', searchResult)
+            vuexContext.commit('setNext', nextNumber)
+            vuexContext.commit('loadingFalse')
+        })
+        .catch(e => {
+            console.log(e)
+            vuexContext.commit('loadingFalse')
+        })
+    },
+    loadMore(vuexContext, {search_terms, search_query}) {
+        vuexContext.commit('loadingTrue')
+        return this.$axios
+        .$get('/place', { params: 
+            {
+                search: search_terms,
+                typeof: search_query.typeof,
+                idealfor: search_query.idealfor,
+                amenities: search_query.amenities,
+                page: vuexContext.getters.nextNo,
+                limit: vuexContext.getters.limitNo,
+                img: true,
+            }
+        })
+        .then(data => {
+            let newResult = data.results
+            let nextNumber = null
+            if (!!data.next) {
+                nextNumber = data.next
+            }
+            // vuexContext.commit('searchResult', searchResult)
+            // before commiting we have to puch the results of the new search to the former one
+            console.log("loaded new result");
+            vuexContext.commit('setNext', nextNumber)
             vuexContext.commit('loadingFalse')
         })
         .catch(e => {
@@ -63,5 +111,14 @@ export const getters = {
     },
     rtSearchTerms(state) {
         return state.rtSearchTerms
+    },
+    pageNo(state) {
+        return state.page
+    },
+    limitNo(state) {
+        return state.limit
+    },
+    nextNo(state) {
+        return state.next
     }
 }

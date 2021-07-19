@@ -47,12 +47,12 @@
     <mainpopup v-if="datePopup" @close-popup="closeDatePopup" title="When is the planned date" bkBtnTxt="Clear" ftBtnTxt="Search"></mainpopup>
     <loadinglayout v-if="loading"></loadinglayout>
     <gridlayout v-else-if="searchResult.length>0">
-      <app-main-card 
+      <app-main-card
         v-for="result in searchResult"
         :key="result._id"
         :id="result._id"
-        hasLike="true" 
-        :to="`/property/${result._id}`"  
+        hasLike="true"
+        :to="`/property/${result._id}`"
         :Ptitle="result.title"
         :Ptype="result.typeof"
         :Pprice="result.price.amount">
@@ -162,6 +162,9 @@ export default {
       }
       console.log(searchParams);
       this.$store.dispatch("search/search", {search_terms: searchParams.search, search_query: searchParams});
+    },
+    loadMore() {
+      this.$store.dispatch("search/loadmore", { search_terms, search_query: this.form });
     },
     closeFilterPopup() {
       this.filterPopup = false;
