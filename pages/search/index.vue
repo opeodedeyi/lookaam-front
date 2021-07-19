@@ -126,19 +126,41 @@ export default {
       this.datePopup = true;
     },
     filterSearch() {
-      // search the filter
       const search_terms = this.rtSearchTerms
-      // this.$route.query.search = search_terms
-      this.$router.push(`/search?search=${this.rtSearchTerms}`);
+      this.$router.push({ path: 'search', query: { search: this.rtSearchTerms, typeof: this.form.typeof, idealfor: this.form.idealfor, amenities: this.form.amenities }});
       this.$store.dispatch("search/search", { search_terms, search_query: this.form });
+      this.filterPopup = false;
     },
     clearFilter() {
-      this.form.typeof = null,
-      this.form.idealfor = [],
+      this.form.typeof = null
+      this.form.idealfor = []
       this.form.amenities = []
     },
     reloadSearch() {
       const searchParams = this.$route.query
+      let gottenTypeof = searchParams.typeof
+      let gottenIdealfor = searchParams.idealfor
+      let gottenAmenities = searchParams.amenities
+      this.form.typeof = gottenTypeof
+      if (!gottenIdealfor) {
+        this.form.idealfor = []
+      } else if (gottenIdealfor.constructor === Array) {
+        this.form.idealfor = gottenIdealfor
+      } else {
+        let newIdealfor = []
+        newIdealfor.push(gottenIdealfor)
+        this.form.idealfor = newIdealfor
+      }
+      if (!gottenAmenities) {
+        this.form.amenities = []
+      } else if (gottenAmenities.constructor === Array) {
+        this.form.amenities = gottenAmenities
+      } else {
+        let newAmenities = []
+        newAmenities.push(gottenAmenities)
+        this.form.amenities = newAmenities
+      }
+      console.log(searchParams);
       this.$store.dispatch("search/search", {search_terms: searchParams.search, search_query: searchParams});
     },
     closeFilterPopup() {
