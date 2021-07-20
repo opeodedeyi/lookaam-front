@@ -39,11 +39,12 @@ export const actions = {
     search(vuexContext, {search_terms, search_query}) {
         vuexContext.commit('loadingTrue')
         vuexContext.commit('resetSearch')
+        console.log(search_query);
         return this.$axios
         .$get('/place', { params: 
             {
                 search: search_terms,
-                typeof: search_query.typeof,
+                // typeof: search_query.typeof,
                 idealfor: search_query.idealfor,
                 amenities: search_query.amenities,
                 page: vuexContext.getters.pageNo,

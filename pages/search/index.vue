@@ -160,7 +160,6 @@ export default {
         newAmenities.push(gottenAmenities)
         this.form.amenities = newAmenities
       }
-      console.log(searchParams);
       this.$store.dispatch("search/search", {search_terms: searchParams.search, search_query: searchParams});
     },
     loadMore() {
