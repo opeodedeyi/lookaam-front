@@ -23,26 +23,6 @@ export default {
         'app-mini-card': minicard
     },
     computed: {
-        config(){
-            return {
-                bucketName: process.env.AWS_BUCKET_NAME,
-                // dirName: 'photos', /* optional */
-                region: process.env.AWS_REGION,
-                accessKeyId: process.env.AWS_ID,
-                secretAccessKey: process.env.AWS_SECRET,
-                s3Url: process.env.AWS_URL,
-            }
-        },
-        S3Client(){
-            return new S3({
-                bucketName: process.env.AWS_BUCKET_NAME,
-                // dirName: 'photos', /* optional */
-                region: process.env.AWS_REGION,
-                accessKeyId: process.env.AWS_ID,
-                secretAccessKey: process.env.AWS_SECRET,
-                s3Url: process.env.AWS_URL,
-            });
-        }
     },
     data() {
         return {
@@ -94,34 +74,19 @@ export default {
             const files = e.target.files;
             this.handleFiles(files);
         },
-        convertImage(file) {
-            return new Promise((resolve) => {
-                // convert image
-                let src = URL.createObjectURL(file)
-                let canvas = document.createElement('canvas');
-                let ctx = canvas.getContext('2d')
-
-                let userImage = new Image();
-                userImage.src = src
-
-                userImage.onload = function() {
-                    canvas.width = userImage.width;
-                    canvas.height = userImage.height;
-                    ctx.drawImage(userImage, 0, 0);
-
-                    let webpImage = canvas.toDataURL("image/webp");
-                    return resolve(webpImage);
-                }
-            });    
-        },
         async saveToBackend(file, result) {
-            // convert images to webp
-            let webpFile = await this.convertImage(file)
-            let fileExtension = "webp"
+            const config = {
+                bucketName: process.env.AWS_BUCKET_NAME,
+                dirName: 'photos', /* optional */
+                region: process.env.AWS_REGION,
+                accessKeyId: process.env.AWS_ID,
+                secretAccessKey: process.env.AWS_SECRET,
+                // s3Url: process.env.AWS_URL,
+            }
 
-            // save to aws
-            this.S3Client
-            .uploadFile(webpFile, this.getRandomName(10))
+            const S3Client = new S3(config)
+            S3Client
+            .uploadFile(file, this.getRandomName(10))
             .then(data => {
                 console.log(data)
             })
@@ -129,8 +94,7 @@ export default {
                 console.log(err)
             })
 
-            // save image to backend
-
+            // save image to API
 
             // remove from uploading
             // const upload = this.uploading
@@ -138,12 +102,12 @@ export default {
             //     uploadingImage != result
             // })
             // this.uploading = newUpload
-
             // add to uploaded the actual image i get from aws and can be deletable
         },
-        readFiles(file) {
+        async readFiles(file) {
+            let webpFile = await this.convertToWebp(file)
             const reader = new FileReader();
-            reader.readAsDataURL(file)
+            reader.readAsDataURL(webpFile)
             reader.onload = () => {
                 const uploading = this.uploading
                 const result = reader.result
@@ -151,7 +115,7 @@ export default {
                 this.uploading = uploading
                 
                 // convert files, upload to aws, send to backend
-                this.saveToBackend(file, result)
+                this.saveToBackend(webpFile, result)
             }
         },
         handleFiles(files) {

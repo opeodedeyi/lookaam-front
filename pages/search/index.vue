@@ -22,7 +22,7 @@
               </div>
             </template>
           </collapsepop>
-          <collapsepop title="Amenities" name="amenities">
+          <collapsepop title="Amenities" name="amenities" isChecked>
             <template>
               <div class="full-width">
                 <smallcheckinput name="electricity" value="electricity" v-model="form.amenities">Electricity</smallcheckinput>
