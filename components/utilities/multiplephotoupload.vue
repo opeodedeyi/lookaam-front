@@ -7,7 +7,7 @@
             </label>
             <div class="file-gallery" @drop.prevent="drop($event)">
                 <app-mini-card v-for="(item, index) in uploading" :key="index" :cardImage="item"></app-mini-card>
-                <!-- <app-mini-card v-for="(uploadedItem, uploadedIndex) in uploaded" :key="uploadedIndex" uploaded :cardImage="uploadedItem" @remove-image="removeSingleImage"></app-mini-card> -->
+                <app-mini-card v-for="uploadedItem in uploaded" :key="uploadedItem._id" uploaded :cardImage="uploadedItem.location" @remove-image="removeSingleImage(uploadedItem._id)"></app-mini-card>
             </div>
         </div>
     </div>
@@ -16,9 +16,9 @@
 
 <script>
 import minicard from "@/components/card/minicard.vue";
-import S3 from "aws-s3";
 
 export default {
+    name: "multiPhotoUpload",
     components: {
         'app-mini-card': minicard
     },
@@ -38,6 +38,10 @@ export default {
         objId: {
             type: String,
             required: true
+        },
+        propertyPhotos: {
+            type: Array,
+            required: false
         }
     },
     methods: {
@@ -55,6 +59,9 @@ export default {
             e.preventDefault();
             e.stopPropagation();
             e.target.classList.add('solid');
+        },
+        totalImageLength(e) {
+            return this.uploading.length+this.uploaded.length
         },
         removeDragOvFeedback(e) {
             e.preventDefault();
@@ -75,34 +82,33 @@ export default {
             this.handleFiles(files);
         },
         async saveToBackend(file, result) {
-            const config = {
-                bucketName: process.env.AWS_BUCKET_NAME,
-                dirName: 'photos', /* optional */
-                region: process.env.AWS_REGION,
-                accessKeyId: process.env.AWS_ID,
-                secretAccessKey: process.env.AWS_SECRET,
-                // s3Url: process.env.AWS_URL,
-            }
-
-            const S3Client = new S3(config)
-            S3Client
-            .uploadFile(file, this.getRandomName(10))
-            .then(data => {
-                console.log(data)
+            let uploadedResponse = await this.uploadToS3(file)
+            .then(response => {
+                return response
             })
             .catch(err => {
-                console.log(err)
+                return err
             })
 
             // save image to API
+            await this.$axios.patch(`/place/${this.objId}/photo`, uploadedResponse)
+            .then(result => {
+                // add to uploaded image to uploaded array
+                const uploaded = this.uploaded
+                const uploadedImage = result.data.image
+                uploaded.push(uploadedImage)
+                this.uploaded = uploaded
+            })
+            .catch(e => {
+                console.log(e);
+            })
 
             // remove from uploading
-            // const upload = this.uploading
-            // const newUpload = upload.filter((uploadingImage) => {
-            //     uploadingImage != result
-            // })
-            // this.uploading = newUpload
-            // add to uploaded the actual image i get from aws and can be deletable
+            const upload = this.uploading
+            const newUpload = upload.filter((uploadingImage) => {
+                uploadingImage != result
+            })
+            this.uploading = newUpload
         },
         async readFiles(file) {
             let webpFile = await this.convertToWebp(file)
@@ -114,26 +120,57 @@ export default {
                 uploading.push(result)
                 this.uploading = uploading
                 
-                // convert files, upload to aws, send to backend
+                // upload to aws, send to backend
                 this.saveToBackend(webpFile, result)
             }
         },
         handleFiles(files) {
             const Files = Array.from(files);
             Files.forEach(file => {
-                // check if image is a valid image
-                if (file.type.includes('image')) {
+                var noOfImages = this.totalImageLength()
+                // check if image is a valid image and less than 15
+                if (file.type.includes('image') && noOfImages<10) {
                     // display the image
                     return this.readFiles(file)
                 }
                 return
             });
-            // console.log(Files, "loaded files");
+        },
+        getBackendImages() {
+            if (this.objId!="null") {
+                this.$axios.get(`/place/${this.objId}/photo`)
+                .then(result => {
+                    let backendImages = result.data
+                    backendImages.forEach(obj => {
+                        const uploaded = this.uploaded
+                        uploaded.push(obj)
+                        this.uploaded = uploaded
+                    });
+                })
+                .catch(e => {
+                    console.log(e);
+                })
+            } else {
+                return
+            }
         },
         removeSingleImage(imageObjId) {
-            console.log(imageObjId);
+            this.$axios.delete(`/photo/${imageObjId}`)
+            .then(result => {
+                const olduploaded = this.uploaded
+                const newUploaded = olduploaded.filter((item) => {
+                    return item._id !== imageObjId
+                })
+                this.uploaded = newUploaded
+            })
+            .catch(e => {
+                console.log(e);
+            })
         }
     },
+    mounted() {
+        this.getBackendImages();
+    }
 }
 </script>
 

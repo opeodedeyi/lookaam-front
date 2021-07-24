@@ -3,7 +3,7 @@
         <img v-if="photo" :src="photo" alt="ima"  class="main-card-area cardimage"/>
         <img v-else src="~/assets/images/cardimage.webp" alt="ima"  class="main-card-area cardimage"/>
         <div class="main-card-area cardtext">
-            <div class="card-top" v-if="isLoggedIn">
+            <div class="card-top" v-if="isLoggedIn" @click.stop="toggleSave">
                 <save v-if="!liked"></save>
                 <saved v-else></saved>
             </div>

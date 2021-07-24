@@ -12,7 +12,6 @@
             :name="name" 
             :placeholder="placeholder" 
             :value="value" 
-            min="0"
             @input="$emit('input', $event.target.value) ">
     </div>
 </template>

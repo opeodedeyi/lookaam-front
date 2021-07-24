@@ -9,7 +9,7 @@
                 <form @submit.prevent="submitForm" class="form-body-cont">
 
                     <!-- Form page one -->
-                    <div class="fw" v-if="step == 0">
+                    <div class="fw" v-if="step == 1">
                         <p class="form-title">What phone number can be called about this location?</p>
                         <p v-if="errorMessage" class="form-error">{{ errorMessage }}</p>
                         <phonecodeinput hasSlot mustFill name="code" v-model="form.phone.code">Country </phonecodeinput>
@@ -91,12 +91,18 @@
                         <numberinput hasSlot mustFill placeholder="xxx" name="price" v-model.number="form.price.amount">Amount </numberinput>
                     </div>
                     <!-- Form page nine (photo upload)(wip) -->
-                    <div class="fw" v-if="step == 1">
+                    <div keep-alive :keep-alive-props="{ include: ['multiPhotoUpload'] }" class="fw" v-show="step == 9">
                         <div class="normal-form">
-                            <label for="photo" class="mb1">Upload at least one photo 
-                                to your place, you can always add more later 
-                                <br>Make sure the enviroment is well lit and clean</label>
-                            <multiplephotoupload name="images" objId=""></multiplephotoupload>
+                            <p v-if="errorMessage" class="form-error">{{ errorMessage }}</p>
+                            <p v-if="successMessage" class="form-okay">{{ successMessage }}</p>
+                            <label for="photo" class="mb1">
+                                <ul class="list-photo">
+                                    <li>Upload at least one photo to your place</li>
+                                    <li>You can upload a maximum of 15 images</li>
+                                    <li>Make sure the enviroment is well lit and clean</li>
+                                </ul> 
+                            </label>
+                            <multiplephotoupload name="images" :objId="objectid"></multiplephotoupload>
                         </div>
                     </div>
                     <!-- Form page ten -->
@@ -107,6 +113,7 @@
                     </div>
                     <!-- Form page eleven -->
                     <div class="fw" v-if="step == 11">
+                        <p v-if="errorMessage" class="form-error">{{ errorMessage }}</p>
                         <p class="form-title">Are there rules people should be aware of?</p>
                         <baseinput placeholder="Tell people abut the rules of the place" controlType="textarea" :maxLength=350 name="rules" v-model="form.rules"></baseinput>
                     </div>
@@ -116,7 +123,7 @@
 
             <template v-slot:button>
                 <div class="btn-container"><button class="button-back f-btn" @click.prevent="backPressed" v-if="step != 1">Back</button></div>
-                <div class="btn-container" v-if="step < 11"><button class="button-onward f-btn" @click.prevent="nextPressed">Next</button></div>
+                <div class="btn-container" v-if="step < 11"><button class="button-onward f-btn" @click.prevent="nextPressed">Next <smbtnloading v-if="loading"></smbtnloading> </button></div>
                 <div class="btn-container" v-if="step == 11"> <button class="button-onward f-btn" @click.prevent="submitForm">Create place</button></div>
             </template>
             
@@ -130,6 +137,7 @@
 <script>
 import createproplayout from "@/components/layout/createproplayout";
 import baseinput from '@/components/utilities/baseinput';
+import smbtnloading from '@/components/utilities/smbtnloading';
 import numberinput from '@/components/utilities/numberinput';
 import baselabel from '@/components/utilities/baselabel';
 import countryinput from '@/components/utilities/countryinput';
@@ -146,6 +154,7 @@ export default {
     components: {
         createproplayout,
         baseinput,
+        smbtnloading,
         numberinput,
         baselabel,
         countryinput,
@@ -159,12 +168,13 @@ export default {
     },
     data() {
         return {
-            objectid: null,
+            objectid: "null",
             loading: false,
             progresstext: ["Contact details", "Location details", "Property details", "More details", "Amentites information", "Accessibility information", "Timing", "Pricing", "Upload photos of the place", "One more", "Finishing"],
             step: 1,
             totalsteps: 11,
             errorMessage: null,
+            successMessage: null,
             form: {
                 phone: {
                     code: '234',
@@ -201,6 +211,23 @@ export default {
             
         }
     },
+    watch: {
+        "form.size": function (val) {
+            if (typeof val === 'string') {
+                this.form.size=null
+            }
+        },
+        "form.maxguest": function (val) {
+            if (typeof val === 'string') {
+                this.form.maxguest=null
+            }
+        },
+        "form.price.amount": function (val) {
+            if (typeof val === 'string') {
+                this.form.price.amount=null
+            }
+        }
+    },
     computed: {
         progressText() {
             return this.progresstext[this.step-1]
@@ -213,24 +240,30 @@ export default {
         backPressed() {
             this.step--
             this.errorMessage = null
+            this.successMessage = null
         },
         nextStep() {
+            if (this.step == 11) {
+                return
+            }
             this.step++
             this.errorMessage = null
-            console.log(this.objectid);
+            this.successMessage = null
+            console.log(this.form);
         },
         firstFormSubmit() {
-            this.loading = true
             this.$axios.post('/place', this.form)
             .then(result => {
                 const id = result.data._id
                 this.objectid = id
                 this.loading = false
                 this.nextStep()
+                return this.successMessage = "Your prograss has been saved, you can always return to complete the form"
             })
             .catch(e => {
                 this.loading = false
                 console.log(e);
+                return this.errorMessage = "Something went wrong, please try again later"
             })
         },
         nextPressed() {
@@ -252,21 +285,30 @@ export default {
             } else if (this.step == 8) {
                 if (!this.form.price.amount || !this.form.price.currency) {
                     return this.errorMessage = "Please fill out all fields with an *asterisk*"
-                } else if (!this.objectid) {
-                    console.log(this.form);
-                    this.firstFormSubmit()
+                } else if (this.objectid=="null") {
+                    this.loading = true
+                    return this.firstFormSubmit()
+                } else {
+                    return this.nextStep()
                 }
-                this.nextStep()
             } else {
                 this.nextStep()
             }
         },
-        finishPressed() {
-            console.log("Finish button has been clicked");
-        },
-        submitForm() {
+        async submitForm() {
             if (this.step == 11) {
-                return
+                this.loading = true
+                await this.$axios.patch(`/place/${this.objectid}`, this.form)
+                .then(result => {
+                    console.log(result);
+                    this.loading = false
+                    return this.$router.push(`/property/${this.objectid}`);
+                })
+                .catch(e => {
+                    this.loading = false
+                    console.log(e);
+                    return this.errorMessage = "Something went wrong, please try again later"
+                })
             }
             this.nextPressed()
         }
@@ -348,6 +390,11 @@ export default {
 }
 
 .button-onward {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
     text-decoration: none;
     color: var(--color-white);
     background-color: var(--color-company);
@@ -369,12 +416,27 @@ export default {
     margin-bottom: .6rem;
 }
 
+.form-okay {
+    font-size: .9rem;
+    color: var(--color-company2);
+    margin-bottom: .6rem;
+}
+
 .inline-radio {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: flex-start;
     align-items: center;
+}
+
+.list-photo {
+    padding: 0;
+    list-style-type: none;
+}
+
+.list-photo li {
+    font-size: 1rem;
 }
 
 @media only screen and (max-width: 999.9px) {

@@ -2,7 +2,8 @@
     <div v-if="uploaded" class="mini-card">
         <img :src="cardImage" alt="ima"  class="mini-card-image"/>
         <div class="mini-card-delete pos" @click="removeImage">
-            <cancletwo></cancletwo>
+            <miniloading v-if="deleting"></miniloading>
+            <cancletwo v-else></cancletwo>
         </div>
     </div>
     <div v-else class="mini-card">
@@ -22,11 +23,15 @@ export default {
         cancletwo,
         miniloading
     },
+    data() {
+        return {
+            deleting: false
+        }
+    },
     props: {
         objId: {
             type: String,
             required: false,
-            default: "the default string!"
         },
         uploaded: {
             type: Boolean,
@@ -41,6 +46,7 @@ export default {
     methods: {
         removeImage() {
             this.$emit("remove-image", this.objId);
+            this.deleting = true;
         }
     }
 }

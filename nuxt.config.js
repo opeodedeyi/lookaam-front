@@ -32,7 +32,8 @@ export default {
   plugins: [
     '~plugins/shorten-text.js',
     '~plugins/axios.js',
-    '~plugins/convertToWebp.js'
+    '~plugins/convertToWebp.js',
+    '~plugins/uploadToS3.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
