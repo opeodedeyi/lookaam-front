@@ -3,14 +3,15 @@ import S3 from "aws-s3";
 
 Vue.mixin({
     methods:{
-        async uploadToS3(file) {
+        async uploadToS3(file, arg1, arg2, arg3, arg4, arg5) {
             const config = {
-                bucketName: process.env.AWS_BUCKET_NAME,
-                dirName: process.env.AWS_DIR_NAME_1,
-                region: process.env.AWS_REGION_1,
-                accessKeyId: process.env.AWS_ID,
-                secretAccessKey: process.env.AWS_SECRET,
+                bucketName: arg1,
+                dirName: arg2,
+                region: arg3,
+                accessKeyId: arg4,
+                secretAccessKey: arg5,
             }
+            console.log(arg1, arg2, arg3, arg4, arg5);
 
             const S3Client = new S3(config)
             let uploadedData = S3Client.uploadFile(file, this.getRandomName(30))

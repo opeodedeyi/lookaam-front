@@ -27,7 +27,12 @@ export default {
     data() {
         return {
             uploading: [],
-            uploaded: []
+            uploaded: [],
+            bName: process.env.AWS_BUCKET_NAME,
+            dName: process.env.AWS_DIR_NAME_1,
+            regOne: process.env.AWS_REGION_1,
+            aKeyId: process.env.AWS_ID,
+            sAKey: process.env.AWS_SECRET,
         }
     },
     props: {
@@ -82,7 +87,8 @@ export default {
             this.handleFiles(files);
         },
         async saveToBackend(file, result) {
-            let uploadedResponse = await this.uploadToS3(file)
+            console.log(this.bName, this.dName, this.regOne, this.aKeyId, this.sAKey);
+            let uploadedResponse = await this.uploadToS3(file, this.bName, this.dName, this.regOne, this.aKeyId, this.sAKey)
             .then(response => {
                 return response
             })
