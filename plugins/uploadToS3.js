@@ -7,7 +7,7 @@ Vue.mixin({
             const config = {
                 bucketName: process.env.AWS_BUCKET_NAME,
                 dirName: process.env.AWS_DIR_NAME_1,
-                region: process.env.AWS_REGION,
+                region: process.env.AWS_REGION_1,
                 accessKeyId: process.env.AWS_ID,
                 secretAccessKey: process.env.AWS_SECRET,
             }
@@ -20,7 +20,7 @@ Vue.mixin({
             const config = {
                 bucketName: process.env.AWS_BUCKET_NAME,
                 dirName: process.env.AWS_DIR_NAME_2,
-                region: process.env.AWS_REGION,
+                region: process.env.AWS_REGION_1,
                 accessKeyId: process.env.AWS_ID,
                 secretAccessKey: process.env.AWS_SECRET,
             }
