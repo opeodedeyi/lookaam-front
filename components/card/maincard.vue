@@ -1,22 +1,26 @@
 <template>
-    <nuxt-link v-if="hasLikebtn" :to="to" class="main-card" :class="[typeofcard]">
+    <div v-if="hasLikebtn" @click="forwardProperty(to)" class="main-card" :class="[typeofcard]">
         <img v-if="photo" :src="photo" alt="ima"  class="main-card-area cardimage"/>
         <img v-else src="~/assets/images/cardimage.webp" alt="ima"  class="main-card-area cardimage"/>
         <div class="main-card-area cardtext">
-            <div class="card-top" v-if="isLoggedIn" @click.stop="toggleSave">
-                <save v-if="!liked"></save>
-                <saved v-else></saved>
+            <div v-if="isLoggedIn" class="card-top">
+                <div @click.stop="toggleSave">
+                    <cardloading v-if="savedLoading"></cardloading>
+                    <save v-if="!savedLoading && !isSaved"></save>
+                    <saved v-if="!savedLoading && isSaved"></saved>
+                </div>
             </div>
+            
             <div class="card-top very-empty" v-else></div>
             <div class="card-bottom">
                 <p class="card-p-title" v-if="Ptitle">{{ Ptitle | shortenText(24, '...') }}</p>
-                <p class="card-p-type">{{ Ptype }}</p>
-                <p class="card-p-price" v-if="Pprice"><span class="cless">{{ Pprice }}</span>/day</p>
+                <p class="card-p-type">{{ Ptype | shortenText(24, '...') }}</p>
+                <p class="card-p-price" v-if="Pprice"><span class="cless">{{ getSymbol }}{{ commaPrice }}</span>/day</p>
             </div>
         </div>
-    </nuxt-link>
+    </div>
 
-    <nuxt-link v-else :to="to" class="main-card" :class="[typeofcard]">
+    <div v-else :to="to" @click="forwardProperty(to)" class="main-card" :class="[typeofcard]">
         <img v-if="photo" :src="photo" alt="ima"  class="main-card-area cardimage"/>
         <img v-else src="~/assets/images/cardimage.webp" alt="ima"  class="main-card-area cardimage"/>
         <div class="main-card-area cardtext">
@@ -26,20 +30,23 @@
             <div class="card-bottom">
                 <p class="card-p-title" v-if="Ptitle">{{ Ptitle | shortenText(24, '...') }}</p>
                 <p class="card-p-type">{{ Ptype }}</p>
-                <p class="card-p-price" v-if="Pprice"><span class="cless">{{ Pprice }}</span>/day</p>
+                <p class="card-p-price" v-if="Pprice"><span class="cless">{{ getSymbol }}{{ commaPrice }}</span>/day</p>
             </div>
         </div>
-    </nuxt-link>
+    </div>
 </template>
 
 <script>
 import save from "@/components/utilities/save";
 import saved from "@/components/utilities/saved";
+import cardloading from "@/components/utilities/cardloading";
+
 
 export default {
     components: {
         save,
-        saved
+        saved,
+        cardloading
     },
     props: {
         typeofcard: {
@@ -80,6 +87,10 @@ export default {
             type: Number,
             required: true
         },
+        Pcurrency: {
+            type: String,
+            required: false
+        },
         Pimage: {
             type: String,
             required: false
@@ -88,12 +99,30 @@ export default {
     computed: {
         isLoggedIn() {
             return this.$store.getters["profile/check"]
+        },
+        getSymbol() {
+            if (this.Pcurrency === "NGN") {
+                return "₦"
+            } else if (this.Pcurrency === "GHS") {
+                return "₵"
+            } else if (this.Pcurrency === "USD") {
+                return "$"
+            } else if (this.Pcurrency === "ZAR") {
+                return "R"
+            } else {
+                return ""
+            }
+        },
+        commaPrice() {
+            return this.Pprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         }
     },
     data() {
         return {
             loading: false,
-            photo: null
+            photo: null,
+            savedLoading: false,
+            isSaved: false
         }
     },
     methods: {
@@ -109,9 +138,50 @@ export default {
                 console.log("failed to get card image");
                 this.loading = false
             })
+        },
+        getsaved() {
+            this.savedLoading = true
+            this.$axios.get(`/favorite/${this.id}`)
+            .then(result => {
+                this.isSaved = result.data.saved
+                this.savedLoading = false
+            })
+            .catch(e => {
+                this.savedLoading = false
+            })
+        },
+        toggleSave(e) {
+            e.stopPropagation();
+            if (this.isSaved===true) {
+                this.savedLoading = true
+                this.$axios.delete(`/favorite/${this.id}`)
+                .then(result => {
+                    console.log(result);
+                    this.isSaved = false
+                    return this.savedLoading = false
+                })
+                .catch(e => {
+                    return this.savedLoading = false
+                })
+            } else {
+                this.savedLoading = true
+                this.$axios.post(`/favorite/${this.id}`)
+                .then(result => {
+                    console.log(result);
+                    this.isSaved = true
+                    return this.savedLoading = false
+                })
+                .catch(e => {
+                    return this.savedLoading = false
+                })
+            }
+        },
+        forwardProperty(link) {
+            this.$router.push(link);
         }
     },
     mounted() {
+        this.getsaved()
         this.getPhoto()
     }
 }
@@ -143,6 +213,7 @@ p {
 
 .main-card {
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .main-card:hover img {

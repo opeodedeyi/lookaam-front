@@ -15,6 +15,7 @@ export default {
     data() {
         return {
             terms: null || this.$route.query.search,
+            queryTerms: this.$route.query.search,
             form: {
                 typeof: null,
                 idealfor: [],
@@ -30,6 +31,10 @@ export default {
             const btn = event.key;
             if (btn === "Enter") {
                 const search_terms = this.terms;
+                if (!this.terms) {
+                    return
+                }
+                console.log(this.queryTerms)
                 this.$store.dispatch("search/search", {search_terms, search_query: this.form});
                 this.$router.push(`/search?search=${search_terms}`);
             }

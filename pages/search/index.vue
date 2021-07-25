@@ -55,7 +55,8 @@
         :to="`/property/${result._id}`"
         :Ptitle="result.title"
         :Ptype="result.typeof"
-        :Pprice="result.price.amount">
+        :Pprice="result.price.amount"
+        :Pcurrency="result.price.currency">
       </app-main-card>
     </gridlayout>
     <centerlayout v-else>
