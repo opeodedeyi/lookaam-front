@@ -12,6 +12,11 @@ Vue.mixin({
             }
             return result;
         },
+        calculateAspectRatioFit(oldWidth, oldHeight, maxWidth, maxHeight) {
+            console.log(oldWidth, oldHeight, maxWidth, maxHeight);
+            var ratio = Math. min(maxWidth / oldWidth, maxHeight / oldHeight);
+            return { width: oldWidth*ratio, height: oldHeight*ratio };
+        },
         webpConvert(file) {
             return new Promise((resolve) => {
                 // convert image
@@ -23,11 +28,24 @@ Vue.mixin({
                 userImage.src = src
         
                 userImage.onload = async function() {
-                    canvas.width = userImage.width;
-                    canvas.height = userImage.height;
-                    ctx.drawImage(userImage, 0, 0);
-        
-                    let webpImage = canvas.toDataURL("image/webp");
+                    function calculateAspectRatioFit(oldWidth, oldHeight, maxWidth, maxHeight) {
+                        var ratio = Math. min(maxWidth / oldWidth, maxHeight / oldHeight);
+                        return { width: oldWidth*ratio, height: oldHeight*ratio };
+                    }
+                    let newAR = function() {
+                        if (userImage.width >1920) {
+                            return calculateAspectRatioFit(userImage.width, userImage.height, 1920, 1080);
+                        }
+                        return { width: userImage.width, height: userImage.height };
+                    }
+                    canvas.width = newAR().width;
+                    canvas.height = newAR().height;
+                    if (userImage.width >1920) {
+                        ctx.drawImage(userImage, 0, 0, userImage.width, userImage.height, 0, 0, newAR().width, newAR().height)
+                    } else {
+                        ctx.drawImage(userImage, 0, 0)
+                    }
+                    let webpImage = canvas.toDataURL("image/webp", 0.5);
                     return resolve(webpImage);
                 }
             });

@@ -54,7 +54,7 @@ export default {
             .get('/myactiveplaces?', { params: 
                 {
                     page: 1,
-                    limit: 2
+                    limit: 15
                 }
             })
             .then(result => {
