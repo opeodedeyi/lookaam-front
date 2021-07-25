@@ -13,7 +13,9 @@
                 :Ptitle="result.title"
                 :Ptype="result.typeof"
                 :Pprice="result.price.amount"
-                :Pcurrency="result.price.currency">
+                :Pcurrency="result.price.currency"
+                :PActive="false"
+                @remove-property="removeProperty(result._id)">
             </app-main-card>
         </gridlayout>
         <centerlayout v-else>
@@ -55,19 +57,26 @@ export default {
             .get('/mydeactivatedplaces?', { params: 
                 {
                     page: 1,
-                    limit: 2
+                    limit: 15
                 }
             })
             .then(result => {
                 this.loading = false
                 console.log(result);
                 this.next = result.data.next
-                this.myProperties = result.data.results
+                this.myDeactivatedProperties = result.data.results
             })
             .catch(e => {
                 console.log(e);
             })
         },
+        removeProperty(receivedId) {
+            const propToEdit = this.myDeactivatedProperties
+            const filteredProperties = propToEdit.filter((item) => {
+                return item._id !== receivedId
+            })
+            this.myDeactivatedProperties = filteredProperties
+        }
     },
     mounted() {
         this.getdeactivePlaces()

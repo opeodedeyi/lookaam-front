@@ -13,7 +13,9 @@
                 :Ptitle="result.title"
                 :Ptype="result.typeof"
                 :Pprice="result.price.amount"
-                :Pcurrency="result.price.currency">
+                :Pcurrency="result.price.currency"
+                :PActive="true"
+                @remove-property="removeProperty(result._id)">
             </app-main-card>
         </gridlayout>
         <centerlayout v-else>
@@ -68,6 +70,13 @@ export default {
                 console.log(e);
             })
         },
+        removeProperty(receivedId) {
+            const propToEdit = this.myProperties
+            const filteredProperties = propToEdit.filter((item) => {
+                return item._id !== receivedId
+            })
+            this.myProperties = filteredProperties
+        }
     },
     mounted() {
         this.getActivePlaces()

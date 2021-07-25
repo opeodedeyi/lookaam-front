@@ -25,11 +25,24 @@
         <img v-else src="~/assets/images/cardimage.webp" alt="ima"  class="main-card-area cardimage"/>
         <div class="main-card-area cardtext">
             <div class="card-top">
-
+                <div @click.stop="optionShown=!optionShown">
+                    <cardloading v-if="optionsLoading"></cardloading>
+                    <div class="optionBtn" v-else>
+                        <img v-if="!optionShown" src="~/assets/svg/optionsmore.svg" alt="" />
+                        <img v-if="optionShown" src="~/assets/svg/optionsless.svg" alt="" />
+                    </div>
+                </div>
+                <ul class="carddropdown" :class="{ show: optionShown }">
+                    <li @click.stop="forwardEditProperty" class="first">Edit</li>
+                    <li @click.stop="deactivateProperty" v-if="PActive" class="mid">Deactivate</li>
+                    <li @click.stop="reactivateProperty" v-else>Activate</li>
+                    <!-- <li @click.prevent="openDateModal">Block or reactivate dates</li> -->
+                    <li @click.stop="deleteProperty" class="last delete-link">Delete</li>
+                </ul>
             </div>
             <div class="card-bottom">
                 <p class="card-p-title" v-if="Ptitle">{{ Ptitle | shortenText(24, '...') }}</p>
-                <p class="card-p-type">{{ Ptype }}</p>
+                <p class="card-p-type">{{ Ptype | shortenText(24, '...') }}</p>
                 <p class="card-p-price" v-if="Pprice"><span class="cless">{{ getSymbol }}{{ commaPrice }}</span>/day</p>
             </div>
         </div>
@@ -95,6 +108,10 @@ export default {
             type: String,
             required: false
         },
+        PActive: {
+            type: Boolean,
+            required: false,
+        }
     },
     computed: {
         isLoggedIn() {
@@ -122,7 +139,9 @@ export default {
             loading: false,
             photo: null,
             savedLoading: false,
-            isSaved: false
+            optionsLoading: false,
+            isSaved: false,
+            optionShown: false
         }
     },
     methods: {
@@ -140,6 +159,9 @@ export default {
             })
         },
         getsaved() {
+            if (!this.isLoggedIn) {
+                return
+            }
             this.savedLoading = true
             this.$axios.get(`/favorite/${this.id}`)
             .then(result => {
@@ -156,7 +178,6 @@ export default {
                 this.savedLoading = true
                 this.$axios.delete(`/favorite/${this.id}`)
                 .then(result => {
-                    console.log(result);
                     this.isSaved = false
                     return this.savedLoading = false
                 })
@@ -167,7 +188,6 @@ export default {
                 this.savedLoading = true
                 this.$axios.post(`/favorite/${this.id}`)
                 .then(result => {
-                    console.log(result);
                     this.isSaved = true
                     return this.savedLoading = false
                 })
@@ -178,6 +198,46 @@ export default {
         },
         forwardProperty(link) {
             this.$router.push(link);
+        },
+        forwardEditProperty() {
+            let newLink = `/property/${this.id}/edit`
+            this.$router.push(newLink);
+        },
+        deactivateProperty() {
+            this.optionsLoading = true
+            this.optionShown = false
+            this.$axios.delete(`/place/${this.id}/active`)
+            .then(result => {
+                this.$emit("remove-property", this.id);
+                return this.optionsLoading = false
+            })
+            .catch(e => {
+                return this.optionsLoading = false
+            })
+        },
+        deleteProperty() {
+            this.optionsLoading = true
+            this.optionShown = false
+            this.$axios.delete(`/place/${this.id}`)
+            .then(result => {
+                this.$emit("remove-property", this.id);
+                return this.optionsLoading = false
+            })
+            .catch(e => {
+                return this.optionsLoading = false
+            })
+        },
+        reactivateProperty() {
+            this.optionsLoading = true
+            this.optionShown = false
+            this.$axios.patch(`/place/${this.id}/active`)
+            .then(result => {
+                this.$emit("remove-property", this.id);
+                return this.optionsLoading = false
+            })
+            .catch(e => {
+                return this.optionsLoading = false
+            })
         }
     },
     mounted() {
@@ -217,8 +277,8 @@ p {
 }
 
 .main-card:hover img {
-    -webkit-filter: blur(1px); /* Safari 6.0 - 9.0 */
-    filter: blur(1px);
+    -webkit-filter: brightness(0.9); /* Safari 6.0 - 9.0 */
+    filter: brightness(0.9);
 }
 
 .cardimage,
@@ -249,6 +309,47 @@ p {
     flex-wrap: nowrap;
     justify-content: flex-end;
     align-items: center;
+    position: relative; /* work to be done here */
+}
+
+.carddropdown {
+    position: absolute;
+    top: 30px;
+    list-style: none;
+    width: 180px;
+    right: 0.3rem;
+    padding: .5rem 1.2rem;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gray-darker);
+    border-radius: 10px;
+    display: none;
+    z-index: 10;
+}
+
+.delete-link {
+    color: var(--color-danger);
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+    border-radius: 20px;
+}
+
+li {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: 100%;
+    padding-left: 0;
+}
+
+li:hover {
+    cursor: pointer;
+    color: var(--color-company);
+}
+
+.show {
+    display: block;
 }
 
 .very-empty {
@@ -270,6 +371,24 @@ p {
     height: 230px;
     width: 250px;
     margin-right: 1rem;
+}
+
+.optionBtn {
+    z-index: 5;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    background-color: var(--color-dark);
+    border: 2px solid var(--color-white);
+}
+
+.optionBtn img {
+    height: 16px;
 }
 
 /* Small screens */
