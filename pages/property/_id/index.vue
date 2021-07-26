@@ -33,7 +33,7 @@
                             <!-- <img v-else :src="property.owner.profilePhoto.location" alt=""> -->
                         </div>
                         <p class="p-d-cont-det-name">by {{ property.owner.fullname | shortenText(14, '...') }}</p>
-                        <div class="p-d-cont-det-verified"><img src="~/assets/svg/verified.svg" v-if="property.owner.isVerified" alt=""><img src="~/assets/svg/notverified.svg" v-else alt=""></div>
+                        <div class="p-d-cont-det-verified"><img src="~/assets/svg/verified.svg" v-if="property.owner.isVerified" alt=""></div>
                     </div>
                     <div class="p-d-cont-link"  @click.prevent="openContactPopup">Contact Host</div>
                 </div>
