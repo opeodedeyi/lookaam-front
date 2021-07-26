@@ -219,6 +219,9 @@ export default {
             })
         },
         saveProperty() {
+            if (!this.isLoggedIn) {
+                return this.$router.push("/login")
+            }
             this.savedLoading = true
             this.$axios.post(`/favorite/${this.$route.params.id}`)
             .then(result => {
