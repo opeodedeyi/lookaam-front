@@ -7,7 +7,12 @@
                 <img class="popup-header-cancel" src="~/assets/svg/cancel.svg" alt="" @click="closePopup"/>
             </div>
             <div class="popup-body">
-                <slot></slot>
+                <a target="_blank" :href="`https://twitter.com/intent/tweet?text=${propertyLink()}`" class="share-link"><img src="~/assets/svg/stwitter.svg" class="m-r" alt="twitter"/><span>Twitter</span></a>
+                <a target="_blank" :href="`https://www.facebook.com/sharer/sharer.php?u=${propertyLink()}`" class="fb-xfbml-parse-ignore share-link"><img src="~/assets/svg/sfacebook.svg" class="m-r" alt="facebook"/><span>Facebook</span></a>
+                <a target="_blank" :href="`https://api.whatsapp.com/send?text=${propertyLink()}`" data-action="share/whatsapp/share" class="share-link"><img src="~/assets/svg/swhatsapp.svg" class="m-r" alt="whatsapp"/><span>WhatsApp</span></a>
+                <a target="_blank" :href="`https://t.me/share/url?url=${propertyLink()}&text=${propertyText()}`" class="share-link"><img src="~/assets/svg/stelegram.svg" class="m-r" alt="telegram"/>Telegram</a>
+                <!-- <a target="_blank" :href="`https://t.me/share/url?url=${propertyLink()}&text=${propertyLink()}`" class="share-link"><img src="~/assets/svg/scopy.svg" class="m-r" alt="copy"/>Copy link</a> -->
+                <a target="_blank" :href="`mailto:?subject=I wanted you to see this property&amp;body=Check out this property ${propertyLink()}`" class="share-link" title="Share by Email"><img src="~/assets/svg/smail.svg" class="m-r" alt="mail"/>Email</a>
             </div>
         </div>
     </div>
@@ -22,6 +27,12 @@ export default {
         },
         doNothing() {
             return
+        },
+        propertyLink() {
+            return `https://lookaam.com/property/${this.link}`
+        },
+        propertyText() {
+            return `check out this property on lookaam`
         }
     },
     props: {
@@ -34,6 +45,10 @@ export default {
 </script>
 
 <style scoped>
+    .m-r {
+        margin-right: 1.5rem;
+    }
+
     .main-popup {
         position: fixed;
         transition: 1ms ease-in-out;
@@ -147,6 +162,23 @@ export default {
 
     .button-onward:hover {
         background-color: var(--color-company2);
+    }
+
+    .share-link {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: center;
+        text-decoration: none;
+        color: var(--color-dark);
+        font-size: 1.2rem;
+        font-weight: 500;
+        height: 59px;
+    }
+
+    .share-link:hover {
+        color: var(--color-company);
     }
 
     /* desktop screen */

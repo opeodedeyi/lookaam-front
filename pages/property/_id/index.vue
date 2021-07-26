@@ -12,6 +12,8 @@
                     <div @click="saveProperty" class="s-cent n-font c-point" v-if="!savedLoading && !isSaved"><img src="~/assets/svg/pdsave.svg" class="m-r-mini" alt="save"/>save</div>
                     <div @click="unsaveProperty" class="s-cent n-font c-point" v-if="!savedLoading && isSaved"><img src="~/assets/svg/pdsaved.svg" class="m-r-mini" alt="saved"/>saved</div>
                     <div class="s-cent n-font" v-if="savedLoading">saving...</div>
+
+                    <div @click="openShare=true" class="s-cent n-font c-point m-l"><img src="~/assets/svg/pdshare.svg" class="m-r-mini" alt="saved"/>share</div>
                 </div>
                 <div class="p-d-title p-t-b b-b" v-if="property.title"><!-- contains title -->
                     <p class="p-d-title-cont">{{ property.title }}</p>
@@ -88,6 +90,8 @@
                     <div @click="saveProperty" class="s-cent n-font c-point" v-if="!savedLoading && !isSaved"><img src="~/assets/svg/pdsave.svg" class="m-r-mini" alt="save"/>save</div>
                     <div @click="unsaveProperty" class="s-cent n-font c-point" v-if="!savedLoading && isSaved"><img src="~/assets/svg/pdsaved.svg" class="m-r-mini" alt="saved"/>saved</div>
                     <div class="s-cent n-font" v-if="savedLoading">saving...</div>
+
+                    <div @click="openShare=true" class="s-cent n-font c-point m-l"><img src="~/assets/svg/pdshare.svg" class="m-r-mini" alt="saved"/>share</div>
                 </div>
                 <div v-if="property.location" class="flex-c-full p-t-b b-b"><!-- contains location of the property -->
                     <p class="general-title p-b">Location</p>
@@ -121,7 +125,7 @@
                 </div>
             </template>
         </propdetailslayout>
-        <sharepopup v-if="sharePopUp && property" @close-popup="closeSharePopup" :link="property._id"></sharepopup>
+        <sharepopup v-if="openShare && property" @close-popup="closeSharePopup" :link="property._id"></sharepopup>
         <imagepopup v-if="property && propertyImages.length>0 && imagePopup" @close-popup="closeImagePopup" :images="propertyImages"></imagepopup>
     </div>
 </template>
@@ -152,17 +156,14 @@ export default {
             thumbnail: null,
             propertyImages: [],
             property: null,
-            sharePopUp: false,
             isSaved: false,
-            savedLoading: false
+            savedLoading: false,
+            openShare: false
         }
     },
     methods: {
-        openSharePopup() {
-            this.sharePopUp = true
-        },
         closeSharePopup() {
-            this.sharePopUp = false
+            this.openShare = false
         },
         openImagePopup() {
             this.imagePopup = true
@@ -279,8 +280,12 @@ export default {
     padding-left: 2rem;
 }
 
+.m-l {
+    margin-left: 1.3rem;
+}
+
 .m-l-mini {
-    padding-left: 1rem;
+    margin-left: .3rem;
 }
 
 .m-r-mini {
