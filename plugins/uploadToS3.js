@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import S3 from "aws-s3";
 
-export default ({ $config: { bucketName, dirName, region, accessKeyId, secretAccessKey } }) => {
+export default ({ $config: { bucketName, dirName, dirName2, region, accessKeyId, secretAccessKey } }) => {
     Vue.mixin({
         methods:{
             async uploadToS3(file) {
@@ -12,7 +12,6 @@ export default ({ $config: { bucketName, dirName, region, accessKeyId, secretAcc
                     accessKeyId,
                     secretAccessKey,
                 }
-                console.log(bucketName, dirName, region, accessKeyId, secretAccessKey);
 
                 const S3Client = new S3(config)
                 let uploadedData = S3Client.uploadFile(file, this.getRandomName(30))
@@ -20,11 +19,11 @@ export default ({ $config: { bucketName, dirName, region, accessKeyId, secretAcc
             },
             async uploadAvatarToS3(file) {
                 const config = {
-                    bucketName: process.env.AWS_BUCKET_NAME,
-                    dirName: process.env.AWS_DIR_NAME_2,
-                    region: process.env.AWS_REGION_1,
-                    accessKeyId: process.env.AWS_ID,
-                    secretAccessKey: process.env.AWS_SECRET,
+                    bucketName,
+                    dirName: dirName2,
+                    region,
+                    accessKeyId,
+                    secretAccessKey,
                 }
 
                 const S3Client = new S3(config)

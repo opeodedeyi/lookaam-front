@@ -249,7 +249,6 @@ export default {
             this.step++
             this.errorMessage = null
             this.successMessage = null
-            console.log(this.form);
         },
         firstFormSubmit() {
             this.$axios.post('/place', this.form)
