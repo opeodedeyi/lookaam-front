@@ -23,6 +23,14 @@ export default {
   // loading indicator
   loading: { height: '5px', color: '#4D69B4', failedColor: '#F25858', duration: 10000, throttle: 0 },
 
+  publicRuntimeConfig: {
+    bucketName: process.env.AWS_BUCKET_NAME,
+    dirName: process.env.AWS_DIR_NAME_1,
+    region: process.env.AWS_REGION_1,
+    accessKeyId: process.env.AWS_ID,
+    secretAccessKey: process.env.AWS_SECRET,
+  },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '~/assets/styles/main.css'

@@ -22,26 +22,10 @@ export default {
     components: {
         'app-mini-card': minicard
     },
-    computed: {
-        config() {
-            return{
-                bucketName: process.env.AWS_BUCKET_NAME,
-                dirName: process.env.AWS_DIR_NAME_1,
-                region: process.env.AWS_REGION_1,
-                accessKeyId: process.env.AWS_ID,
-                secretAccessKey: process.env.AWS_SECRET,
-            }
-        }
-    },
     data() {
         return {
             uploading: [],
             uploaded: [],
-            bName: process.env.AWS_BUCKET_NAME,
-            dName: process.env.AWS_DIR_NAME_1,
-            regOne: process.env.AWS_REGION_1,
-            aKeyId: process.env.AWS_ID,
-            sAKey: process.env.AWS_SECRET,
         }
     },
     props: {
@@ -96,8 +80,7 @@ export default {
             this.handleFiles(files);
         },
         async saveToBackend(file, result) {
-            console.log(this.config);
-            let uploadedResponse = await this.uploadToS3(file, this.bName, this.dName, this.regOne, this.aKeyId, this.sAKey)
+            let uploadedResponse = await this.uploadToS3(file)
             .then(response => {
                 return response
             })
