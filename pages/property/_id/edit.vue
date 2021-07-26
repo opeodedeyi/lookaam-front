@@ -253,7 +253,6 @@ export default {
             this.step++
             this.errorMessage = null
             this.successMessage = null
-            console.log(this.form);
         },
         nextPressed() {
             if (this.step == 1) {
