@@ -8,7 +8,11 @@
                     <img v-if="thumbnail" :src="thumbnail" alt="ima"  class="p-d-image propimage"/>
                     <img v-else src="~/assets/images/cardimage.webp" alt="ima"  class="p-d-image propimage"/>
                 </div>
-                <!-- mobile only save and share goes here -->
+                <div class="f-st p-t-b b-b mobile-only"> <!-- mobile only save and share -->
+                    <div @click="saveProperty" class="s-cent n-font c-point" v-if="!savedLoading && !isSaved"><img src="~/assets/svg/pdsave.svg" class="m-r-mini" alt="save"/>save</div>
+                    <div @click="unsaveProperty" class="s-cent n-font c-point" v-if="!savedLoading && isSaved"><img src="~/assets/svg/pdsaved.svg" class="m-r-mini" alt="saved"/>saved</div>
+                    <div class="s-cent n-font" v-if="savedLoading">saving...</div>
+                </div>
                 <div class="p-d-title p-t-b b-b" v-if="property.title"><!-- contains title -->
                     <p class="p-d-title-cont">{{ property.title }}</p>
                 </div>
@@ -80,7 +84,11 @@
             </template>
             
             <template v-slot:prop-right> <!-- desktop content on right side of page -->
-                <!-- {{{ desktop }}} only save and share goes here -->
+                <div class="f-st p-t-b b-b full-width"> <!-- save and share -->
+                    <div @click="saveProperty" class="s-cent n-font c-point" v-if="!savedLoading && !isSaved"><img src="~/assets/svg/pdsave.svg" class="m-r-mini" alt="save"/>save</div>
+                    <div @click="unsaveProperty" class="s-cent n-font c-point" v-if="!savedLoading && isSaved"><img src="~/assets/svg/pdsaved.svg" class="m-r-mini" alt="saved"/>saved</div>
+                    <div class="s-cent n-font" v-if="savedLoading">saving...</div>
+                </div>
                 <div v-if="property.location" class="flex-c-full p-t-b b-b"><!-- contains location of the property -->
                     <p class="general-title p-b">Location</p>
                     <p class="general-text">{{ property.location.street }}, {{ property.location.city }}, {{ property.location.state }}, {{ property.location.country }}, {{ property.location.zip }}</p>
@@ -133,13 +141,20 @@ export default {
         sharepopup,
         imagepopup
     },
+    computed: {
+        isLoggedIn() {
+            return this.$store.getters["profile/check"]
+        },
+    },
     data() {
         return {
             imagePopup: false,
             thumbnail: null,
             propertyImages: [],
             property: null,
-            sharePopUp: false
+            sharePopUp: false,
+            isSaved: false,
+            savedLoading: false
         }
     },
     methods: {
@@ -187,10 +202,47 @@ export default {
             .catch(e => {
                 console.log("failed to get card image");
             })
+        },
+        getsaved() {
+            if (!this.isLoggedIn) {
+                return
+            }
+            this.savedLoading = true
+            this.$axios.get(`/favorite/${this.$route.params.id}`)
+            .then(result => {
+                this.isSaved = result.data.saved
+                this.savedLoading = false
+            })
+            .catch(e => {
+                this.savedLoading = false
+            })
+        },
+        saveProperty() {
+            this.savedLoading = true
+            this.$axios.post(`/favorite/${this.$route.params.id}`)
+            .then(result => {
+                this.isSaved = true
+                return this.savedLoading = false
+            })
+            .catch(e => {
+                return this.savedLoading = false
+            })
+        },
+        unsaveProperty() {
+            this.savedLoading = true
+            this.$axios.delete(`/favorite/${this.$route.params.id}`)
+            .then(result => {
+                this.isSaved = false
+                return this.savedLoading = false
+            })
+            .catch(e => {
+                return this.savedLoading = false
+            })
         }
     },
     mounted() {
         this.getProperty()
+        this.getsaved()
         this.getPhoto()
         this.getPropertyImages()
     }
@@ -201,6 +253,10 @@ export default {
 /* margin and padding styling starting */
 .m-t-b {
     margin: 1.4rem 0;
+}
+
+.c-point {
+    cursor: pointer;
 }
 
 .p-t-b {
@@ -223,12 +279,25 @@ export default {
     padding-left: 2rem;
 }
 
+.m-l-mini {
+    padding-left: 1rem;
+}
+
+.m-r-mini {
+    margin-right: .3rem;
+}
+
 .p-r {
     padding-right: 2rem;
 }
 
 .p-b {
     padding-bottom: .7rem;
+}
+
+.n-font {
+    font-size: 1.1rem;
+    font-weight: 500;
 }
 
 .full-width {
@@ -240,6 +309,22 @@ export default {
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
+    align-items: center;
+}
+
+.s-cent {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.f-st {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
     align-items: center;
 }
 
