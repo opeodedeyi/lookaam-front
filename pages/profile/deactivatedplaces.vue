@@ -62,7 +62,6 @@ export default {
             })
             .then(result => {
                 this.loading = false
-                console.log(result);
                 this.next = result.data.next
                 this.myDeactivatedProperties = result.data.results
             })
