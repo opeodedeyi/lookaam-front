@@ -7,6 +7,8 @@
                     <!-- contains image thumbnail -->
                     <img v-if="thumbnail" :src="thumbnail" alt="ima"  class="p-d-image propimage"/>
                     <img v-else src="~/assets/images/cardimage.webp" alt="ima"  class="p-d-image propimage"/>
+                    <div class="img-count"><span class="img-count-no">{{propertyImages.length}}</span>&nbsp;image<span v-if="propertyImages.length>1">s</span></div>
+                    <div class="img-price">{{getSymbol()}}{{commaPrice()}}/day</div>
                 </div>
                 <div class="f-st p-t-b b-b mobile-only"> <!-- mobile only save and share -->
                     <div @click="saveProperty" class="s-cent n-font c-point" v-if="!savedLoading && !isSaved"><img src="~/assets/svg/pdsave.svg" class="m-r-mini" alt="save"/>save</div>
@@ -35,7 +37,7 @@
                         <p class="p-d-cont-det-name">by {{ property.owner.fullname | shortenText(14, '...') }}</p>
                         <div class="p-d-cont-det-verified"><img src="~/assets/svg/verified.svg" v-if="property.owner.isVerified" alt=""></div>
                     </div>
-                    <div class="p-d-cont-link"  @click.prevent="openContactPopup">Contact Host</div>
+                    <div class="p-d-cont-link"  @click.prevent="contactPopup = true">Contact Host</div>
                 </div>
                 <div v-if="property.location" class="flex-c-full p-t-b b-b mobile-only"> <!-- contains location of the property -->
                     <p class="general-title p-b">Location</p>
@@ -69,7 +71,7 @@
                         <basetag v-for="item in property.accessibility" :key="item">{{item}}</basetag>
                     </div>
                 </div>
-                <div class="flex-c-full p-t-b mobile-only"><!-- contains opening and cloaing time -->
+                <div class="flex-c-full p-t-b b-b mobile-only"><!-- contains opening and cloaing time -->
                     <label for="availability" class="general-title p-b s-btw"><p>Availability</p><img src="~/assets/svg/selectarrow.svg" alt=""></label>
                     <input type="checkbox" name="availability" id="availability" class="hidecheckbox">
                     <p class="general-text collapsed-item" v-if="property.time.alwaysopen">Always Open 24/7</p>
@@ -153,6 +155,7 @@ export default {
     data() {
         return {
             imagePopup: false,
+            contactPopup: false,
             thumbnail: null,
             propertyImages: [],
             property: null,
@@ -171,8 +174,21 @@ export default {
         closeImagePopup() {
             this.imagePopup = false
         },
-        openContactPopup() {
-            console.log("contact popup opened");
+        getSymbol() {
+            if (this.property.price.currency === "NGN") {
+                return "₦"
+            } else if (this.property.price.currency === "GHS") {
+                return "₵"
+            } else if (this.property.price.currency === "USD") {
+                return "$"
+            } else if (this.property.price.currency === "ZAR") {
+                return "R"
+            } else {
+                return ""
+            }
+        },
+        commaPrice() {
+            return this.property.price.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         },
         getProperty() {
             this.$axios.get(`/place/${this.$route.params.id}`)
@@ -358,6 +374,44 @@ export default {
     width: 100%;
     height: 100%;
     border-radius: 10px;
+}
+
+.img-price {
+    color: var(--color-white);
+    background: rgba(35, 62, 134, .7);
+    padding: 1px 10px;
+    height: 26px;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: .9rem;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-count {
+    color: var(--color-white);
+    background: rgba(34, 34, 34, 0.48);
+    padding: 1px 10px;
+    height: 26px;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    font-size: .9rem;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-count-no {
+    font-size: .8rem;
 }
 
 .p-d-det {
