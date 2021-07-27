@@ -129,6 +129,7 @@
         </propdetailslayout>
         <sharepopup v-if="openShare && property" @close-popup="closeSharePopup" :link="property._id"></sharepopup>
         <imagepopup v-if="property && propertyImages.length>0 && imagePopup" @close-popup="closeImagePopup" :images="propertyImages"></imagepopup>
+        <contactpopup v-if="property && contactPopup" @close-popup="closeContactPopup" :cpPPhoto="property.owner.profilePhoto.location" :cpVerified="property.owner.isVerified" :cpFullname="property.owner.fullname" :cpEmail="property.owner.email" :cpPhNumber="property.phone.number" :cpPhCode="property.phone.code"></contactpopup>
     </div>
 </template>
 
@@ -138,6 +139,7 @@ import basetag from "@/components/utilities/basetag";
 import loadinglayout from "@/components/layout/loadinglayout";
 import sharepopup from "@/components/popups/sharepopup";
 import imagepopup from "@/components/popups/imagepopup";
+import contactpopup from "@/components/popups/contactpopup";
 
 export default {
     components: {
@@ -145,7 +147,8 @@ export default {
         propdetailslayout,
         basetag,
         sharepopup,
-        imagepopup
+        imagepopup,
+        contactpopup
     },
     computed: {
         isLoggedIn() {
@@ -173,6 +176,9 @@ export default {
         },
         closeImagePopup() {
             this.imagePopup = false
+        },
+        closeContactPopup() {
+            this.contactPopup = false
         },
         getSymbol() {
             if (this.property.price.currency === "NGN") {
