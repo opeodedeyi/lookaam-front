@@ -152,6 +152,8 @@ export default {
     },
     reloadSearch() {
       const searchParams = this.$route.query
+      
+      // updating the form
       let gottenTypeof = searchParams.typeof
       let gottenIdealfor = searchParams.idealfor
       let gottenAmenities = searchParams.amenities
@@ -174,6 +176,7 @@ export default {
         newAmenities.push(gottenAmenities)
         this.form.amenities = newAmenities
       }
+      // updating the form ^^
       this.$store.dispatch("search/search", {search_terms: searchParams.search, search_query: searchParams});
     },
     loadMore() {

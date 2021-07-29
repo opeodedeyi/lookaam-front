@@ -28,7 +28,7 @@ export default {
             characterData: true
         });
     },
-    unmounted() {
+    destroyed() {
         window.removeEventListener('scroll', this.handleScroll);
     }
 }

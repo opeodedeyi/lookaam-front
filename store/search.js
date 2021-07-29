@@ -4,7 +4,7 @@ export const state = () => ({
     loading: false,
     result: [],
     page: 1,
-    limit: 4,
+    limit: 15,
     next: null,
     previous: null
 })

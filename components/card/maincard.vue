@@ -197,11 +197,14 @@ export default {
             }
         },
         forwardProperty(link) {
-            this.$router.push(link);
+            let routeData = this.$router.resolve(link);
+            window.open(routeData.href, '_blank');
         },
         forwardEditProperty() {
             let newLink = `/property/${this.id}/edit`
-            this.$router.push(newLink);
+            // this.$router.push(newLink);
+            let routeData = this.$router.resolve(newLink);
+            window.open(routeData.href, '_blank');
         },
         deactivateProperty() {
             this.optionsLoading = true

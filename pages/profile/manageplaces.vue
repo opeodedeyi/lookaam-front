@@ -17,6 +17,7 @@
                 :PActive="true"
                 @remove-property="removeProperty(result._id)">
             </app-main-card>
+            <loadingcard v-if="next"></loadingcard>
         </gridlayout>
         <centerlayout v-else>
         <template v-slot:default>
@@ -32,12 +33,14 @@ import gridlayout from "@/components/layout/gridlayout";
 import loadinglayout from "@/components/layout/loadinglayout";
 import centerlayout from "@/components/layout/centerlayout";
 import maincard from "@/components/card/maincard.vue";
+import loadingcard from "@/components/card/loadingcard.vue";
 
 export default {
     middleware: 'isAuth',
     components: { 
         secondheader,
         'app-main-card': maincard,
+        loadingcard,
         gridlayout,
         loadinglayout,
         centerlayout,
