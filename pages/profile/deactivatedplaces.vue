@@ -2,7 +2,7 @@
     <div class="search-container">
         <secondheader></secondheader>
         <loadinglayout v-if="loading"></loadinglayout>
-        <gridlayout v-else-if="myDeactivatedProperties.length>0">
+        <gridlayout v-else-if="myDeactivatedProperties.length>0" @load-more="loadMoreResult">
             <app-main-card 
                 :hasLikebtn="false"
                 v-for="result in myDeactivatedProperties"
@@ -47,7 +47,8 @@ export default {
             myDeactivatedProperties: [],
             loading: false,
             next: null,
-            previous: null
+            previous: null,
+            limit: 15
         }
     },
     methods: {
@@ -57,13 +58,45 @@ export default {
             .get('/mydeactivatedplaces?', { params: 
                 {
                     page: 1,
-                    limit: 15
+                    limit: this.limit
                 }
             })
             .then(result => {
                 this.loading = false
                 this.next = result.data.next
                 this.myDeactivatedProperties = result.data.results
+                console.log(this.next);
+            })
+            .catch(e => {
+                console.log(e);
+            })
+        },
+        loadMoreResult() {
+            if (!this.next) {
+                return
+            }
+            console.log("loading");
+            this.$axios
+            .get('/mydeactivatedplaces?', { params: 
+                {
+                    page: this.next,
+                    limit: this.limit
+                }
+            })
+            .then(result => {
+                console.log(result);
+                this.next = result.data.next
+                let newResult = result.data.results
+                let resultToPatch = this.myDeactivatedProperties
+                if (!!result.data.next) {
+                    this.next = result.data.next
+                } else {
+                    this.next = null
+                }
+                newResult.forEach(property => {
+                    resultToPatch.push(property)
+                });
+                this.myDeactivatedProperties = resultToPatch
             })
             .catch(e => {
                 console.log(e);

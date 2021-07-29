@@ -4,7 +4,7 @@ export const state = () => ({
     loading: false,
     result: [],
     page: 1,
-    limit: 15,
+    limit: 4,
     next: null,
     previous: null
 })
@@ -15,6 +15,13 @@ export const mutations = {
     },
     searchResult(state, result) {
         state.result = result
+    },
+    addToResult(state, newResult) {
+        let resultToPatch = state.result
+        newResult.forEach(property => {
+            resultToPatch.push(property)
+        });
+        state.result = resultToPatch
     },
     setNext(state, payload) {
         state.next = payload
@@ -39,7 +46,6 @@ export const actions = {
     search(vuexContext, {search_terms, search_query}) {
         vuexContext.commit('loadingTrue')
         vuexContext.commit('resetSearch')
-        console.log(search_query);
         return this.$axios
         .$get('/place', { params: 
             {
@@ -68,7 +74,6 @@ export const actions = {
         })
     },
     loadMore(vuexContext, {search_terms, search_query}) {
-        vuexContext.commit('loadingTrue')
         return this.$axios
         .$get('/place', { params: 
             {
@@ -87,15 +92,11 @@ export const actions = {
             if (!!data.next) {
                 nextNumber = data.next
             }
-            // vuexContext.commit('searchResult', searchResult)
-            // before commiting we have to puch the results of the new search to the former one
-            console.log("loaded new result");
+            vuexContext.commit('addToResult', newResult)
             vuexContext.commit('setNext', nextNumber)
-            vuexContext.commit('loadingFalse')
         })
         .catch(e => {
             console.log(e)
-            vuexContext.commit('loadingFalse')
         })
     },
 }

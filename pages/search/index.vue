@@ -46,10 +46,10 @@
     </mainpopup>
     <mainpopup v-if="datePopup" @close-popup="closeDatePopup" title="When is the planned date" bkBtnTxt="Clear" ftBtnTxt="Search"></mainpopup>
     <loadinglayout v-if="loading"></loadinglayout>
-    <gridlayout v-else-if="searchResult.length>0">
-      <app-main-card
-        v-for="result in searchResult"
-        :key="result._id"
+    <gridlayout v-else-if="searchResult.length>0" @load-more="loadMoreResult">
+      <maincard
+        v-for="(result, index) in searchResult"
+        :key="index"
         :id="result._id"
         hasLike="true"
         :to="`/property/${result._id}`"
@@ -57,7 +57,8 @@
         :Ptype="result.typeof"
         :Pprice="result.price.amount"
         :Pcurrency="result.price.currency">
-      </app-main-card>
+      </maincard>
+      <loadingcard v-if="getNext"></loadingcard>
     </gridlayout>
     <centerlayout v-else>
       <template v-slot:default>
@@ -74,6 +75,7 @@ import gridlayout from "@/components/layout/gridlayout";
 import loadinglayout from "@/components/layout/loadinglayout";
 import centerlayout from "@/components/layout/centerlayout";
 import maincard from "@/components/card/maincard.vue";
+import loadingcard from "@/components/card/loadingcard.vue";
 import topinput from '@/components/utilities/topinput';
 import baselabel from '@/components/utilities/baselabel';
 import smallcheckinput from '@/components/utilities/smallcheckinput';
@@ -81,7 +83,8 @@ import collapsepop from '@/components/utilities/collapsepop';
 
 export default {
   components: { 
-    'app-main-card': maincard,
+    maincard,
+    loadingcard,
     mainbutton,
     gridlayout,
     loadinglayout,
@@ -105,12 +108,14 @@ export default {
     rtSearchTerms() {
       return this.$store.getters["search/rtSearchTerms"]
     },
+    getNext() {
+      return this.$store.getters["search/nextNo"]
+    }
   },
   data() {
     return {
       datePopup: false,
       filterPopup: false,
-      next: null,
       previous: null,
       form: {
         typeof: null,
@@ -136,6 +141,14 @@ export default {
       this.form.typeof = null
       this.form.idealfor = []
       this.form.amenities = []
+    },
+    loadMoreResult() {
+      if (this.getNext) {
+        const search_terms = this.rtSearchTerms
+        console.log(this.getNext);
+        return this.$store.dispatch("search/loadMore", { search_terms, search_query: this.form });
+      }
+      return console.log(this.getNext);
     },
     reloadSearch() {
       const searchParams = this.$route.query

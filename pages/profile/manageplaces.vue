@@ -2,7 +2,7 @@
     <div class="search-container">
         <secondheader></secondheader>
         <loadinglayout v-if="loading"></loadinglayout>
-        <gridlayout v-else-if="myProperties.length>0">
+        <gridlayout v-else-if="myProperties.length>0" @load-more="loadMoreResult">
             <app-main-card 
                 :hasLikebtn="false"
                 v-for="result in myProperties"
@@ -64,6 +64,37 @@ export default {
                 this.loading = false
                 this.next = result.data.next
                 this.myProperties = result.data.results
+                console.log(this.next);
+            })
+            .catch(e => {
+                console.log(e);
+            })
+        },
+        loadMoreResult() {
+            if (!this.next) {
+                return
+            }
+            this.$axios
+            .get('/myactiveplaces?', { params: 
+                {
+                    page: this.next,
+                    limit: 15
+                }
+            })
+            .then(result => {
+                console.log(result);
+                this.next = result.data.next
+                let newResult = result.data.results
+                let resultToPatch = this.myProperties
+                if (!!result.data.next) {
+                    this.next = result.data.next
+                } else {
+                    this.next = null
+                }
+                newResult.forEach(property => {
+                    resultToPatch.push(property)
+                });
+                this.myProperties = resultToPatch
             })
             .catch(e => {
                 console.log(e);

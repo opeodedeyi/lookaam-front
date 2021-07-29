@@ -1,11 +1,11 @@
 <template>
   <div>
-    <app-jumbotron></app-jumbotron>
-    <app-explore-jumbotron>
-      <app-main-card 
+    <jumbotron></jumbotron>
+    <explorejumbotron>
+      <maincard 
         typeofcard="flexx" 
-        v-for="result in explorePlaces"
-        :key="result._id"
+        v-for="(result, index) in explorePlaces"
+        :key="index"
         :id="result._id"
         hasLike="true" 
         :to="`/property/${result._id}`"
@@ -13,10 +13,10 @@
         :Ptype="result.typeof"
         :Pprice="result.price.amount"
         :Pcurrency="result.price.currency">
-      </app-main-card>
-    </app-explore-jumbotron>
-    <app-jumbotron-bottom></app-jumbotron-bottom>
-    <app-footer></app-footer>
+      </maincard>
+    </explorejumbotron>
+    <jumbotronbottom></jumbotronbottom>
+    <mainfooter></mainfooter>
   </div>
 </template>
 
@@ -24,16 +24,16 @@
 import jumbotron from "@/components/homepage/jumbotron.vue";
 import jumbotronbottom from "@/components/homepage/jumbotronbottom.vue";
 import explorejumbotron from "@/components/homepage/explorejumbotron.vue";
-import footer from "@/components/homepage/footer.vue";
+import mainfooter from "@/components/homepage/mainfooter.vue";
 import maincard from "@/components/card/maincard.vue";
 
 export default {
   components: {
-    'app-jumbotron': jumbotron,
-    'app-jumbotron-bottom': jumbotronbottom,
-    'app-explore-jumbotron': explorejumbotron,
-    'app-main-card': maincard,
-    'app-footer': footer
+    jumbotron,
+    jumbotronbottom,
+    explorejumbotron,
+    maincard,
+    mainfooter
   },
   computed:{
     explorePlaces() {

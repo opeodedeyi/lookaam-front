@@ -2,11 +2,11 @@
     <div class="search-container">
         <titleheader></titleheader>
         <loadinglayout v-if="loading"></loadinglayout>
-        <gridlayout v-else-if="myProperties.length>0">
+        <gridlayout v-else-if="myProperties.length>0" @load-more="loadMoreResult">
             <app-main-card 
                 hasLikebtn
-                v-for="result in myProperties"
-                :key="result._id"
+                v-for="(result, index) in myProperties"
+                :key="index"
                 :id="result._id"
                 hasLike="true" 
                 :to="`/property/${result._id}`"  
@@ -62,11 +62,41 @@ export default {
                 this.loading = false
                 this.next = result.data.next
                 this.myProperties = result.data.results
+                console.log(this.next);
             })
             .catch(e => {
                 console.log(e);
             })
         },
+        loadMoreResult() {
+            if (!this.next) {
+                return
+            }
+            this.$axios
+            .get('/savedplace?', { params: 
+                {
+                    page: this.next,
+                    limit: 15
+                }
+            })
+            .then(result => {
+                this.next = result.data.next
+                let newResult = result.data.results
+                let resultToPatch = this.myProperties
+                if (!!result.data.next) {
+                    this.next = result.data.next
+                } else {
+                    this.next = null
+                }
+                newResult.forEach(property => {
+                    resultToPatch.push(property)
+                });
+                this.myProperties = resultToPatch
+            })
+            .catch(e => {
+                console.log(e);
+            })
+        }
     },
     mounted() {
         this.getActivePlaces()

@@ -1,12 +1,36 @@
 <template>
-    <div class="grid-card-layout">
+    <div class="grid-card-layout scrolling-component" ref="scrollComponent">
         <slot/>
     </div>
 </template>
 
 <script>
 export default {
-    
+    methods: {
+        handleScroll() {
+            let element = this.$refs.scrollComponent
+            if (element.getBoundingClientRect().bottom < window.innerHeight) {
+                window.removeEventListener('scroll', this.handleScroll);
+                return this.$emit("load-more");
+            }
+        },
+        mountOnScroll() {
+            window.addEventListener('scroll', this.handleScroll);
+        }
+    },
+    mounted() {
+        window.addEventListener('scroll', this.handleScroll);
+        // Start observing the target node for configured mutations
+        const observer = new MutationObserver(this.mountOnScroll);
+        observer.observe(this.$refs.scrollComponent, {
+            attributes: true, 
+            childList: true, 
+            characterData: true
+        });
+    },
+    unmounted() {
+        window.removeEventListener('scroll', this.handleScroll);
+    }
 }
 </script>
 
