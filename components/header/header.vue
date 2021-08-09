@@ -4,15 +4,15 @@
       <logo/>
       <searchbar/>
       <rightsection/>
-      <burgerbar class="burgerbar"/>
+      <burgerbar @show-nav="showNav()" class="burgerbar"/>
     </div>
 
     <div class="headerBottom">
       <searchbar/>
     </div>
 
-    <mobilenav/>
-    <mobileoverlay/>
+    <mobilenav v-if="mobileOverlayShown" @hide-nav="hideNav()" :isvisible="mobileOverlayShown"/>
+    <mobileoverlay v-if="mobileOverlayShown" @hide-nav="hideNav()"/>
   </header>
 </template>
 
@@ -32,7 +32,20 @@ export default {
     mobilenav,
     mobileoverlay,
     rightsection
-  }
+  },
+  data() {
+    return {
+      mobileOverlayShown: false
+    }
+  },
+  methods: {
+    showNav() {
+      this.mobileOverlayShown = true
+    },
+    hideNav() {
+      this.mobileOverlayShown = false
+    }
+  },
 }
 </script>
 

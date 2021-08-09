@@ -8,8 +8,7 @@
 export default {
     methods: {
         showsidenav() {
-            this.$store.commit("mobilenav/showmobilenav");
-            this.$store.commit("mobileoverlay/showoverlay");
+            this.$emit("show-nav");
         }
     },
 }

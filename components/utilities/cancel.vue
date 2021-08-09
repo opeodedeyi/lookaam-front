@@ -8,8 +8,7 @@
 export default {
     methods: {
         cancel() {
-            this.$store.commit("mobilenav/hidemobilenav");
-            this.$store.commit("mobileoverlay/hideoverlay");
+            this.$emit("cancel-clicked");
         }
     },
 }

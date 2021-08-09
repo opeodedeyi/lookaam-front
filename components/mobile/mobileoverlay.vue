@@ -1,5 +1,5 @@
 <template>
-  <div class="container" @click="hidemobilenav" v-show="isoverlayvisible">
+  <div class="container" @click="hidemobilenav">
   </div>
 </template>
 
@@ -7,14 +7,8 @@
     export default {
         methods: {
             hidemobilenav() {
-                this.$store.commit("mobilenav/hidemobilenav");
-                this.$store.commit("mobileoverlay/hideoverlay");
+                this.$emit("hide-nav");
             }
-        },
-        computed: {
-            isoverlayvisible() {
-                return this.$store.getters["mobileoverlay/isvisible"]
-            },
         }
     }
 </script>

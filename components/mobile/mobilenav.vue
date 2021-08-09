@@ -3,7 +3,7 @@
         <div class="nav-beginning">
             <div class="nav-header">
                 <logo/>
-                <cancel/>
+                <cancel @cancel-clicked="cancel"/>
             </div>
             <div class="nav-profile" v-if="isLoggedIn">
                 <profilephoto/>
@@ -53,10 +53,13 @@ export default {
         twitter,
         instagram
     },
+    props: {
+        isvisible: {
+            type: Boolean,
+            required: false
+        }
+    },
     computed: {
-        isvisible() {
-            return this.$store.getters["mobilenav/isvisible"]
-        },
         isLoggedIn() {
             return this.$store.getters["profile/check"]
         },
@@ -66,8 +69,7 @@ export default {
     },
     methods: {
         cancel() {
-            this.$store.commit("mobilenav/hidemobilenav");
-            this.$store.commit("mobileoverlay/hideoverlay");
+            this.$emit("hide-nav");
         },
         async logOut() {
             await this.$store.dispatch("profile/logOut");
