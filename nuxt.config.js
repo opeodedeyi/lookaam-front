@@ -64,6 +64,7 @@ export default {
       name: 'Lookaam',
       short_name: 'Lookaam',
       description: 'Find different locations for you planned videoshoot or event',
+      theme_color: '#4D69B4',
       lang: 'en',
       useWebmanifestExtension: false
     }
