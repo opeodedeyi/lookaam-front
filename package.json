@@ -19,5 +19,7 @@
     "nuxt": "^2.15.3",
     "vue2-touch-events": "^3.2.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@nuxtjs/pwa": "^3.3.5"
+  }
 }
