@@ -57,8 +57,17 @@ export default {
   modules: [
     '@nuxtjs/dotenv',
     '@nuxtjs/axios',
-    '@nuxtjs/pwa',
   ],
+
+  pwa: {
+    manifest: {
+      name: 'Lookaam',
+      short_name: 'Lookaam',
+      description: 'Find different locations for you planned videoshoot or event',
+      lang: 'en',
+      useWebmanifestExtension: false
+    }
+  },
 
   axios: {
     baseURL: process.env.BASE_URL,
