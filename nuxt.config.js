@@ -57,6 +57,7 @@ export default {
   modules: [
     '@nuxtjs/dotenv',
     '@nuxtjs/axios',
+    '@nuxtjs/pwa',
   ],
 
   axios: {
