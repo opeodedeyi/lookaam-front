@@ -197,14 +197,15 @@ export default {
             }
         },
         forwardProperty(link) {
-            let routeData = this.$router.resolve(link);
-            window.open(routeData.href, '_blank');
+            this.$router.push(newLink);
+            // let routeData = this.$router.resolve(link);
+            // window.open(routeData.href, '_blank');
         },
         forwardEditProperty() {
             let newLink = `/property/${this.id}/edit`
-            // this.$router.push(newLink);
-            let routeData = this.$router.resolve(newLink);
-            window.open(routeData.href, '_blank');
+            this.$router.push(newLink);
+            // let routeData = this.$router.resolve(newLink);
+            // window.open(routeData.href, '_blank');
         },
         deactivateProperty() {
             this.optionsLoading = true
