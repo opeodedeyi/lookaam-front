@@ -197,7 +197,7 @@ export default {
             }
         },
         forwardProperty(link) {
-            this.$router.push(newLink);
+            this.$router.push(link);
             // let routeData = this.$router.resolve(link);
             // window.open(routeData.href, '_blank');
         },
