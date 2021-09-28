@@ -38,31 +38,20 @@
                     <!-- Form page four -->
                     <div class="fw" v-if="step == 4">
                         <p class="form-title">The place is ideal for?</p>
-                        <checkinput name="reception" value="reception" v-model="form.idealfor">Reception</checkinput>
-                        <checkinput name="production" value="production" v-model="form.idealfor">Production</checkinput>
-                        <checkinput name="meeting" value="meeting" v-model="form.idealfor">Meeting</checkinput>
-                        <checkinput name="performance" value="performance" v-model="form.idealfor">Performance</checkinput>
-                        <checkinput name="dinner" value="dinner" v-model="form.idealfor">Dinner</checkinput>
-                        <checkinput name="wedding" value="wedding" v-model="form.idealfor">Wedding</checkinput>
-                        <checkinput name="party" value="party" v-model="form.idealfor">Party</checkinput>
-                        <checkinput name="conference" value="conference" v-model="form.idealfor">Conference</checkinput>
+                        <checkinput name="house party" value="house party" v-model="form.idealfor">House Party</checkinput>
+                        <checkinput name="videography" value="videography" v-model="form.idealfor">Videography</checkinput>
+                        <checkinput name="photography" value="photography" v-model="form.idealfor">Photography</checkinput>
                     </div>
                     <!-- Form page five -->
                     <div class="fw" v-if="step == 5">
                         <p class="form-title">What amenities are provided for people?</p>
                         <checkinput name="electricity" value="electricity" v-model="form.amenities">Electricity</checkinput>
-                        <checkinput name="a/c" value="a/c" v-model="form.amenities">a/c</checkinput>
+                        <checkinput name="air conditioner" value="air conditioner" v-model="form.amenities">Air Conditioner</checkinput>
                         <checkinput name="wifi" value="wifi" v-model="form.amenities">wifi</checkinput>
-                        <checkinput name="soundSystem" value="sound system" v-model="form.amenities">Sound system</checkinput>
-                        <checkinput name="private entrance" value="private entrance" v-model="form.amenities">Private entrance</checkinput>
+                        <checkinput name="soundSystem" value="sound system" v-model="form.amenities">Sound System</checkinput>
                         <checkinput name="kitchen" value="kitchen" v-model="form.amenities">Kitchen</checkinput>
-                        <checkinput name="large table" value="large table" v-model="form.amenities">Large table</checkinput>
-                        <checkinput name="green screen" value="green screen" v-model="form.amenities">Green screen</checkinput>
-                        <checkinput name="stage" value="stage" v-model="form.amenities">Stage</checkinput>
                         <checkinput name="changing room" value="changing room" v-model="form.amenities">Changing room</checkinput>
-                        <checkinput name="makeup room" value="makeup room" v-model="form.amenities">Makeup room</checkinput>
-                        <checkinput name="lounge" value="lounge" v-model="form.amenities">Lounge</checkinput>
-                        <checkinput name="soundproof" value="soundproof" v-model="form.amenities">Soundproof</checkinput>
+                        <checkinput name="soundproof" value="soundproof" v-model="form.amenities">Soundproof Enclosure</checkinput>
                     </div>
                     <!-- Form page six -->
                     <div class="fw" v-if="step == 6">

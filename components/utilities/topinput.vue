@@ -9,9 +9,7 @@
         <!-- Type of place dropdown input -->
         <select id="topinput" :name="name" :value="value" @input="$emit('input', $event.target.value)" >
             <option value="studio">Studio</option>
-            <option value="hall">Hall</option>
             <option value="house">House</option>
-            <option value="mansion">Mansion</option>
             <option value="field">Field</option>
             <option value="room">Room</option>
             <option value="restaurant">Restaurant</option>

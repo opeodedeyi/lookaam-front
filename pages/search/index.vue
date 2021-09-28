@@ -7,37 +7,29 @@
     <mainpopup v-if="filterPopup" @close-popup="closeFilterPopup" @fw-btn="filterSearch" @bk-btn="clearFilter" title="Filters" ftBtnTxt="Show results" bkBtnTxt="Clear">
       <template>
         <div class="vertical-layout">
+          <!-- type of place -->
           <topinput hasSlot name="topinput" overlay v-model="form.typeof">Type of place</topinput>
+          <!-- idealfor -->
           <collapsepop title="Ideal for" name="idealfor" isChecked>
             <template>
               <div class="full-width">
-                <smallcheckinput name="reception" value="reception" v-model="form.idealfor">Reception</smallcheckinput>
-                <smallcheckinput name="production" value="production" v-model="form.idealfor">Production</smallcheckinput>
-                <smallcheckinput name="meeting" value="meeting" v-model="form.idealfor">Meeting</smallcheckinput>
-                <smallcheckinput name="performance" value="performance" v-model="form.idealfor">Performance</smallcheckinput>
-                <smallcheckinput name="dinner" value="dinner" v-model="form.idealfor">Dinner</smallcheckinput>
-                <smallcheckinput name="wedding" value="wedding" v-model="form.idealfor">Wedding</smallcheckinput>
-                <smallcheckinput name="party" value="party" v-model="form.idealfor">Party</smallcheckinput>
-                <smallcheckinput name="conference" value="conference" v-model="form.idealfor">Conference</smallcheckinput>
+                <smallcheckinput name="house party" value="house party" v-model="form.idealfor">House Party</smallcheckinput>
+                <smallcheckinput name="videography" value="videography" v-model="form.idealfor">Videography</smallcheckinput>
+                <smallcheckinput name="photography" value="photography" v-model="form.idealfor">Photography</smallcheckinput>
               </div>
             </template>
           </collapsepop>
+          <!-- amenities -->
           <collapsepop title="Amenities" name="amenities" isChecked>
             <template>
               <div class="full-width">
                 <smallcheckinput name="electricity" value="electricity" v-model="form.amenities">Electricity</smallcheckinput>
-                <smallcheckinput name="a/c" value="a/c" v-model="form.amenities">a/c</smallcheckinput>
+                <smallcheckinput name="air conditioner" value="air conditioner" v-model="form.amenities">Air Conditioner</smallcheckinput>
                 <smallcheckinput name="wifi" value="wifi" v-model="form.amenities">wifi</smallcheckinput>
-                <smallcheckinput name="soundSystem" value="sound system" v-model="form.amenities">Sound system</smallcheckinput>
-                <smallcheckinput name="private entrance" value="private entrance" v-model="form.amenities">Private entrance</smallcheckinput>
+                <smallcheckinput name="sound system" value="sound system" v-model="form.amenities">Sound system</smallcheckinput>
                 <smallcheckinput name="kitchen" value="kitchen" v-model="form.amenities">Kitchen</smallcheckinput>
-                <smallcheckinput name="large table" value="large table" v-model="form.amenities">Large table</smallcheckinput>
-                <smallcheckinput name="green screen" value="green screen" v-model="form.amenities">Green screen</smallcheckinput>
-                <smallcheckinput name="stage" value="stage" v-model="form.amenities">Stage</smallcheckinput>
                 <smallcheckinput name="changing room" value="changing room" v-model="form.amenities">Changing room</smallcheckinput>
-                <smallcheckinput name="makeup room" value="makeup room" v-model="form.amenities">Makeup room</smallcheckinput>
-                <smallcheckinput name="lounge" value="lounge" v-model="form.amenities">Lounge</smallcheckinput>
-                <smallcheckinput name="soundproof" value="soundproof" v-model="form.amenities">Soundproof</smallcheckinput>
+                <smallcheckinput name="soundproof" value="soundproof" v-model="form.amenities">Soundproof Enclosure</smallcheckinput>
               </div>
             </template>
           </collapsepop>
