@@ -14,8 +14,8 @@
             <template>
               <div class="full-width">
                 <smallcheckinput name="house party" value="house party" v-model="form.idealfor">House Party</smallcheckinput>
-                <smallcheckinput name="videography" value="videography" v-model="form.idealfor">Videography</smallcheckinput>
-                <smallcheckinput name="photography" value="photography" v-model="form.idealfor">Photography</smallcheckinput>
+                <smallcheckinput name="video shoot" value="video shoot" v-model="form.idealfor">Video Shoot</smallcheckinput>
+                <smallcheckinput name="photo shoot" value="photo shoot" v-model="form.idealfor">Photo Shoot</smallcheckinput>
               </div>
             </template>
           </collapsepop>

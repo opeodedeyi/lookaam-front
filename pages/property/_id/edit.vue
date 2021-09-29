@@ -39,8 +39,8 @@
                     <div class="fw" v-if="step == 4">
                         <p class="form-title">The place is ideal for?</p>
                         <checkinput name="house party" value="house party" v-model="form.idealfor">House Party</checkinput>
-                        <checkinput name="videography" value="videography" v-model="form.idealfor">Videography</checkinput>
-                        <checkinput name="photography" value="photography" v-model="form.idealfor">Photography</checkinput>
+                        <checkinput name="video shoot" value="video shoot" v-model="form.idealfor">Video Shoot</checkinput>
+                        <checkinput name="photo shoot" value="photo shoot" v-model="form.idealfor">Photo Shoot</checkinput>
                     </div>
                     <!-- Form page five -->
                     <div class="fw" v-if="step == 5">
