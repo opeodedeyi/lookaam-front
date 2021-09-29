@@ -15,7 +15,7 @@
             <div class="card-bottom">
                 <p class="card-p-title" v-if="Ptitle">{{ Ptitle | shortenText(24, '...') }}</p>
                 <p class="card-p-type">{{ Ptype | shortenText(24, '...') }}</p>
-                <p class="card-p-price" v-if="Pprice"><span class="cless">{{ getSymbol }}{{ commaPrice }}</span>/day</p>
+                <p class="card-p-price" v-if="Pprice"><span class="cless">{{ getSymbol }}{{ commaPrice }}</span>/{{ Pper }}</p>
             </div>
         </div>
     </div>
