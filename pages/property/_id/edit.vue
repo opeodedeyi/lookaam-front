@@ -59,7 +59,7 @@
                         <p class="form-title">What are some of the features of the place?</p>
                         <checkinput name="wheelchair accessible" value="wheelchair accessible" v-model="form.accessibility">Wheelchair Accessible</checkinput>
                         <checkinput name="elevator" value="elevator" v-model="form.accessibility">Elevator</checkinput>
-                        <checkinput name="parking space(s)" value="parking space(s)" v-model="form.accessibility">Parking Space(s)</checkinput>
+                        <checkinput name="parking space" value="parking space" v-model="form.accessibility">Parking Space(s)</checkinput>
                         <checkinput name="natural light" value="natural light" v-model="form.accessibility">Natural Light</checkinput>
                         <checkinput name="soundproof" value="soundproof" v-model="form.accessibility">Soundproof</checkinput>
                         <checkinput name="stairs" value="stairs" v-model="form.accessibility">Stairs</checkinput>
