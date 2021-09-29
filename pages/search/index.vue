@@ -24,12 +24,13 @@
             <template>
               <div class="full-width">
                 <smallcheckinput name="electricity" value="electricity" v-model="form.amenities">Electricity</smallcheckinput>
+                <smallcheckinput name="tables" value="tables" v-model="form.amenities">Tables</smallcheckinput>
+                <smallcheckinput name="chairs" value="chairs" v-model="form.amenities">Chairs</smallcheckinput>
                 <smallcheckinput name="air conditioner" value="air conditioner" v-model="form.amenities">Air Conditioner</smallcheckinput>
                 <smallcheckinput name="wifi" value="wifi" v-model="form.amenities">wifi</smallcheckinput>
                 <smallcheckinput name="sound system" value="sound system" v-model="form.amenities">Sound system</smallcheckinput>
                 <smallcheckinput name="kitchen" value="kitchen" v-model="form.amenities">Kitchen</smallcheckinput>
                 <smallcheckinput name="changing room" value="changing room" v-model="form.amenities">Changing room</smallcheckinput>
-                <smallcheckinput name="soundproof" value="soundproof" v-model="form.amenities">Soundproof Enclosure</smallcheckinput>
               </div>
             </template>
           </collapsepop>

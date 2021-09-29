@@ -43,22 +43,24 @@
                     </div>
                     <!-- Form page five -->
                     <div class="fw" v-if="step == 5">
-                        <p class="form-title">What will be provided for people?</p>
+                        <p class="form-title">What amenities are provided for people?</p>
                         <checkinput name="electricity" value="electricity" v-model="form.amenities">Electricity</checkinput>
+                        <checkinput name="tables" value="tables" v-model="form.amenities">Tables</checkinput>
+                        <checkinput name="chairs" value="chairs" v-model="form.amenities">Chairs</checkinput>
                         <checkinput name="air conditioner" value="air conditioner" v-model="form.amenities">Air Conditioner</checkinput>
                         <checkinput name="wifi" value="wifi" v-model="form.amenities">wifi</checkinput>
                         <checkinput name="soundSystem" value="sound system" v-model="form.amenities">Sound System</checkinput>
                         <checkinput name="kitchen" value="kitchen" v-model="form.amenities">Kitchen</checkinput>
                         <checkinput name="changing room" value="changing room" v-model="form.amenities">Changing room</checkinput>
-                        <checkinput name="soundproof" value="soundproof" v-model="form.amenities">Soundproof Enclosure</checkinput>
                     </div>
                     <!-- Form page six -->
                     <div class="fw" v-if="step == 6">
-                        <p class="form-title">What accessibility does the place have?</p>
-                        <checkinput name="wheelchair" value="wheelchair" v-model="form.accessibility">Wheelchair</checkinput>
+                        <p class="form-title">What are some of the features of the place?</p>
+                        <checkinput name="wheelchair accessible" value="wheelchair accessible" v-model="form.accessibility">Wheelchair Accessible</checkinput>
                         <checkinput name="elevator" value="elevator" v-model="form.accessibility">Elevator</checkinput>
-                        <checkinput name="on-site parking" value="on-site parking" v-model="form.accessibility">On-site parking</checkinput>
-                        <checkinput name="parking near by" value="parking near by" v-model="form.accessibility">Parking near by</checkinput>
+                        <checkinput name="parking space(s)" value="parking space(s)" v-model="form.accessibility">Parking Space(s)</checkinput>
+                        <checkinput name="natural light" value="natural light" v-model="form.accessibility">Natural Light</checkinput>
+                        <checkinput name="soundproof" value="soundproof" v-model="form.accessibility">Soundproof</checkinput>
                         <checkinput name="stairs" value="stairs" v-model="form.accessibility">Stairs</checkinput>
                     </div>
                     <!-- Form page seven -->
