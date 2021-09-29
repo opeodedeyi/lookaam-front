@@ -13,6 +13,7 @@
                 :Ptitle="result.title"
                 :Ptype="result.typeof"
                 :Pprice="result.price.amount"
+                :Pper="result.price.per"
                 :Pcurrency="result.price.currency"
                 :PActive="false"
                 @remove-property="removeProperty(result._id)">

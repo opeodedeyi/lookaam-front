@@ -14,6 +14,7 @@
                 :Ptype="result.typeof"
                 :Pprice="result.price.amount"
                 :Pcurrency="result.price.currency"
+                :Pper="result.price.per"
                 :PActive="true"
                 @remove-property="removeProperty(result._id)">
             </app-main-card>

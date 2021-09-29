@@ -12,7 +12,8 @@
         :Ptitle="result.title"
         :Ptype="result.typeof"
         :Pprice="result.price.amount"
-        :Pcurrency="result.price.currency">
+        :Pcurrency="result.price.currency"
+        :Pper="result.price.per">
       </maincard>
     </explorejumbotron>
     <jumbotronbottom></jumbotronbottom>

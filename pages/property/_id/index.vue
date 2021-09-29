@@ -8,7 +8,7 @@
                     <img v-if="thumbnail" :src="thumbnail" alt="ima"  class="p-d-image propimage"/>
                     <img v-else src="~/assets/images/cardimage.webp" alt="ima"  class="p-d-image propimage"/>
                     <div class="img-count"><span class="img-count-no">{{propertyImages.length}}</span>&nbsp;image<span v-if="propertyImages.length>1">s</span></div>
-                    <div class="img-price">{{getSymbol()}}{{commaPrice()}}/day</div>
+                    <div class="img-price">{{getSymbol()}}{{commaPrice()}}/{{property.price.per}}</div>
                 </div>
                 <div class="f-st p-t-b b-b mobile-only"> <!-- mobile only save and share -->
                     <div @click="saveProperty" class="s-cent n-font c-point" v-if="!savedLoading && !isSaved"><img src="~/assets/svg/pdsave.svg" class="m-r-mini" alt="save"/>save</div>

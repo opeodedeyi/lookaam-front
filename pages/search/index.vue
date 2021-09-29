@@ -49,7 +49,8 @@
         :Ptitle="result.title"
         :Ptype="result.typeof"
         :Pprice="result.price.amount"
-        :Pcurrency="result.price.currency">
+        :Pcurrency="result.price.currency"
+        :Pper="result.price.per">
       </maincard>
       <loadingcard v-if="getNext"></loadingcard>
     </gridlayout>

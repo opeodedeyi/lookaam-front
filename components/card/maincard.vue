@@ -104,6 +104,10 @@ export default {
             type: String,
             required: false
         },
+        Pper: {
+            type: String,
+            required: false
+        },
         Pimage: {
             type: String,
             required: false
