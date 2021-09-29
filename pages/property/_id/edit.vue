@@ -81,6 +81,7 @@
                         <p v-if="errorMessage" class="form-error">{{ errorMessage }}</p>
                         <currencyinput hasSlot mustFill name="currency" v-model="form.price.currency">Currency </currencyinput>
                         <numberinput hasSlot mustFill placeholder="xxx" name="price" v-model.number="form.price.amount">Amount </numberinput>
+                        <perinput hasSlot mustFill name="perinput" v-model="form.price.per">Per </perinput>
                     </div>
                     <!-- Form page nine (photo upload)(wip) -->
                     <div keep-alive :keep-alive-props="{ include: ['multiPhotoUpload'] }" class="fw" v-show="step == 9">
@@ -137,6 +138,7 @@ import countryinput from '@/components/utilities/countryinput';
 import phonecodeinput from '@/components/utilities/phonecodeinput';
 import currencyinput from '@/components/utilities/currencyinput';
 import topinput from '@/components/utilities/topinput';
+import perinput from '@/components/utilities/perinput';
 import checkinput from '@/components/utilities/checkinput';
 import radioinput from '@/components/utilities/radioinput';
 import controlinput from '@/components/utilities/controlinput';
@@ -155,6 +157,7 @@ export default {
         phonecodeinput,
         currencyinput,
         topinput,
+        perinput,
         checkinput,
         radioinput,
         controlinput,
@@ -201,6 +204,7 @@ export default {
                 price: {
                     currency: 'NGN',
                     amount: null,
+                    per: 'day'
                 }
             },
             
