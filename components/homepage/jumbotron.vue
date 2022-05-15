@@ -1,6 +1,8 @@
 <template>
     <div class="J-container">
-        <p>Discover your next location for your <span class="highlight">{{words[i]}}</span></p>
+        <p>Discover your next location for your video shoot
+            <!-- <span class="highlight">{{words[i]}}</span> -->
+        </p>
     </div>
 </template>
 

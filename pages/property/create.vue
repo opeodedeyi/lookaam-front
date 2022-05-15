@@ -233,17 +233,16 @@ export default {
             return 9 * num;
         },
         backPressed() {
+            if (this.step == 1) {
+                return this.step == 4
+            }
             this.step--
-            this.errorMessage = null
-            this.successMessage = null
         },
         nextStep() {
-            if (this.step == 11) {
-                return
+            if (this.step == 4) {
+                return this.step == 1
             }
             this.step++
-            this.errorMessage = null
-            this.successMessage = null
         },
         firstFormSubmit() {
             this.$axios.post('/place', this.form)
